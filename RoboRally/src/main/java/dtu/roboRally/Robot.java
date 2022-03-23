@@ -106,6 +106,7 @@ public class Robot {
 	
 	public void respawn() {
 		setPosition(startx, starty);
+		setLives(5);
 	}
 
 	public void setLives(int lives){
