@@ -9,7 +9,7 @@ import io.cucumber.java.en.When;
 
 public class StepsDefinitionJA {
 	
-	Robot robot = new Robot(Orientation.UP, 1, 1, 5);
+	Robot robot = new Robot(Orientation.UP, 1, 1);
 	
 	// rotate feature
 	@Given("a robot and an orientation {string}")
