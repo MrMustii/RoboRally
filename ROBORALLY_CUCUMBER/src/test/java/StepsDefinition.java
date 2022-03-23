@@ -8,74 +8,70 @@ import static org.junit.Assert.assertEquals;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 
 public class StepsDefinition {
 	
 	Card c= Card.MOVE_BACKWARDS_ONE;
 	ArrayList<Card> hand = new ArrayList<Card>();
 	ArrayList<Card> inPlay = new ArrayList<Card>();
+	Player a=new Player();
 	
-	
-	@Given("player draws a card")
+	@Given("it is players turn")
 	public void player_draws_a_card() {
 	    Card c= Card.MOVE_BACKWARDS_ONE;
 	}
-
+	@When("player draws a card")
+	public void player_draws_a_card1() {
+	    hand.add(c);
+	}
 	@Then("determain that contant of the card")
 	public void determain_that_contant_of_the_card() {
-		assertEquals(3,c.getInitiative());
-		assertEquals(Card.MOVE_BACKWARDS_ONE,c);
+		assertEquals(3,hand.get(0).getInitiative());
+		assertEquals(hand.get(0),c);
 	}
 	
-	@Then("adds it to the hand")
-	public void adds_it_to_the_hand() {
-	    hand.add(c);
-	    hand.add(c);
-	    hand.add(c);
-	    for (int i = 0; i < hand.size();i++) 
-	      { 		      
-	          System.out.println(hand.get(i)); 		
-	      }
-}
+
+
 	
 	///////////////////////////////////////////////////////////////////////
-	@Given("player wants to draw random cards")
+	@Given("its players turn to draw")
 	public void player_wants_to_draw_cards() {
-		boolean playerTurn=true;
+		
+		assertEquals(true, a.isMyturn());
+		
 	    
 	}
-	@Then("the player will discard his hand")
-	public void the_player_will_discard_his_hand() {
-		hand.removeAll(hand);
-		assertEquals(hand.size(),0);
+	@When("players can draw cards")
+	public void players_can_draw_cards() {
+	    a.drawHand();
+	    
 	}
-	@Then("draws cards")
+	@Then("add them to his hand")
 	public void draws_cards() {
-		for (int i =0; i<9;i++) {
-			double chance =Math.random();
-			if (chance>=0 && chance <0.1) {
-				hand.add(Card.ROTATE_CLOCKWISE);
-			}else if(chance>=0.1 && chance <0.2) {
-				hand.add(Card.ROTATE_ANTI_CLOCKWISE);
-			}else if(chance>=0.2 && chance <0.5) {
-				hand.add(Card.MOVE_FORWARD_ONE);
-			}else if(chance>=0.5 && chance <0.65) {
-				hand.add(Card.MOVE_FORWARD_TWO);;
-			}else if(chance>=0.65 && chance <0.70) {
-				hand.add(Card.MOVE_FORWARD_THREE);
-			}else if(chance>=0.70 && chance <0.85) {
-				hand.add(Card.MOVE_BACKWARDS_ONE);
-			}else if(chance>=0.85 && chance <=1) {
-				hand.add(Card.U_TURN);
-			}
-			}
-		assertEquals(9,hand.size());
-		  for (int i = 0; i < hand.size();i++) 
-	      {
-			  System.out.print("["+i+"] ");
-	          System.out.println(hand.get(i)); 		
-	      }
+		a.drawHand();
+			
+		assertEquals(9,a.getHand().size());
+		 a.showHand();
+
 	}
 	//////////////////////////////////
-	
+	@Given("has a hand")
+	public void has_a_hand() {
+		a.drawHand();
+	}
+	@When("he choses {int} cards to play")
+	public void he_choses_cards_to_play(Integer int1) {
+	   for (int i=0;i<5;i++) {
+		   	a.showHand();
+			System.out.println("pick a card number");
+			a.getCardsInPlay().add(a.getHand().get(i));
+			a.getHand().remove(i);
+	   }
+	}
+	@Then("he has an order of cards to play")
+	public void he_has_an_order_of_cards_to_play() {
+		assertEquals(5,a.getCardsInPlay().size());
+		assertEquals(4,a.getHand().size());
+	}
 }
