@@ -1,3 +1,5 @@
+package dtu.roboRally;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 

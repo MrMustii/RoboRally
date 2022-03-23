@@ -1,18 +1,16 @@
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import java.util.ArrayList;
-import java.util.Scanner;
-
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
+
+import dtu.roboRally.Card;
+import dtu.roboRally.Player;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class StepsDefinition {
 	
-	Card c= Card.MOVE_BACKWARDS_ONE;
+	Card c = Card.MOVE_BACKWARDS_ONE;
 	ArrayList<Card> hand = new ArrayList<Card>();
 	ArrayList<Card> inPlay = new ArrayList<Card>();
 	Player a=new Player();

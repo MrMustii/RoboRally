@@ -1,4 +1,6 @@
-enum Card{
+package dtu.roboRally;
+
+public enum Card{
 	ROTATE_CLOCKWISE(2),
 	ROTATE_ANTI_CLOCKWISE(2),
 	MOVE_FORWARD_ONE(4),
