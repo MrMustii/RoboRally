@@ -3,9 +3,13 @@ package dtu.roboRally;
 public class Robot {
 	private Orientation orientation;
 	private int x, y;
+	private int startx, starty;
 	
-	public Robot(Orientation o) {
+	public Robot(Orientation o, int startx, int starty) {
 		orientation = o;
+		this.startx = startx;
+		this.starty = starty;
+		setPosition(startx, starty);
 	}
 	
 	public void setOrientation(Orientation o) {
@@ -95,6 +99,10 @@ public class Robot {
 	
 	public int getY() {
 		return y;
+	}
+	
+	public void respawn() {
+		setPosition(startx, starty);
 	}
 	
 }

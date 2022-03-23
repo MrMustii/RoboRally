@@ -8,9 +8,9 @@ import io.cucumber.java.en.When;
 
 public class StepsDefinition {
 	
-	Robot robot = new Robot(Orientation.UP);
+	Robot robot = new Robot(Orientation.UP, 1, 1);
 	
-	// rotate fetaure
+	// rotate feature
 	@Given("a robot and an orientation {string}")
 	public void a_robot_and_an_orientation(String string) {
 		robot.setOrientation(Orientation.valueOf(string));
@@ -51,5 +51,20 @@ public class StepsDefinition {
 	    assertEquals(Y, robot.getY());
 	}
 	
+	// death feature
+	@Given("A robot and a start position \\({int}, {int})")
+	public void a_robot_and_a_start_position(Integer int1, Integer int2) {
+		// already instantiated
+	}
+	@When("the robot dies")
+	public void the_robot_dies() {
+	    System.out.println("The robot has been murdered");
+	}
+	@Then("it respawns at the starting point")
+	public void it_respawns_at_the_starting_point() {
+	    robot.respawn();
+	    assertEquals(1, robot.getX());
+	    assertEquals(1, robot.getY());
+	}
 
 }
