@@ -2,13 +2,14 @@ import static org.junit.Assert.assertEquals;
 
 import dtu.roboRally.Orientation;
 import dtu.roboRally.Robot;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class StepsDefinitionJA {
 	
-	Robot robot = new Robot(Orientation.UP, 1, 1);
+	Robot robot = new Robot(Orientation.UP, 1, 1, 5);
 	
 	// rotate feature
 	@Given("a robot and an orientation {string}")
@@ -67,4 +68,29 @@ public class StepsDefinitionJA {
 	    assertEquals(1, robot.getY());
 	}
 
+	//lives feature
+	//damage
+	@Given("A robot and {int} lives")
+	public void a_robot_and_lives(Integer int1) {
+		robot.setLives(int1);
+	}
+	@When("the robot takes {int} damage")
+	public void the_robot_takes_damage(Integer int1) {
+		robot.isDamaged(int1);
+	}
+	@Then("it has {int} lives")
+	public void it_has_lives(int int1) {
+		assertEquals(int1, robot.getLives());
+	}
+
+
+	@Given("A robot with starting positions \\({int}, {int})")
+	public void a_robot_with_starting_positions(int x, int y) {
+		//already have these starting positions
+	}
+
+	@Given("{int} live")
+	public void live(Integer int1) {
+		robot.setLives(int1);
+	}
 }
