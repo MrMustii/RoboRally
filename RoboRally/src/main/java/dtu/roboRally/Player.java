@@ -7,6 +7,7 @@ public class Player {
 	private ArrayList<Card> hand=new ArrayList();
 	private ArrayList<Card> cardsInPlay=new ArrayList();
 	private boolean myTurn=true;
+	private Robot robot;
 	
 	public void drawHand(){
 		
@@ -69,6 +70,46 @@ public class Player {
 	}
 	public boolean isMyturn() {
 		return myTurn;
+	}
+	
+	public void use(Card card) {
+		
+		switch(card) {
+		case ROTATE_CLOCKWISE:
+			robot.rotateClockwise();
+			break;
+		case ROTATE_ANTI_CLOCKWISE:
+			robot.rotateCounterClockwise();
+			break;
+		case MOVE_FORWARD_ONE:
+			robot.moveForward();
+			break;
+		case MOVE_FORWARD_TWO:
+			robot.moveForward();
+			robot.moveForward(); // TODO: implement interact with obstacle
+			break;
+		case MOVE_FORWARD_THREE:
+			robot.moveForward();
+			robot.moveForward();
+			robot.moveForward();
+			break;
+		case MOVE_BACKWARDS_ONE:
+			robot.moveBackward();
+			break;
+		case U_TURN:
+			robot.rotateClockwise();
+			robot.rotateClockwise();
+			break;
+		}
+		
+	}
+	
+	public void createRobot(int x, int y, Orientation orientation) {
+		robot = new Robot(orientation, x, y);
+	}
+	
+	public Robot getRobot() {
+		return robot;
 	}
 	
 }
