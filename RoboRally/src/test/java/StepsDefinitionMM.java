@@ -3,6 +3,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 
 import dtu.roboRally.Card;
+import dtu.roboRally.Game;
 import dtu.roboRally.Player;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -14,10 +15,11 @@ public class StepsDefinitionMM {
 	ArrayList<Card> hand = new ArrayList<Card>();
 	ArrayList<Card> inPlay = new ArrayList<Card>();
 	Player a=new Player();
+	 Game newgame=new Game(3);
 	
 	@Given("it is players turn")
 	public void player_draws_a_card() {
-	    Card c= Card.MOVE_BACKWARDS_ONE;
+	    a.setTurn(true);
 	}
 	@When("player draws a card")
 	public void player_draws_a_card1() {
@@ -35,7 +37,7 @@ public class StepsDefinitionMM {
 	///////////////////////////////////////////////////////////////////////
 	@Given("its players turn to draw")
 	public void player_wants_to_draw_cards() {
-		
+		a.setTurn(true);
 		assertEquals(true, a.isMyturn());
 		
 	    
@@ -72,4 +74,21 @@ public class StepsDefinitionMM {
 		assertEquals(5,a.getCardsInPlay().size());
 		assertEquals(4,a.getHand().size());
 	}
+	/////////////////////////
+	///Game set up
+	/////////////////////////
+	@Given("the user choses a number of players")
+	public void the_user_choses_a_number_of_players() {
+	    System.out.println("Chose a number of players");
+	    int number = 3;
+	}
+	@When("creation instances of the number of players")
+	public void creation_instances_of_the_number_of_players() {
+	    Game newgame =new Game(3);
+	}
+	@Then("the number of players should be set")
+	public void the_number_of_players_should_be_set() {
+		assertEquals(3,newgame.numberOfPlayers());
+	}
+
 }

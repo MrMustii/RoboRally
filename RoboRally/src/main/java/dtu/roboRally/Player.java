@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Player {
 	private ArrayList<Card> hand=new ArrayList();
 	private ArrayList<Card> cardsInPlay=new ArrayList();
-	private boolean myTurn=true;
+	private boolean myTurn;
 	
 	public void drawHand(){
 		
@@ -70,5 +70,8 @@ public class Player {
 	public boolean isMyturn() {
 		return myTurn;
 	}
-	
+	public boolean setTurn(boolean t) {
+		myTurn=t;
+		return myTurn;
+	}
 }
