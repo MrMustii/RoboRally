@@ -4,12 +4,19 @@ public class Robot {
 	private Orientation orientation;
 	private int x, y;
 	private int startx, starty;
+	private int lives;
+
+	//final values same for all robot
+	private final int startingLives = 5;
 	
 	public Robot(Orientation o, int startx, int starty) {
 		orientation = o;
 		this.startx = startx;
 		this.starty = starty;
 		setPosition(startx, starty);
+
+		this.lives = startingLives;
+
 	}
 	
 	public void setOrientation(Orientation o) {
@@ -103,6 +110,22 @@ public class Robot {
 	
 	public void respawn() {
 		setPosition(startx, starty);
+		setLives(startingLives);
+	}
+
+	public void setLives(int lives){
+		this.lives = lives;
+	}
+
+	public int getLives() {
+		return lives;
+	}
+
+	public void isDamaged(int damage){
+		lives -= damage;
+		if(lives<=0){
+			respawn();
+		}
 	}
 	
 }
