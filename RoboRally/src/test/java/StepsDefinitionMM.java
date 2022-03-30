@@ -37,7 +37,7 @@ public class StepsDefinitionMM {
 	
 	///////////////////////////////////////////////////////////////////////
 	@Given("its players turn to draw")
-	public void player_wants_to_draw_cards() {
+	public void players_turn_to_draw() {
 		a.setTurn(true);
 		assertEquals(true, a.isMyturn());
 		
@@ -50,7 +50,6 @@ public class StepsDefinitionMM {
 	}
 	@Then("add them to his hand")
 	public void draws_cards() {
-		a.drawHand();
 			
 		assertEquals(9,a.getHand().size());
 		 a.showHand();

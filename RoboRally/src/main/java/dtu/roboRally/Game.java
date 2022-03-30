@@ -11,21 +11,15 @@ public class Game {
 	
 	private Game () {}
 	private Game (int i) {
-		if (i>=2) {
-			players.add(new Player());
-			players.add(new Player());
-		if (i==3) {
-			players.add(new Player());
-		}else if(i==4){
-			players.add(new Player());
+		for(int j=0;j<i;j++) {
 			players.add(new Player());
 		}
-		}
+		
 	}
 	
 	public static Game getInstance(int i) {
 		if (instance==null) {
-			instance=new Game(3);
+			instance=new Game(i);
 		}
 		return instance;
 	}
