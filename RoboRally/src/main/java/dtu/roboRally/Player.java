@@ -7,7 +7,6 @@ public class Player {
 	private ArrayList<Card> hand=new ArrayList();
 	private ArrayList<Card> cardsInPlay=new ArrayList();
 
-	private boolean myTurn=false;
 
 	private Robot robot;
 
@@ -45,14 +44,6 @@ public class Player {
 		return cardsInPlay;
 	}
 
-	public boolean isMyturn() {
-		return myTurn;
-	}
-
-	public boolean setTurn(boolean t) {
-		myTurn=t;
-		return myTurn;
-	}
 	
 //	public void use(Card card) {
 //		
