@@ -13,33 +13,9 @@ public class Player {
 
 	
 	public void drawHand(){
-		
 		hand.removeAll(hand);
 		for (int i =0; i<9;i++) {
-			
-			switch (Card.random()) {
-			case "ROTATE_CLOCKWISE":
-				hand.add(Card.ROTATE_CLOCKWISE);
-				break;
-			case "ROTATE_ANTI_CLOCKWISE":
-				hand.add(Card.ROTATE_ANTI_CLOCKWISE);
-				break;
-			case "MOVE_FORWARD_ONE":
-				hand.add(Card.MOVE_FORWARD_ONE);
-				break;
-			case "MOVE_FORWARD_TWO":
-				hand.add(Card.MOVE_FORWARD_TWO);
-				break;
-			case "MOVE_FORWARD_THREE":
-				hand.add(Card.MOVE_FORWARD_THREE);
-				break;
-			case "MOVE_BACKWARDS_ONE":
-				hand.add(Card.MOVE_BACKWARDS_ONE);
-				break;
-			case "U_TURN":
-				hand.add(Card.U_TURN);
-				break;
-			}
+			hand.add(Card.random());
 			
 	}
 	}
