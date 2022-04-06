@@ -72,5 +72,9 @@ public class Player {
 		myTurn=t;
 		return myTurn;
 	}
+	public void use(Card card) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
