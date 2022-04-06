@@ -1,5 +1,6 @@
 package dtu.roboRally;
 
+//test22
 public class Robot {
 	private Orientation orientation;
 	private int x, y;
