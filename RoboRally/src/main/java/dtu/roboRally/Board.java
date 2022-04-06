@@ -27,6 +27,19 @@ public class Board {
 		loadEndPosition();
 	}
 	
+	public Board(int newRows, int newCols) {
+		this.rows = newRows;
+		this.cols = newCols;
+		this.board = new Floor[rows][cols];
+		
+		for (int j = 0; j < rows; j++) {
+			for (int i = 0; i < cols;i++) {
+				Floor t = new Floor();
+				board[j][i] = t;
+			}
+		}
+	}
+	
 	//parse through the empty matrix and assign random tile types
 	public void loadObstacles() {
 		Tile t;
