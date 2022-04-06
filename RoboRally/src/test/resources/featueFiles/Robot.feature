@@ -39,3 +39,23 @@ Feature: Robot
 					| 3 | 3 | 2 |
 					| 3 | 3 | 3 |
 					
+			@tag4
+				Scenario Outline: Moving of robot with wall
+					Given a robot with a position with coordinates (3, 3) and orientation 0
+					And a board with a wall at position 3, 4, <wall_o>
+					When the robot gets a new position 3, <robot_y>, 0 by moving or rotating
+					Then the robot has the position 3, <final_y>, 0
+					And the robot can move <canMove>
+					
+					Examples:
+					| wall_o | robot_y | final_y | canMove |
+					| 0      | 4       | 4       | "true"  |
+					| 1      | 4       | 4       | "true"  |
+					| 2      | 4       | 3       | "false" |
+					| 3      | 4       | 4       | "true"  |
+					| 0      | 5       | 4       | "false" |
+					| 1      | 5       | 5       | "true"  |
+					| 2      | 5       | 3       | "false" |
+					| 3      | 5       | 5       | "true"  |
+					
+					

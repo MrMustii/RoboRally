@@ -27,10 +27,9 @@ public class Board {
 		loadEndPosition();
 	}
 	
-	public Board(int newRows, int newCols) {
-		this.rows = newRows;
-		this.cols = newCols;
-		this.board = new Floor[rows][cols];
+	// Method for robot.move testing
+	public void emptyTheBoard() {
+		this.board = new Tile[rows][cols];
 		
 		for (int j = 0; j < rows; j++) {
 			for (int i = 0; i < cols;i++) {
@@ -38,6 +37,10 @@ public class Board {
 				board[j][i] = t;
 			}
 		}
+	}
+	// Method for robot.move testing
+	public void addWall(int x, int y, int o) {
+		board[y][x] = new Wall(o);
 	}
 	
 	//parse through the empty matrix and assign random tile types

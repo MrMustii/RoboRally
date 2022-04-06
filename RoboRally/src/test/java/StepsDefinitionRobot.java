@@ -1,4 +1,6 @@
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import dtu.roboRally.Board;
 import dtu.roboRally.Position;
@@ -9,7 +11,8 @@ import io.cucumber.java.en.When;
 
 public class StepsDefinitionRobot {
 	Robot robot;
-	Board board;
+	Board board = new Board(10, 10, 2);
+	boolean canMove;
 
 	@Given("A robot with {int} lives")
 	public void a_robot_with_lives(int lives) {
@@ -41,11 +44,11 @@ public class StepsDefinitionRobot {
 	}
 	@Given("a board without obstacles")
 	public void a_board_without_obstacles() {
-	    board = new Board(10,10);
+	    board.emptyTheBoard();
 	}
 	@When("the robot gets a new position {int}, {int}, {int} by moving or rotating")
 	public void the_robot_gets_a_new_position_by_moving_or_rotating(int x, int y, int o) {
-	    robot.move(board, new Position(x,y,o));
+	    canMove = robot.move(board, new Position(x,y,o));
 	}
 	@Then("the robot has the position {int}, {int}, {int}")
 	public void the_robot_has_the_position(int x, int y, int o) {
@@ -53,5 +56,17 @@ public class StepsDefinitionRobot {
 	    assertEquals(y, robot.getPosition().getY());
 	    assertEquals(o, robot.getPosition().getOrientation());
 	}
-
+	@Given("a board with a wall at position {int}, {int}, {int}")
+	public void a_board_with_a_wall_at_position(int x, int y, int o) {
+	    board.emptyTheBoard();
+	    board.addWall(x, y, o);
+	}
+	@Then("the robot can move {string}")
+	public void the_robot_can_move(String string) {
+	    if(string.equals("true")) {
+	    	assertTrue(canMove);
+	    } else {
+	    	assertFalse(canMove);
+	    }
+	}
 }
