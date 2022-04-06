@@ -119,6 +119,82 @@ public class StepsDefinitionMM {
 				
 			}
 		}
-		
+	///////////////////////////
 	}
+	@Given("Players have drawn cards")
+	public void players_have_drawn_cards() {
+		((Player)newgame.getPlayers().get(0)).getCardsInPlay().clear();
+		for (int i=0;i<newgame.numberOfPlayers();i++) {
+			((Player)newgame.getPlayers().get(i)).drawHand();
+		}
+	    assertEquals(9,((Player) newgame.getPlayers().get(0)).getHand().size());
+	    assertEquals(0,((Player)newgame.getPlayers().get(0)).getCardsInPlay().size());
+	}
+	
+	@When("the players pick thier cards")
+	public void the_players_pick_thier_cards() {
+		newgame.drawPhase();
+		for (int i=0;i<newgame.numberOfPlayers();i++) {
+			 for (int j=0;j<5;j++) {
+				 
+				 ((Player) newgame.getPlayers().get(i)).getCardsInPlay().add(((Player) newgame.getPlayers().get(i)).getHand().get(0));
+				 ((Player) newgame.getPlayers().get(i)).getHand().remove(0);
+			   }
+		}
+	}
+	
+	@Then("the next player can pick cards")
+	public void the_next_player_can_pick_cards() {
+		for (int i=0;i<newgame.numberOfPlayers();i++) {
+		assertEquals(4,((Player)newgame.getPlayers().get(i)).getHand().size());
+		}
+		for (int i=0;i<newgame.numberOfPlayers();i++) {
+			assertEquals(5,((Player)newgame.getPlayers().get(i)).getCardsInPlay().size());
+			}
+	}
+///////////////////////////////////////////
+	
+	@Given("Players have picked cards")
+	public void players_have_picked_cards() {
+		assertEquals(5,((Player)newgame.getPlayers().get(0)).getCardsInPlay().size());
+		assertEquals(5,((Player)newgame.getPlayers().get(1)).getCardsInPlay().size());
+		assertEquals(5,((Player)newgame.getPlayers().get(2)).getCardsInPlay().size());
+	}
+	
+	@When("cards are activated in order")
+	public void cards_are_activated_in_order() {
+		int order=1;
+		int cardsPlayed=0;
+		    for(int c=0; c<5 ;c++) {
+		    	for (int i=0;i<5;i++) {
+		    		for (int p=0;p<newgame.numberOfPlayers();p++) {
+		    			if(((Player)newgame.getPlayers().get(p)).getCardsInPlay().isEmpty()==false
+		    					&&((Card)(((Player)newgame.getPlayers().get(p)).getCardsInPlay().get(0))).getInitiative()==order 
+								&&((Player)newgame.getPlayers().get(p)).getCardsInPlay().size()==5-cardsPlayed) {
+		    				
+		    				((Player)newgame.getPlayers().get(p)).use((Card)((Player)newgame.getPlayers().get(p)).getCardsInPlay().get(0));
+		    				((Player)newgame.getPlayers().get(p)).getCardsInPlay().remove(0);
+		    			}
+		    		}
+		    		order+=1;
+		    		if (order==5) {
+		    			order=0;
+		    			cardsPlayed+=1;
+		    		}
+		    	}
+		    }
+		}
+	@Then("card is removed from the hand")
+	public void card_is_removed_from_the_hand() {
+		assertEquals(0,((Player)newgame.getPlayers().get(0)).getCardsInPlay().size());
+		assertEquals(0,((Player)newgame.getPlayers().get(1)).getCardsInPlay().size());
+		assertEquals(0,((Player)newgame.getPlayers().get(2)).getCardsInPlay().size());
+		    
+		}
+
+	
+	
+	
+	
+	
 }

@@ -11,15 +11,21 @@ public class Game {
 	
 	private Game () {}
 	private Game (int i) {
-		for(int j=0;j<i;j++) {
+		if (i>=2) {
+			players.add(new Player());
+			players.add(new Player());
+		if (i==3) {
+			players.add(new Player());
+		}else if(i==4){
+			players.add(new Player());
 			players.add(new Player());
 		}
-		
+		}
 	}
 	
 	public static Game getInstance(int i) {
 		if (instance==null) {
-			instance=new Game(i);
+			instance=new Game(3);
 		}
 		return instance;
 	}
@@ -49,4 +55,37 @@ public class Game {
 	}
 }
 }
-}
+	public void pickCardPhase() {
+		for (int i=0;i<instance.numberOfPlayers();i++) {
+			((Player)instance.getPlayers().get(i)).pickCards();;
+		}
+	}
+	
+//	public void movePhase(){
+//		int order=0;
+//		int cardsPlayed=0;
+//		
+//		
+//		
+//		for(int i=0;i<5;i++) {
+//				for (int p=0;p<instance.numberOfPlayers();p++) {
+//					if(((Card)(((Player)instance.getPlayers().get(p)).getCardsInPlay().get(i))).getInitiative()==order 
+//							&&((Player)instance.getPlayers().get(p)).getCardsInPlay().size()==5-cardsPlayed) {
+//						
+//						
+//						((Player)instance.getPlayers().get(p)).getCardsInPlay().get(i).use(((Card)((Player)instance.getPlayers().get(p)).getCardsInPlay().get(i)));
+//						((Player)instance.getPlayers().get(p)).getCardsInPlay().remove(i)));
+//					}
+//				}
+					
+			//turn ==1
+			//itrate for players get intitve 
+			//if turn ==intitve
+			//use card
+			//else
+			//pass
+			//after for loop turn++
+			
+
+	}
+	//move phase
