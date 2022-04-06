@@ -8,6 +8,14 @@ public class Board {
 	private int rows;
 	private int cols;
 	
+	public int getRows() {
+		return rows;
+	}
+	
+	public int getCols() {
+		return cols;
+	}
+	
 	//initializing a matrix consisting of elements of 'Tile' type
 	private Tile[][] board;
 	
