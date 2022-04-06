@@ -78,41 +78,41 @@ public class Player {
 		return myTurn;
 	}
 	
-	public void use(Card card) {
-		
-		switch(card) {
-		case ROTATE_CLOCKWISE:
-			robot.rotateClockwise();
-			break;
-		case ROTATE_ANTI_CLOCKWISE:
-			robot.rotateCounterClockwise();
-			break;
-		case MOVE_FORWARD_ONE:
-			robot.moveForward();
-			break;
-		case MOVE_FORWARD_TWO:
-			robot.moveForward();
-			robot.moveForward(); // TODO: implement interact with obstacle
-			break;
-		case MOVE_FORWARD_THREE:
-			robot.moveForward();
-			robot.moveForward();
-			robot.moveForward();
-			break;
-		case MOVE_BACKWARDS_ONE:
-			robot.moveBackward();
-			break;
-		case U_TURN:
-			robot.rotateClockwise();
-			robot.rotateClockwise();
-			break;
-		}
-		
-	}
-	
-	public void createRobot(int x, int y, Orientation orientation) {
-		robot = new Robot(orientation, x, y);
-	}
+//	public void use(Card card) {
+//		
+//		switch(card) {
+//		case ROTATE_CLOCKWISE:
+//			robot.rotateClockwise();
+//			break;
+//		case ROTATE_ANTI_CLOCKWISE:
+//			robot.rotateCounterClockwise();
+//			break;
+//		case MOVE_FORWARD_ONE:
+//			robot.moveForward();
+//			break;
+//		case MOVE_FORWARD_TWO:
+//			robot.moveForward();
+//			robot.moveForward(); // TODO: implement interact with obstacle
+//			break;
+//		case MOVE_FORWARD_THREE:
+//			robot.moveForward();
+//			robot.moveForward();
+//			robot.moveForward();
+//			break;
+//		case MOVE_BACKWARDS_ONE:
+//			robot.moveBackward();
+//			break;
+//		case U_TURN:
+//			robot.rotateClockwise();
+//			robot.rotateClockwise();
+//			break;
+//		}
+//		
+//	}
+//	
+//	public void createRobot(int x, int y, Orientation orientation) {
+//		robot = new Robot(orientation, x, y);
+//	}
 	
 	public Robot getRobot() {
 		return robot;

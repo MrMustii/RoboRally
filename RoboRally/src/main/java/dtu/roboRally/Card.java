@@ -12,7 +12,6 @@ public enum Card{
 
 	private final int initiative;
 
-	
 	Card(int initiative) {
 		this.initiative=initiative;
 	}
