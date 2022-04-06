@@ -121,7 +121,7 @@ public class Robot {
 		return lives;
 	}
 
-	public void isDamaged(int damage){
+	public void damage(int damage){
 		lives -= damage;
 		if(lives<=0){
 			respawn();
