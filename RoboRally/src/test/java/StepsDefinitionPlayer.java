@@ -1,7 +1,15 @@
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import dtu.roboRally.Card;
 import dtu.roboRally.Player;
+import dtu.roboRally.cardTypes.MoveBackwardCard;
+import dtu.roboRally.cardTypes.MoveForwardOneCard;
+import dtu.roboRally.cardTypes.MoveForwardThreeCard;
+import dtu.roboRally.cardTypes.MoveForwardTwoCard;
+import dtu.roboRally.cardTypes.RotateClockwiseCard;
+import dtu.roboRally.cardTypes.RotateCounterClockwiseCard;
+import dtu.roboRally.cardTypes.UTurnCard;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -67,8 +75,41 @@ public class StepsDefinitionPlayer {
 
 ///////////this will change with GUI addtion
 
-@Then("the game prints his hand")
-public void the_game_prints_his_hand() {
-	player.showHand();
+	@Then("the game prints his hand")
+	public void the_game_prints_his_hand() {
+		player.showHand();
+	}
+	
+	///////////////////// test player.use
+	
+	@Given("a player")
+	public void a_player() {
+	    player = new Player();
+	}
+	@Given("robot with position \\({int}, {int}, {int})")
+	public void robot_with_position(int x, int y, int o) {
+	    player.setRobot(o, x, y);
+	}
+	@When("the player uses a {string}")
+	public void the_player_uses_a(String string) {
+//		System.out.println((player.getRobot()));
+	    switch (string) {
+	    case "forward 1": player.use(new MoveForwardOneCard());break;
+	    case "forward 2": player.use(new MoveForwardTwoCard());break;
+	    case "forward 3": player.use(new MoveForwardThreeCard());break;
+	    case "backward": player.use(new MoveBackwardCard());break;
+	    case "rotate_c": player.use(new RotateClockwiseCard());break;
+	    case "rotate_cc": player.use(new RotateCounterClockwiseCard());break;
+	    case "uturn": player.use(new UTurnCard());break;
+	    }
+	}
+	@Then("the robot has position {int}, {int}, {int}")
+	public void the_robot_has_position(int x, int y, int o) {
+		assertEquals(o, player.getRobot().getPosition().getOrientation());
+	    assertEquals(x, player.getRobot().getPosition().getX());
+	    assertEquals(y, player.getRobot().getPosition().getY());
+	}
 }
-}
+
+
+

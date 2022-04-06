@@ -4,85 +4,72 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Player {
-	private ArrayList<Card> hand=new ArrayList();
-	private ArrayList<Card> cardsInPlay=new ArrayList();
-
-
+	private ArrayList<Card> hand = new ArrayList<>();
+	private ArrayList<Card> cardsInPlay = new ArrayList<>();
+	private boolean myTurn = true;
 	private Robot robot;
-
+	Board board = new Board(10,10,2);
 	
-	public void drawHand(){
+	public void drawHand() {
 		hand.removeAll(hand);
+		
 		for (int i =0; i<9;i++) {
 			hand.add(Card.random());
-			
-	}
-	}
-	public void showHand() {
-		for (int i = 0; i < hand.size();i++) 
-	      {
-			  System.out.print("["+i+"] ");
-	          System.out.println(hand.get(i)); 		
-	      }
-	}
-	
-	public void pickCards() {
-		for(int i =0;i<5;i++) {
-		showHand();
-		System.out.println("pick a card number");
-		Scanner obj=new Scanner(System.in);
-		int index=obj.nextInt();
-		cardsInPlay.add(hand.get(index));
-		hand.remove(index);
 		}
 	}
-	public ArrayList getHand() {
-		return hand;
+	
+	public void showHand() {
+		for (int i = 0; i < hand.size(); i++) {
+			
+			 System.out.print("["+i+"] ");
+	         System.out.println(hand.get(i)); 		
+	    }
 	}
 	
-	public ArrayList getCardsInPlay() {
-		return cardsInPlay;
+	public void pickCardsInPlay() {
+		for(int i  =0; i<5; i++) {
+			showHand();
+			System.out.println("pick a card number");
+			Scanner obj = new Scanner(System.in);
+			int index = obj.nextInt();
+			cardsInPlay.add(hand.get(index));
+			hand.remove(index);
+		}
+		myTurn = false;
 	}
-
 	
-//	public void use(Card card) {
-//		
-//		switch(card) {
-//		case ROTATE_CLOCKWISE:
-//			robot.rotateClockwise();
-//			break;
-//		case ROTATE_ANTI_CLOCKWISE:
-//			robot.rotateCounterClockwise();
-//			break;
-//		case MOVE_FORWARD_ONE:
-//			robot.moveForward();
-//			break;
-//		case MOVE_FORWARD_TWO:
-//			robot.moveForward();
-//			robot.moveForward(); // TODO: implement interact with obstacle
-//			break;
-//		case MOVE_FORWARD_THREE:
-//			robot.moveForward();
-//			robot.moveForward();
-//			robot.moveForward();
-//			break;
-//		case MOVE_BACKWARDS_ONE:
-//			robot.moveBackward();
-//			break;
-//		case U_TURN:
-//			robot.rotateClockwise();
-//			robot.rotateClockwise();
-//			break;
-//		}
-//		
-//	}
-//	
-//	public void createRobot(int x, int y, Orientation orientation) {
-//		robot = new Robot(orientation, x, y);
-//	}
+	public boolean isMyturn() {
+		return myTurn;
+	}
+	
+	public void use(Card card) {
+		Position newPosition = card.useCard(robot.getPosition());
+		robot.move(board, newPosition);
+	}
+	
+	public boolean initializeRobot(int orientation, int x, int y) {
+		if (board.getTile(x, y) instanceof StartPosition) {
+			robot = new Robot(orientation, x, y);
+			return true;
+		} else {
+			return false;
+		}
+	}
 	
 	public Robot getRobot() {
 		return robot;
+	}
+	
+	public void setRobot(int o, int x, int y) {
+		robot = new Robot(o,x,y);
+	}
+	
+	public ArrayList<Card> getHand() {
+		return hand;
+	}
+	
+	public ArrayList<Card> getCardsInPlay() {
+		return cardsInPlay;
 	}
 
 }

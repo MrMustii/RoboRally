@@ -39,27 +39,27 @@ public class Game {
 		return players;
 	}
 
-	public void nextTurn(Game game) {
-			for (int i=0;i<instance.numberOfPlayers();i++) {
-				if (((Player) instance.getPlayers().get(i)).getCardsInPlay().isEmpty() ==true) {
-					((Player) instance.getPlayers().get(i)).setTurn(true);
-				} else {
-					((Player) instance.getPlayers().get(i)).setTurn(false);
-				}
-			}		
-	}
-	public void drawPhase() {
-		for (int i=0;i<instance.numberOfPlayers();i++) {
-			if (((Player) instance.getPlayers().get(i)).isMyturn()==true) {
-				((Player)instance.getPlayers().get(i)).drawHand();
-	}
-}
-}
-	public void pickCardPhase() {
-		for (int i=0;i<instance.numberOfPlayers();i++) {
-			((Player)instance.getPlayers().get(i)).pickCards();;
-		}
-	}
+//	public void nextTurn(Game game) {
+//			for (int i=0;i<instance.numberOfPlayers();i++) {
+//				if (((Player) instance.getPlayers().get(i)).getCardsInPlay().isEmpty() ==true) {
+//					((Player) instance.getPlayers().get(i)).setTurn(true);
+//				} else {
+//					((Player) instance.getPlayers().get(i)).setTurn(false);
+//				}
+//			}		
+//	}
+//	public void drawPhase() {
+//		for (int i=0;i<instance.numberOfPlayers();i++) {
+//			if (((Player) instance.getPlayers().get(i)).isMyturn()==true) {
+//				((Player)instance.getPlayers().get(i)).drawHand();
+//	}
+//}
+//}
+//	public void pickCardPhase() {
+//		for (int i=0;i<instance.numberOfPlayers();i++) {
+//			((Player)instance.getPlayers().get(i)).pickCards();;
+//		}
+//	}
 	
 //	public void movePhase(){
 //		int order=0;

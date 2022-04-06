@@ -1,6 +1,5 @@
 package dtu.roboRally;
 
-//test22
 public class Robot {
 	private Position position;
 	private Position startPosition;
@@ -15,7 +14,7 @@ public class Robot {
 		this.lives = startingLives;
 	}
 	
-public boolean move(Board board, Position newPosition) {
+	public boolean move(Board board, Position newPosition) {
 		
 		int deltaX = newPosition.getX() - position.getX();
 		int deltaY = newPosition.getY() - position.getY();
