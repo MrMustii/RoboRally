@@ -43,6 +43,7 @@ public class Tile {
 	}
 	
 	//toString to print the board
+	@Override
 	public String toString() {
 		return label;
 	}
@@ -104,10 +105,12 @@ class Wall extends Tile {
 		this.orientation = orientation;
 	}
 	
+	@Override
 	public boolean canMoveIn(int robotOrientation) {
 		return Math.abs(orientation-robotOrientation) != 2;
 	}
 	
+	@Override
 	public boolean canMoveOut(int robotOrientation) {
 		return orientation != robotOrientation;
 	}
