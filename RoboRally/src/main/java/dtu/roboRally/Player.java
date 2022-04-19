@@ -13,21 +13,20 @@ public class Player {
 	public void drawHand() {
 		hand.removeAll(hand);
 		
-		for (int i =0; i<9;i++) {
+		for (int i = 0; i<9;i++) {
 			hand.add(Card.random());
 		}
 	}
 	
 	public void showHand() {
 		for (int i = 0; i < hand.size(); i++) {
-			
 			 System.out.print("["+i+"] ");
 	         System.out.println(hand.get(i)); 		
 	    }
 	}
 	
 	public void pickCardsInPlay() {
-		for(int i  =0; i<5; i++) {
+		for (int i = 0; i<5; i++) {
 			showHand();
 			System.out.println("pick a card number");
 			Scanner obj = new Scanner(System.in);

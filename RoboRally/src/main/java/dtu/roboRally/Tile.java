@@ -1,7 +1,5 @@
 package dtu.roboRally;
 
-
-
 public class Tile {
 
 	//initialize class attributes
