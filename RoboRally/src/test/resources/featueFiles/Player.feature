@@ -31,6 +31,12 @@ Feature: Player
     Then the game prints his hand
    
   @tag6
+  Scenario: Player set robot 
+  	Given a player
+  	When the player sets a robot on the board 
+  	Then the robot has a position 
+   
+  @tag7
   Scenario: Player uses a card on a robot
   	Given a player
   	And robot with position (3, 3, <start_o>)
@@ -52,3 +58,8 @@ Feature: Player
   	| 1       | "backward"  | 2 | 3 | 1 |
  
  
+ 
+ #to do stories 
+ ##get robot
+ ##inzilize robot
+ ##

@@ -6,7 +6,6 @@ import java.util.Scanner;
 public class Player {
 	private ArrayList<Card> hand = new ArrayList<>();
 	private ArrayList<Card> cardsInPlay = new ArrayList<>();
-	private boolean myTurn = true;
 	private Robot robot;
 	Board board = new Board(10,10,2);
 	
@@ -26,20 +25,17 @@ public class Player {
 	}
 	
 	public void pickCardsInPlay() {
-		for (int i = 0; i<5; i++) {
-			showHand();
-			System.out.println("pick a card number");
-			Scanner obj = new Scanner(System.in);
-			int index = obj.nextInt();
-			cardsInPlay.add(hand.get(index));
-			hand.remove(index);
-		}
-		myTurn = false;
+//		for (int i = 0; i<5; i++) {
+//			showHand();
+//			System.out.println("pick a card number");
+//			Scanner obj = new Scanner(System.in);
+//			int index = obj.nextInt();
+//			cardsInPlay.add(hand.get(index));
+//			hand.remove(index);
+//		}
+//		myTurn = false;
 	}
 	
-	public boolean isMyturn() {
-		return myTurn;
-	}
 	
 	public void use(Card card) {
 		Position newPosition = card.useCard(robot.getPosition());

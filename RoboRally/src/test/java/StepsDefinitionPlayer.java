@@ -79,7 +79,24 @@ public class StepsDefinitionPlayer {
 	public void the_game_prints_his_hand() {
 		player.showHand();
 	}
-	
+	/////////////
+	@Given("the player does not have a robot")
+	public void the_player_does_not_have_a_robot() {
+	    assertEquals(null, player.getRobot());
+	}
+	@When("the player sets a robot on the board")
+	public void the_player_sets_a_robot_on_the_board() {
+	    player.setRobot(0, 0, 0);
+	}
+	@Then("the robot has a position")
+	public void the_robot_has_a_position() {
+		int o=player.getRobot().getPosition().getOrientation();
+		int x=player.getRobot().getPosition().getX();
+		int y=player.getRobot().getPosition().getY();
+		assertEquals(0, o);
+		assertEquals(0, x);
+		assertEquals(0, y);
+	}
 	///////////////////// test player.use
 	
 	@Given("a player")
