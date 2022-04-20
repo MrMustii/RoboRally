@@ -16,26 +16,12 @@ public class Game {
 		}
 	}
 	
-	
-	public static Game getInstance() {
-		if (instance == null) {
-			System.out.println("Game not initialised, call getInstance(int)");
-		}
-		return instance;
-	}
-	
 	public static Game getInstance(int nbPlayers) {
 		if(instance==null) {
 			instance = new Game(nbPlayers);
 		}
 		//setNumberPlayers(nbPlayers);
 		return instance;
-	}
-	
-	public void setNumberPlayers(int i) {
-		for(int j=0;j<i;j++) {
-			players.add(new Player());
-		}
 	}
 	
 	public void phase1() {
@@ -85,8 +71,8 @@ public class Game {
 	}
 	
 	public void hasWon(int playerIndex) {
-		//TODO: exit game or smth
 		System.out.println("Congratulations! Player " + playerIndex + " won the game!");
+		System.exit(0);
 	}
 	
 	public int numberOfPlayers() {
@@ -95,9 +81,5 @@ public class Game {
 	
 	public ArrayList<Player> getPlayers() {
 		return players;
-	}
-
-	public Board getBoard() {
-		return board;
 	}
 }
