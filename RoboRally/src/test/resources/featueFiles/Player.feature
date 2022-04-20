@@ -56,9 +56,15 @@ Feature: Player
   	| 1       | "forward 2" | 5 | 3 | 1 |
   	| 1       | "forward 3" | 6 | 3 | 1 |
   	| 1       | "backward"  | 2 | 3 | 1 |
- 
- 
- 
+ 		| 2       | "forward 1" | 3 | 2 | 2 |
+  	| 2       | "forward 2" | 3 | 1 | 2 |
+  	| 2       | "forward 3" | 3 | 0 | 2 |
+  	| 2       | "backward"  | 3 | 4 | 2 |
+ 		| 3       | "forward 1" | 2 | 3 | 3 |
+  	| 3       | "forward 2" | 1 | 3 | 3 |
+  	| 3       | "forward 3" | 0 | 3 | 3 |
+  	| 3       | "backward"  | 4 | 3 | 3 |
+
  #to do stories 
  ##get robot
  ##inzilize robot
