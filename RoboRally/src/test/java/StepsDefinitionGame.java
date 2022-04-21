@@ -3,8 +3,10 @@ import static org.junit.Assert.assertEquals;
 import dtu.roboRally.Card;
 import dtu.roboRally.Game;
 import dtu.roboRally.Player;
+import dtu.roboRally.Position;
 import dtu.roboRally.cardTypes.MoveBackwardCard;
 import dtu.roboRally.cardTypes.MoveForwardOneCard;
+import dtu.roboRally.cardTypes.RotateClockwiseCard;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -34,12 +36,14 @@ public class StepsDefinitionGame {
 	}
 	////
 	Game newgame=Game.getInstance(3);
+	
 	@Given("that the players dont have full a hand")
 	public void that_the_players_dont_have_full_a_hand() {
 		for(Player p:newgame.getPlayers()) {
 			p.getHand().removeAll(p.getHand());
 	    }
 	}
+	
 	@When("They draw thier hand, thier hand is showen and pick cards")
 	public void they_draw_thier_hand_thier_hand_is_showen_and_pick_cards() {
 	    newgame.phase1();
@@ -55,19 +59,25 @@ public class StepsDefinitionGame {
 	public void that_the_players_have_picked_cards() {
 		for(Player p:newgame.getPlayers()) {
 			for (int i=0;i<5;i++) {
-			p.getCardsInPlay().add( new MoveForwardOneCard());
+			p.getCardsInPlay().add( new RotateClockwiseCard());
 			}
 	    }
 
 	}
+	
+	
+	
+	
+	
+	
+	
+	
 	@Given("they have robots on the board")
 	public void they_have_robots_on_the_board() {
 		for(int i=0;i<newgame.numberOfPlayers();i++) {
-			newgame.getPlayers().get(i).setRobot(0, i,0);
+			newgame.getPlayers().get(i).setRobot(0, i, 0);
 		}
-		for(Player p:newgame.getPlayers()) {
-			assertEquals(5, p.getCardsInPlay().size());
-		}
+		
 	}
 	@When("robot has to move accordingly")
 	public void robot_has_to_move_accordingly() {
@@ -75,12 +85,37 @@ public class StepsDefinitionGame {
 	}
 	@Then("The robots have new psoitions")
 	public void the_robots_have_new_psoitions() {
-		for(Player p:newgame.getPlayers()) {
-			int i=(p.getRobot().getPosition()).getY();
-			assertEquals(5,i);
+		for(int i=0;i<newgame.numberOfPlayers();i++) {
+			assertEquals(1,newgame.getPlayers().get(i).getRobot().getPosition().getOrientation());
 		}
 	}
 	/////////
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	@Given("they have a dead robot")
+	public void they_have_a_dead_robot() {
+		
+	    newgame.getPlayers().get(0).getRobot().damage(5);
+	    assertEquals(true, newgame.getPlayers().get(0).getRobot().isDead());
+	}
+	
+	
+	@Then("the living robot have new positions")
+	public void the_living_robot_have_new_positions() {
+	    for(int i=1;i<newgame.numberOfPlayers();i++) {
+	    	int j=(newgame.getPlayers().get(i).getRobot().getPosition()).getOrientation();
+	    	assertEquals(1,j);
+	    }
+	    int j=(newgame.getPlayers().get(0).getRobot().getPosition()).getOrientation();
+	    assertEquals(0, j);
+	}
 	
 	
 }

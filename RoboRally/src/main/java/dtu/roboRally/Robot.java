@@ -4,6 +4,7 @@ public class Robot {
 	private Position position;
 	private Position startPosition;
 	private int lives;
+	private boolean isDead;
 
 	//final values same for all robot
 	private final int startingLives = 5;
@@ -12,6 +13,7 @@ public class Robot {
 		startPosition = new Position(startx, starty, o);
 		setPosition(startPosition.clone());
 		this.lives = startingLives;
+		isDead=false;
 	}
 	
 	public boolean move(Board board, Position newPosition) {
@@ -67,13 +69,14 @@ public class Robot {
 	public void damage(int damage){
 		lives -= damage;
 		if(lives<=0){
-			respawn();
+			isDead=true;
 		}
 	}
 	
 	public void respawn() {
 		setPosition(startPosition.clone());
 		setLives(startingLives);
+		isDead=false;
 	}
 
 	public void setLives(int lives){
@@ -90,5 +93,8 @@ public class Robot {
 
 	public void setPosition(Position position) {
 		this.position = position;
+	}
+	public boolean isDead() {
+		return isDead;
 	}
 }

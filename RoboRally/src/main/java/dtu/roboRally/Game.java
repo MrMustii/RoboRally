@@ -30,9 +30,15 @@ public class Game {
 			p.showHand();
 			p.pickCardsInPlay();
 		}
+		//respawn at the start of phase 2
+		for(Player p:instance.getPlayers()) {
+			if (p.getRobot().isDead()==true){
+				p.getRobot().respawn();
+				}
+		}
 	}
 	
-	public void phase2() {
+	public void phase2() {		
 		// number of cards in play
 		int nbOfCards = instance.getPlayers().get(0).getCardsInPlay().size();		
 		
@@ -58,9 +64,13 @@ public class Game {
 				}
 				// use of card (robot behaves accordingly)
 				Player currPlayer = instance.getPlayers().get(indexMaxPriority);
+				if (currPlayer.getRobot().isDead()==true) {
+					currPlayer.getCardsInPlay().remove(0);
+					priorities.set(indexMaxPriority, 0);
+				}else {
 				currPlayer.use(currPlayer.getCardsInPlay().remove(0));
 				priorities.set(indexMaxPriority, 0);
-				
+				}
 				//check if player won
 				Position positionRobot = currPlayer.getRobot().getPosition();
 				if(board.getTile(positionRobot.getX(), positionRobot.getY()) instanceof EndPosition) {
@@ -81,5 +91,9 @@ public class Game {
 	
 	public ArrayList<Player> getPlayers() {
 		return players;
+	}
+	public void Clearb() {
+		this.board.emptyTheBoard();
+		board.printBoard();
 	}
 }

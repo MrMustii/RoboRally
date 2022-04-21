@@ -65,6 +65,7 @@ Feature: Player
   	| 3       | "forward 3" | 0 | 3 | 3 |
   	| 3       | "backward"  | 4 | 3 | 3 |
 
+
  #to do stories 
  ##get robot
  ##inzilize robot
