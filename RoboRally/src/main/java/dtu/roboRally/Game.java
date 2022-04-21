@@ -24,6 +24,14 @@ public class Game {
 		return instance;
 	}
 	
+	public static Game getInstance() {
+		if(instance==null) {
+			System.out.println("Game not initialised; call getInstance(int)");
+		}
+		//setNumberPlayers(nbPlayers);
+		return instance;
+	}
+	
 	public void phase1() {
 		for(Player p:instance.getPlayers()) {
 			p.drawHand();
@@ -92,6 +100,12 @@ public class Game {
 	public ArrayList<Player> getPlayers() {
 		return players;
 	}
+	
+	//getter for board
+	public Board getBoard() {
+		return board;
+	}
+	
 	public void Clearb() {
 		this.board.emptyTheBoard();
 		board.printBoard();
