@@ -71,6 +71,80 @@ public class Board {
 			} while(! (board[y][x] instanceof Floor));
 			
 			board[y][x] = new StartPosition();
+			
+			//if starting position in top left corner
+			if (y == 0 & x == 0) {
+				if (! (board[y][x+1] instanceof StartPosition)) {
+						board[y][x+1] = new Floor();
+				}
+				if (! (board[y+1][x] instanceof StartPosition)) {
+				board[y+1][x] = new Floor();
+			}
+			}
+			
+			//if starting position on bottom left corner
+			else if (y == rows & x == 0) {
+				if (! (board[y-1][x] instanceof StartPosition)) {
+					board[y-1][x] = new Floor();
+				}
+				if (! (board[y][x+1] instanceof StartPosition)) {
+					board[y][x+1] = new Floor();
+				}
+			}
+			// if starting position on first column
+			else if (x == 0) {
+				if (! (board[y-1][x] instanceof StartPosition)) {
+					board[y-1][x] = new Floor();
+				}
+				if (! (board[y][x+1] instanceof StartPosition)) {
+					board[y][x+1] = new Floor();
+				}
+				if (! (board[y+1][x] instanceof StartPosition)) {
+				board[y+1][x] = new Floor();
+				}
+			}
+			// if starting position on top row
+			else if (y == 0) {
+				if (! (board[y][x-1] instanceof StartPosition)) {
+					board[y][x-1] = new Floor();
+				}
+				if (! (board[y+1][x] instanceof StartPosition)) {
+					board[y+1][x] = new Floor();
+				}
+				if (! (board[y][x+1] instanceof StartPosition)) {
+					board[y][x+1] = new Floor();
+				}
+				
+			}
+			// if starting position on bottom row
+			else if (y == rows) {
+				if (! (board[y][x-1] instanceof StartPosition)) {
+					board[y][x-1] = new Floor();
+				}
+				if (! (board[y-1][x] instanceof StartPosition)) {
+					board[y-1][x] = new Floor();
+				}
+				if (! (board[y][x+1] instanceof StartPosition)) {
+					board[y][x+1] = new Floor();
+				}
+			}
+			
+			// everywhere else
+			else {
+				if (! (board[y][x-1] instanceof StartPosition)) {
+					board[y][x-1] = new Floor();
+				}
+				if (! (board[y][x+1] instanceof StartPosition)) {
+					board[y][x+1] = new Floor();
+				}
+				if (! (board[y-1][x] instanceof StartPosition)) {
+					board[y-1][x] = new Floor();
+				}
+				if (! (board[y+1][x] instanceof StartPosition)) {
+					board[y+1][x] = new Floor();
+				}
+			}
+
 		}
 	}
 	
