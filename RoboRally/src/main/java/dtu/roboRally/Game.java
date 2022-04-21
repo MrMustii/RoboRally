@@ -10,7 +10,7 @@ public class Game {
 	private final Board board;
 	
 	private Game(int numberOfPlayers) {
-		board = new Board(10, 10, numberOfPlayers); //maybe change size
+		board = new Board(9, 14, numberOfPlayers); //maybe change size
 		for(int i =0;i<numberOfPlayers;i++) {
 			players.add(new Player());
 		}

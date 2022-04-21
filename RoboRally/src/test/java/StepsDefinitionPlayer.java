@@ -102,6 +102,7 @@ public class StepsDefinitionPlayer {
 	@Given("a player")
 	public void a_player() {
 	    player = new Player();
+	    
 	}
 	@Given("robot with position \\({int}, {int}, {int})")
 	public void robot_with_position(int x, int y, int o) {

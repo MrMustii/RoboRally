@@ -7,7 +7,6 @@ public class Player {
 	private ArrayList<Card> hand = new ArrayList<>();
 	private ArrayList<Card> cardsInPlay = new ArrayList<>();
 	private Robot robot;
-	Board board = new Board(10,10,2);
 	
 	public void drawHand() {
 		hand.removeAll(hand);
@@ -38,11 +37,13 @@ public class Player {
 	
 	
 	public void use(Card card) {
+		Board board = Game.getInstance().getBoard();
 		Position newPosition = card.useCard(robot.getPosition());
 		robot.move(board, newPosition);
 	}
 	
 	public boolean initializeRobot(int orientation, int x, int y) {
+		Board board = Game.getInstance().getBoard();
 		if (board.getTile(x, y) instanceof StartPosition) {
 			robot = new Robot(orientation, x, y);
 			return true;

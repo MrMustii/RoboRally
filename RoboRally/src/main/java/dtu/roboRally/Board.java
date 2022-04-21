@@ -77,7 +77,7 @@ public class Board {
 	public void loadEndPosition() {
 		int x,y;
 		do {
-			x = (int) Math.floor(rows - Math.random()*3);
+			x = (int) Math.floor(cols - Math.random()*3);
 			y = (int) Math.floor(Math.random()*rows);
 		} while(! (board[y][x] instanceof Floor));
 		
