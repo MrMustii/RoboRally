@@ -32,6 +32,10 @@ public class StepsDefinitionRobot {
 	    robot = new Robot(o, x, y);
 	    robot.setLives(lives);
 	}
+	@Then("it is dead")
+	public void it_is_dead() {
+	    assertEquals(true, robot.isDead());
+	}
 	@Then("it respawns at the starting point \\({int}, {int}, {int})")
 	public void it_respawns_at_the_starting_point(int o, int x, int y) {
 	    assertEquals(o, robot.getPosition().getOrientation());
@@ -68,5 +72,14 @@ public class StepsDefinitionRobot {
 	    } else {
 	    	assertFalse(canMove);
 	    }
+	}
+	@Given("A dead robot and start position \\({int}, {int}, {int})")
+	public void a_dead_robot_and_start_position(int x, int y, int o) {
+		robot = new Robot(o, x, y);
+	    robot.damage(5);
+	}
+	@When("the robot respawns")
+	public void the_robot_respawns() {
+	    robot.respawn();
 	}
 }

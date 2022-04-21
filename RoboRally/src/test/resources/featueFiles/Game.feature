@@ -17,6 +17,7 @@ Feature: setting up the game
 	 @tag3
    Scenario: Phase one
     Given that the players dont have full a hand
+    And they have robots on the board
     When They draw thier hand, thier hand is showen and pick cards
     Then all the players have picked cards
 
@@ -26,6 +27,14 @@ Feature: setting up the game
     And they have robots on the board
     When robot has to move accordingly
     Then The robots have new psoitions
+    
+   @tag4
+   Scenario: Phase two with a dead robot
+    Given That the players have picked cards
+		And they have robots on the board
+    And they have a dead robot
+    When robot has to move accordingly
+    Then the living robot have new positions
     
 #	 @tag5
 #   Scenario: player has won

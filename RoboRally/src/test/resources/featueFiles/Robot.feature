@@ -11,10 +11,17 @@ Feature: Robot
 			  Scenario: Death of robot
 			    Given A robot with 1 life and start position (1, 1, 1)
 			    When the robot takes 1 damage
+			    Then it is dead
+
+
+			@tag3
+			  Scenario: Rising of robot
+			    Given A dead robot and start position (1, 1, 1)
+			    When the robot respawns
 			    Then it respawns at the starting point (1, 1, 1)
 			    And it has 5 lives
 
-			@tag3
+			@tag4
 				Scenario Outline: Moving of robot
 					Given a robot with a position with coordinates (3, 3) and orientation 0
 					And a board without obstacles
@@ -39,7 +46,7 @@ Feature: Robot
 					| 3 | 3 | 2 |
 					| 3 | 3 | 3 |
 					
-			@tag4
+			@tag5
 				Scenario Outline: Moving of robot with wall
 					Given a robot with a position with coordinates (3, 3) and orientation 0
 					And a board with a wall at position 3, 4, <wall_o>

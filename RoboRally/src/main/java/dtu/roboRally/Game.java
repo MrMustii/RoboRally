@@ -16,14 +16,6 @@ public class Game {
 		}
 	}
 	
-	
-	public static Game getInstance() {
-		if (instance == null) {
-			System.out.println("Game not initialised, call getInstance(int)");
-		}
-		return instance;
-	}
-	
 	public static Game getInstance(int nbPlayers) {
 		if(instance==null) {
 			instance = new Game(nbPlayers);
@@ -32,21 +24,21 @@ public class Game {
 		return instance;
 	}
 	
-	public void setNumberPlayers(int i) {
-		for(int j=0;j<i;j++) {
-			players.add(new Player());
-		}
-	}
-	
 	public void phase1() {
 		for(Player p:instance.getPlayers()) {
 			p.drawHand();
 			p.showHand();
 			p.pickCardsInPlay();
 		}
+		//respawn at the start of phase 2
+		for(Player p:instance.getPlayers()) {
+			if (p.getRobot().isDead()==true){
+				p.getRobot().respawn();
+				}
+		}
 	}
 	
-	public void phase2() {
+	public void phase2() {		
 		// number of cards in play
 		int nbOfCards = instance.getPlayers().get(0).getCardsInPlay().size();		
 		
@@ -72,9 +64,13 @@ public class Game {
 				}
 				// use of card (robot behaves accordingly)
 				Player currPlayer = instance.getPlayers().get(indexMaxPriority);
+				if (currPlayer.getRobot().isDead()==true) {
+					currPlayer.getCardsInPlay().remove(0);
+					priorities.set(indexMaxPriority, 0);
+				}else {
 				currPlayer.use(currPlayer.getCardsInPlay().remove(0));
 				priorities.set(indexMaxPriority, 0);
-				
+				}
 				//check if player won
 				Position positionRobot = currPlayer.getRobot().getPosition();
 				if(board.getTile(positionRobot.getX(), positionRobot.getY()) instanceof EndPosition) {
@@ -85,8 +81,8 @@ public class Game {
 	}
 	
 	public void hasWon(int playerIndex) {
-		//TODO: exit game or smth
 		System.out.println("Congratulations! Player " + playerIndex + " won the game!");
+		System.exit(0);
 	}
 	
 	public int numberOfPlayers() {
@@ -96,8 +92,8 @@ public class Game {
 	public ArrayList<Player> getPlayers() {
 		return players;
 	}
-
-	public Board getBoard() {
-		return board;
+	public void Clearb() {
+		this.board.emptyTheBoard();
+		board.printBoard();
 	}
 }
