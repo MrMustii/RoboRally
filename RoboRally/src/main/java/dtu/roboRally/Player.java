@@ -44,7 +44,7 @@ public class Player {
 	
 	public boolean initializeRobot(int orientation, int x, int y) {
 		Board board = Game.getInstance().getBoard();
-		if (board.getTile(x, y) instanceof StartPosition) {
+		if (board.getTile(x, y).getLabel()=="S ") {
 			robot = new Robot(orientation, x, y);
 			return true;
 		} else {
