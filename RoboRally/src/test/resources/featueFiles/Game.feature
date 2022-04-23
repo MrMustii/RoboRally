@@ -42,4 +42,16 @@ Feature: setting up the game
     When robot moves to a end position
     Then player wins
 	 
+	  @tag6
+ 		Scenario: Player uses an oil spill card on a robot
+  	And a clear board
+  	And a player with robot with position (1, 1, <start_o>)
+  	When the player uses an oil spill card
+  	Then then there is an oil spill at <x>, <y>
+  	Examples:
+  	| start_o | x | y |
+  	| 0       | 1 | 0 |
+  	| 1       | 0 | 1 |
+  	| 2       | 1 | 2 |
+  	| 3       | 2 | 1 |
 	 

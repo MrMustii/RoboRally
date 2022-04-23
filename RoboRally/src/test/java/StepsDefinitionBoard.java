@@ -19,5 +19,16 @@ public class StepsDefinitionBoard {
 	    assertEquals(12, board.getRows());
 	    assertEquals(12, board.getCols());
 	}
-	
+	@Given("the board is empty")
+	public void the_board_is_empty() {
+	    board.emptyTheBoard();;
+	}
+	@When("changeing a floor tile to oil tile")
+	public void changeing_a_floor_tile_to_oil_tile() {
+	    board.setOilTile(0, 0);
+	}
+	@Then("the floor becomes oil")
+	public void the_floor_becomes_oil() {
+	    assertEquals("O ", board.getTile(0, 0).getLabel());
+	}
 }

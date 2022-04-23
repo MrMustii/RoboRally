@@ -66,9 +66,10 @@ Feature: Player
   	| 3       | "backward"  | 4 | 3 | 3 |
 
 
-  @tag6
+  @tag8
   Scenario: Player initialize robot 
   	Given a player
   	And there us a board
   	When a player initialize on the starting tile
   	Then the robot has a position of the starting tile
+  	

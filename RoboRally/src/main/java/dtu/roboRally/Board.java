@@ -178,4 +178,9 @@ public class Board {
 			System.out.println("");
 		}
 	}
+
+	//setter for Tile
+		public void setOilTile(int x,int y) {
+			board[y][x]=new Oil();
+		}
 }

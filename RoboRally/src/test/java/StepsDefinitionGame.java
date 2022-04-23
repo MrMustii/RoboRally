@@ -1,4 +1,5 @@
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import java.util.ArrayList;
 
@@ -8,6 +9,7 @@ import dtu.roboRally.Player;
 import dtu.roboRally.Position;
 import dtu.roboRally.cardTypes.MoveBackwardCard;
 import dtu.roboRally.cardTypes.MoveForwardOneCard;
+import dtu.roboRally.cardTypes.OilSPillCard;
 import dtu.roboRally.cardTypes.RotateClockwiseCard;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -128,7 +130,25 @@ public class StepsDefinitionGame {
 	}
 	@Then("player wins")
 	public void player_wins() {
-	    assertEquals(1, newgame.numberOfPlayers());
+	    assertNotEquals(null, newgame.getWinner());
 	}
+	/////
 	
+	@Given("a clear board")
+	public void a_clear_board() {
+	    newgame.getBoard().emptyTheBoard();
+	}
+	@Given("a player with robot with position \\({int}, {int}, {int})")
+	public void a_player_with_robot_with_position(int x, int y, int o) {
+	    newgame.getPlayers().get(0).setRobot(o, x, y);
+	}
+	@When("the player uses an oil spill card")
+	public void the_player_uses_an_oil_spill_card() {
+		 newgame.getPlayers().get(0).use(new OilSPillCard());
+
+	}
+	@Then("then there is an oil spill at {int}, {int}")
+	public void then_there_is_an_oil_spill_at(int x, int y) {
+	    assertEquals("O ", newgame.getBoard().getTile(x, y).getLabel());
+	}
 }

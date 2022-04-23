@@ -11,6 +11,7 @@ import dtu.roboRally.cardTypes.MoveBackwardCard;
 import dtu.roboRally.cardTypes.MoveForwardOneCard;
 import dtu.roboRally.cardTypes.MoveForwardThreeCard;
 import dtu.roboRally.cardTypes.MoveForwardTwoCard;
+import dtu.roboRally.cardTypes.OilSPillCard;
 import dtu.roboRally.cardTypes.RotateClockwiseCard;
 import dtu.roboRally.cardTypes.RotateCounterClockwiseCard;
 import dtu.roboRally.cardTypes.UTurnCard;
@@ -137,6 +138,7 @@ public class StepsDefinitionPlayer {
 	@Given("there us a board")
 	public void there_us_a_board() {
 	    Game game=Game.getInstance(3);
+	    game.setBoard();
 	}
 	@When("a player initialize on the starting tile")
 	public void a_player_initialize_on_the_starting_tile() {
@@ -163,6 +165,7 @@ public class StepsDefinitionPlayer {
 		
 	    assertEquals("S ", game.getBoard().getTile(player.getRobot().getPosition().getX(), player.getRobot().getPosition().getY()).getLabel());
 	}
+	
 }
 
 

@@ -8,9 +8,10 @@ public class Game {
 	private ArrayList<Player> players = new ArrayList<>();
 	private static Game instance;
 	private Board board;
+	private Player winner;
 	
 	private Game(int numberOfPlayers) {
-		board = new Board(9, 14, numberOfPlayers); //maybe change size
+		board = new Board(12, 12, numberOfPlayers); //maybe change size
 		for(int i =0;i<numberOfPlayers;i++) {
 			players.add(new Player());
 		}
@@ -92,9 +93,10 @@ public class Game {
 		if(board.getTile(positionRobot.getX(), positionRobot.getY()) instanceof EndPosition) {
 		System.out.println("Congratulations! Player " + playerIndex + " won the game!");
 		
-		Player winner = players.get(playerIndex);
-		players.clear();
-		players.add(winner);
+		winner = players.get(playerIndex);
+		
+		//players.clear();
+		//players.add(winner);
 		
 		}
 	}
@@ -110,5 +112,11 @@ public class Game {
 	//getter for board
 	public Board getBoard() {
 		return board;
+	}
+	public void setBoard() {
+		this.board=new Board(12,12,instance.numberOfPlayers());
+	}
+	public Player getWinner() {
+		return winner;
 	}
 }
