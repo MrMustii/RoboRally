@@ -94,6 +94,7 @@ public class StepsDefinitionPlayer {
 	}
 	@Then("the robot has a position")
 	public void the_robot_has_a_position() {
+		
 		int o=player.getRobot().getPosition().getOrientation();
 		int x=player.getRobot().getPosition().getX();
 		int y=player.getRobot().getPosition().getY();

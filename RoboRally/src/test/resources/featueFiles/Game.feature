@@ -36,19 +36,10 @@ Feature: setting up the game
     When robot has to move accordingly
     Then the living robot have new positions
     
-#	 @tag5
-#   Scenario: player has won
-#    Given a player has a robot 
-#    When robot moves to a end position
-#    Then player wins
-
-
-	 
-	 #to do stories
-	 ##getBoard
-
-	 #to do methods
-	 ##set board
-	 ##has won
+	 @tag5
+   Scenario: player has won
+    Given robot is near end posistion 
+    When robot moves to a end position
+    Then player wins
 	 
 	 
