@@ -4,6 +4,7 @@ public class Position {
 	private int x, y;
 	private int orientation;
 	
+	
 	public Position(int x, int y, int orientation) {
 		this.setX(x);
 		this.setY(y);
@@ -38,4 +39,6 @@ public class Position {
 	public void setOrientation(int orientation) {
 		this.orientation = orientation;
 	}
+	
+
 }

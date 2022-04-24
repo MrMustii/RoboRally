@@ -19,6 +19,8 @@ public class Board {
 	//initializing a matrix consisting of elements of 'Tile' type
 	private Tile[][] board;
 	
+
+	
 	//boolean for checking if board is running in StepsDefinition
 //	private boolean isRunning = false;
 	private Random rnd = new Random();
@@ -33,6 +35,7 @@ public class Board {
 		loadObstacles();
 		loadStartPosition(numberOfPlayers);
 		loadEndPosition();
+		loadTeleporter();
 	}
 	
 	// Method for robot.move testing
@@ -142,6 +145,28 @@ public class Board {
 		}
 	}
 	
+// Load teleporter
+	
+	public void loadTeleporter() {
+
+		int x1,y1;
+		int x2,y2;
+		do {
+			x1 = (int) ((int) 3+ Math.floor(Math.random()*(cols-6)));
+			y1 = (int) Math.floor(Math.random()*rows);
+		} while(! (board[y1][x1] instanceof Floor));
+		board[y1][x1] = new Teleporter();
+		board[y1][x1].setLabel("T1");
+		do {
+			x2 = (int) ((int) 3+ Math.floor(Math.random()*(cols-6)));
+			y2 = (int) Math.floor(Math.random()*rows);
+		} while(! (board[y2][x2] instanceof Floor));
+		board[y2][x2] = new Teleporter();
+		board[y2][x2].setLabel("T2");
+		
+		
+	}
+	
 	// return random tile type method
 	public Tile getRandomTileType() {
 		double val = rnd.nextDouble();
@@ -161,10 +186,14 @@ public class Board {
 	}
 	
 	//getter for board
-	public Tile[][] getBoard() {
-		return board;
-	}
-	
+//	public Tile[][] getBoard() {
+//		return board;
+//	}
+//	
+	public void setTeleporter(int x,int y) {
+        board[y][x]=new Teleporter();
+    }
+
 	public Tile getTile(int x, int y) {
 		return board[y][x];
 	}

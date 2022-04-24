@@ -7,6 +7,9 @@ public class Tile {
 	//initialize class attributes
 	private int damage;
 	private String label; //TODO: delete when GUI is implemented
+	Board board;
+	
+
 	
 	//Tile constructor to assign attributes to subclass tiles
 	public Tile(String label, int damage) {
@@ -16,6 +19,7 @@ public class Tile {
 	
 	public void interact(Robot robot) {
 		robot.damage(damage);
+	
 	}
 	
 	public boolean canMoveIn(int robotOrientation) {
@@ -80,6 +84,7 @@ class Radiation extends Tile {
 	}
 }
 
+
 //changes the orientation of the robot
 class Oil extends Tile {
 	public Oil() {
@@ -102,10 +107,13 @@ public void interact(Robot robot) {
 	
 	}
 }
+
+
 class StartPosition extends Tile {
 	//additional input parameters can be added to this constructor to specify fixed starting position I believe
 	public StartPosition() {
 		super("S ", 0);
+		
 	}
 }
 
@@ -120,6 +128,7 @@ class Repair extends Tile {
 		super("+ ",-3);	
 	}
 }
+
 
 class Wall extends Tile {
 	
@@ -139,6 +148,80 @@ class Wall extends Tile {
 		return orientation != robotOrientation;
 	}
 }
+
+class Teleporter extends Tile {
+	public Teleporter() {
+		super("T ", 0);
+	}
+	@Override
+	public void interact(Robot robot) {
+//		board = Game.getInstance().getBoard();
+		Position position;
+		String label;
+		Game game = Game.getInstance();
+		
+		// initialize x and y variables to get the position of the robot and check if its on a teleporter tile
+		int x,y;
+		position = robot.getPosition();
+		x = position.getX();
+		y = position.getY();
+		
+		//checks if teleporter is the first or second teleporter
+		if (game.getBoard().getTile(x,y) instanceof Teleporter) {
+			label = game.getBoard().getTile(x,y).getLabel();
+			
+			if (label == "T1") {
+				//parse for T2
+				for (int rows=0;rows<game.getBoard().getRows();rows++) {
+			    	for (int cols=0;cols<game.getBoard().getCols();cols++) {
+			    		if(game.getBoard().getTile(cols, rows).getLabel() == "T2") {
+			    			robot.setPosition(new Position(cols, rows, position.getOrientation()));
+
+			    		}
+			    	}
+			    }
+			}
+//				for (Tile[] row : board) {
+//					for (Tile col : row) {
+//						if (label == "T2") {
+//							robot.setPosition(new Position(i, j, position.getOrientation()));
+//							
+//						}
+//					j++;
+//					}
+//				j = 0;
+//				i++;
+//				}
+				
+			
+			else { //if label == "T2"
+				
+				//parse for T1
+				for (int rows=0;rows<game.getBoard().getRows();rows++) {
+			    	for (int cols=0;cols<game.getBoard().getCols();cols++) {
+			    		if(game.getBoard().getTile(cols, rows).getLabel() == "T1") {
+			    			robot.setPosition(new Position(cols, rows, position.getOrientation()));
+//			    		endPosition.add(new Position(cols,rows,1));
+			    		}
+			    	}
+			    }
+			}
+//				for (Tile[] row : board) {
+//					for (Tile col : row) {
+//						if (label == "T1") {
+//								robot.setPosition(new Position(i, j, position.getOrientation()));
+//						}
+//					j++;
+//					}
+//				j = 0;	
+//				i++;
+//				}
+			}
+		}
+		
+		
+	}
+	
 
 // TODO: implement laser as an advanced obstacle
 //class Laser extends Tile{

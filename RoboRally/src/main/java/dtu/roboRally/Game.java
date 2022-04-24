@@ -20,7 +20,7 @@ public class Game {
 	public static Game getInstance(int nbPlayers) {
 		if(instance==null) {
 			instance = new Game(nbPlayers);
-			instance.board=new Board(10, 10, nbPlayers);
+			instance.board=new Board(12, 12, nbPlayers);
 		}
 		//setNumberPlayers(nbPlayers);
 		return instance;
