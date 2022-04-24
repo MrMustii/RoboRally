@@ -9,8 +9,10 @@ import dtu.roboRally.Player;
 import dtu.roboRally.Position;
 import dtu.roboRally.cardTypes.MoveBackwardCard;
 import dtu.roboRally.cardTypes.MoveForwardOneCard;
+import dtu.roboRally.cardTypes.MoveForwardTwoCard;
 import dtu.roboRally.cardTypes.OilSPillCard;
 import dtu.roboRally.cardTypes.RotateClockwiseCard;
+import dtu.roboRally.cardTypes.ShieldCard;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -106,6 +108,7 @@ public class StepsDefinitionGame {
 /////
 	@Given("robot is near end posistion")
 	public void robot_is_near_end_posistion() {
+		newgame.setBoard();
 	    ArrayList<Position> endPosition=new ArrayList<>();
 		//finds all end position
 	    for (int rows=0;rows<newgame.getBoard().getRows();rows++) {
@@ -150,5 +153,21 @@ public class StepsDefinitionGame {
 	@Then("then there is an oil spill at {int}, {int}")
 	public void then_there_is_an_oil_spill_at(int x, int y) {
 	    assertEquals("O ", newgame.getBoard().getTile(x, y).getLabel());
+	}
+	@Given("players with shielded robots")
+	public void players_with_shielded_robots() {
+		for(Player p:newgame.getPlayers()) {
+			p.use(new ShieldCard());
+		}
+	}
+	@When("phase {int} starts")
+	public void phase_starts(Integer int1) {
+	    newgame.phase1();
+	}
+	@Then("the robot are unshielded")
+	public void the_robot_are_unshielded() {
+		for(Player p:newgame.getPlayers()) {
+			assertEquals(false, p.getRobot().getShielded());
+		}
 	}
 }

@@ -73,3 +73,12 @@ Feature: Player
   	When a player initialize on the starting tile
   	Then the robot has a position of the starting tile
   	
+  @tag9
+  Scenario: Player playes shield card
+  	Given a player
+  	And robot with position (3, 3, 0)
+  	When the player plays the shield card
+  	Then the robot is shielded
+  	And it does not take damage
+  	
+  

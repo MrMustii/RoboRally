@@ -17,7 +17,7 @@ public abstract class Card {
 		this.priority = priority;
 	}
 	
-	public abstract Position useCard(Position position);
+	public abstract Position useCard(Robot robot, Position position);
 	
 	public static Card random() {
 		

@@ -42,7 +42,7 @@ public class Player {
 	
 	public void use(Card card) {
 		Board board = Game.getInstance().getBoard();
-		Position newPosition = card.useCard(robot.getPosition());
+		Position newPosition = card.useCard(robot,robot.getPosition());
 		robot.move(board, newPosition);
 	}
 	

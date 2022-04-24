@@ -65,4 +65,11 @@ Feature: Robot
 					| 2      | 5       | 3       | "false" |
 					| 3      | 5       | 5       | "true"  |
 					
+			@tag6
+			  Scenario: the board knows that the robot moved
+			    Given a robot with a position with coordinates (3, 3) and orientation 0
+			    When the robot moves
+			    Then the old tile is unoccupied 
+			    And new tile is occupied
+					
 					
