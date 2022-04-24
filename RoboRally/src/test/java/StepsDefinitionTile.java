@@ -73,20 +73,13 @@ public class StepsDefinitionTile {
 	@When("the robot interacts with the teleporter tile at position {int} and {int}")
 	public void the_robot_interacts_with_the_teleporter_tile_at_position_and(int x1, int y1) {
 //		Game game = Game.getInstance();
-		game.getBoard().printBoard();
-		System.out.println(robot.getPosition().getX());
-		System.out.println(robot.getPosition().getY());
-		System.out.println(game.getBoard().getTile(x1, y1));
-		System.out.println(game.getBoard().getTile(x1, y1).getLabel());
 	    game.getBoard().getTile(x1,y1).interact(robot);
-		System.out.println(robot.getPosition().getX());
-		System.out.println(robot.getPosition().getY());
 
 	}
 	@Then("the robot will teleport to the other teleporter at position {int} and {int}")
 	public void the_robot_will_teleport_to_the_other_teleporter_at_position_and(int x2, int y2) {
 		
-		System.out.println(game.getBoard().getTile(x2, y2).getLabel());
+
 		assertEquals(y2,robot.getPosition().getX());
 		assertEquals(x2,robot.getPosition().getY());
 //>>>>>>> Stashed changes

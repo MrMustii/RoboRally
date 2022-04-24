@@ -101,7 +101,7 @@ public class App extends Application {
 		confirmButton.setOnAction(value ->  {
 		     
 			System.out.println(playerNames); //does not work
-			game = new Game(nbOfPlayers);
+			//game = new Game(nbOfPlayers);
 			primaryStage.setScene(createGameScene(primaryStage));
 		        
 		    });

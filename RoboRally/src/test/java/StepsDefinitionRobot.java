@@ -3,6 +3,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import dtu.roboRally.Board;
+import dtu.roboRally.Game;
 import dtu.roboRally.Position;
 import dtu.roboRally.Robot;
 import io.cucumber.java.en.Given;
@@ -82,4 +83,17 @@ public class StepsDefinitionRobot {
 	public void the_robot_respawns() {
 	    robot.respawn();
 	}
+	@When("the robot moves")
+	public void the_robot_moves() {
+	    robot.move(Game.getInstance().getBoard(), new Position(3, 4, 0));
+	}
+	@Then("the old tile is unoccupied")
+	public void the_old_tile_is_unoccupied() {
+	    assertEquals(false, Game.getInstance().getBoard().getTile(3, 3).getOccupied());
+	}
+	@Then("new tile is occupied")
+	public void new_tile_is_occupied() {
+		assertEquals(true, Game.getInstance().getBoard().getTile(3, 4).getOccupied());
+	}
 }
+	

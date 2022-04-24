@@ -16,6 +16,7 @@ public class Robot {
 		this.lives = startingLives;
 		isDead=false;
 		shielded=false;
+		Game.getInstance().getBoard().getTile(startx, starty).setOccupied(true);
 	}
 	
 	public boolean move(Board board, Position newPosition) {
@@ -23,6 +24,9 @@ public class Robot {
 		int deltaX = newPosition.getX() - position.getX();
 		int deltaY = newPosition.getY() - position.getY();
 		int deltaO = newPosition.getOrientation() - position.getOrientation();
+		
+		board.getTile(position.getX(), position.getY()).setOccupied(false);
+		board.getTile(position.getX(), position.getY()).setOccupidRobot(null);
 		
 		// to set movement direction
 		int n = 1;
@@ -64,6 +68,8 @@ public class Robot {
 			}
 		
 			position = newPosition;
+			board.getTile(position.getX(), position.getY()).setOccupied(true);
+			board.getTile(position.getX(), position.getY()).setOccupidRobot(this);
 			return true;
 		}	
 	}

@@ -8,7 +8,8 @@ public class Tile {
 	private int damage;
 	private String label; //TODO: delete when GUI is implemented
 	Board board;
-	
+	private boolean occupied;
+	private Robot occupidRobot;
 
 	
 	//Tile constructor to assign attributes to subclass tiles
@@ -53,7 +54,20 @@ public class Tile {
 	public String toString() {
 		return label;
 	}
+	public boolean getOccupied() {
+		return occupied;
+	}
+	public void setOccupied(boolean bool) {
+		occupied=bool;
+	}
 
+	public Robot getOccupidRobot() {
+		return occupidRobot;
+	}
+
+	public void setOccupidRobot(Robot occupidRobot) {
+		this.occupidRobot = occupidRobot;
+	}
 }
 
 // Tile subclasses that will make up the board 'matrix'
@@ -126,6 +140,9 @@ class EndPosition extends Tile {
 class Repair extends Tile {
 	public Repair() {
 		super("+ ",-3);	
+	}
+	public boolean canMoveOut(int robotOrientation) {
+		return false;
 	}
 }
 

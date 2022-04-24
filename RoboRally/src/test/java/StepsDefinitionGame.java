@@ -9,6 +9,7 @@ import dtu.roboRally.Player;
 import dtu.roboRally.Position;
 import dtu.roboRally.cardTypes.MoveBackwardCard;
 import dtu.roboRally.cardTypes.MoveForwardOneCard;
+import dtu.roboRally.cardTypes.MoveForwardTwoCard;
 import dtu.roboRally.cardTypes.OilSPillCard;
 import dtu.roboRally.cardTypes.RotateClockwiseCard;
 import dtu.roboRally.cardTypes.ShieldCard;
