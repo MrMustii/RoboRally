@@ -35,17 +35,21 @@ public class Game {
 	}
 	
 	public void phase1() {
-		for(Player p:instance.getPlayers()) {
-			p.drawHand();
-			p.showHand();
-			p.pickCardsInPlay();
-		}
 		//respawn at the start of phase 2
 		for(Player p:instance.getPlayers()) {
 			if (p.getRobot().isDead()==true){
 				p.getRobot().respawn();
 				}
 		}
+		for (Player p:instance.getPlayers()) {
+			p.getRobot().setShielded(false);
+		}
+		for(Player p:instance.getPlayers()) {
+			p.drawHand();
+			p.showHand();
+			p.pickCardsInPlay();
+		}
+
 	}
 	
 	public void phase2() {		

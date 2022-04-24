@@ -4,13 +4,14 @@ package dtu.roboRally.cardTypes;
 import dtu.roboRally.Card;
 import dtu.roboRally.Game;
 import dtu.roboRally.Position;
+import dtu.roboRally.Robot;
 public class OilSPillCard extends Card{
 		public OilSPillCard() {
 		super(3);
 	}
 
 		@Override
-		public Position useCard(Position position) {
+		public Position useCard(Robot robot, Position position) {
 		
 			
 			Position oldPosition=new Position(position.getX(),position.getY(),position.getOrientation());

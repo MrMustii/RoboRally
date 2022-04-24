@@ -44,7 +44,7 @@ Feature: setting up the game
 	 
 	  @tag6
  		Scenario: Player uses an oil spill card on a robot
-  	And a clear board
+  	Given a clear board
   	And a player with robot with position (1, 1, <start_o>)
   	When the player uses an oil spill card
   	Then then there is an oil spill at <x>, <y>
@@ -54,4 +54,10 @@ Feature: setting up the game
   	| 1       | 0 | 1 |
   	| 2       | 1 | 2 |
   	| 3       | 2 | 1 |
+  	
+   @tag7
+   Scenario: players unshielded
+    Given players with shielded robots
+    When phase 1 starts
+    Then the robot are unshielded
 	 

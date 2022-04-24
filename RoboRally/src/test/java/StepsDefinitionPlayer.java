@@ -14,6 +14,7 @@ import dtu.roboRally.cardTypes.MoveForwardTwoCard;
 import dtu.roboRally.cardTypes.OilSPillCard;
 import dtu.roboRally.cardTypes.RotateClockwiseCard;
 import dtu.roboRally.cardTypes.RotateCounterClockwiseCard;
+import dtu.roboRally.cardTypes.ShieldCard;
 import dtu.roboRally.cardTypes.UTurnCard;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -117,6 +118,7 @@ public class StepsDefinitionPlayer {
 	@When("the player uses a {string}")
 	public void the_player_uses_a(String string) {
 //		System.out.println((player.getRobot()));
+		game.getInstance().getBoard().emptyTheBoard();
 	    switch (string) {
 	    case "forward 1": player.use(new MoveForwardOneCard());break;
 	    case "forward 2": player.use(new MoveForwardTwoCard());break;
@@ -164,6 +166,21 @@ public class StepsDefinitionPlayer {
 	public void the_robot_has_a_position_of_the_starting_tile() {
 		
 	    assertEquals("S ", game.getBoard().getTile(player.getRobot().getPosition().getX(), player.getRobot().getPosition().getY()).getLabel());
+	}
+	//////////////
+	@When("the player plays the shield card")
+	public void the_player_plays_the_shield_card() {
+	    player.use(new ShieldCard());
+	}
+	@Then("the robot is shielded")
+	public void the_robot_is_shielded() {
+	assertEquals(true, player.getRobot().getShielded());    
+	}
+	@Then("it does not take damage")
+	public void it_does_not_take_damage() {
+		int lives=player.getRobot().getLives();
+	    player.getRobot().damage(3);;
+	    assertEquals(lives, player.getRobot().getLives());
 	}
 	
 }

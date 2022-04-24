@@ -2,13 +2,14 @@ package dtu.roboRally.cardTypes;
 
 import dtu.roboRally.Card;
 import dtu.roboRally.Position;
+import dtu.roboRally.Robot;
 
 public class MoveBackwardCard extends Card {
 	public MoveBackwardCard() {
 		super(3);
 	}
 	
-	public Position useCard(Position position) {
+	public Position useCard(Robot robot, Position position) {
 		switch (position.getOrientation()) {
 		case 0: return new Position(position.getX(), position.getY()-1, position.getOrientation());
 		case 1: return new Position(position.getX()-1, position.getY(), position.getOrientation());
