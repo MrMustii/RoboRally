@@ -1,5 +1,7 @@
 package dtu.roboRally;
 
+import java.util.Random;
+
 public class Tile {
 
 	//initialize class attributes
@@ -78,6 +80,28 @@ class Radiation extends Tile {
 	}
 }
 
+//changes the orientation of the robot
+class Oil extends Tile {
+	public Oil() {
+		super("O ",0);
+
+	}
+
+public void interact(Robot robot) {
+	Random rnd = new Random();
+
+	int oldOri = robot.getPosition().getOrientation();
+	
+	
+	int newOri = rnd.nextInt(3);
+	
+	while (oldOri == newOri) {
+		newOri = rnd.nextInt(3);
+	} 
+	robot.getPosition().setOrientation(newOri);
+	
+	}
+}
 class StartPosition extends Tile {
 	//additional input parameters can be added to this constructor to specify fixed starting position I believe
 	public StartPosition() {

@@ -1,4 +1,5 @@
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import dtu.roboRally.*;
 import io.cucumber.java.en.*;
@@ -21,5 +22,15 @@ public class StepsDefinitionTile {
 	@Then("the robot takes damage and has {int} left")
 	public void the_robot_takes_damage_and_has_left(int int1) {
 	    assertEquals(int1, robot.getLives());
+	}
+	@When("the robot interacts with the oil tile")
+	public void the_robot_interacts_with_the_oil_tile() {
+	    Board b=new Board(12,12,3);
+	    b.setOilTile(2, 1);
+		b.getTile(2, 1).interact(robot);
+	}
+	@Then("the oriantation changes")
+	public void the_oriantation_changes() {
+	    assertNotEquals(1, robot.getPosition().getOrientation());
 	}
 }

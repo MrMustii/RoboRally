@@ -1,4 +1,7 @@
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+
+import java.util.ArrayList;
 
 import dtu.roboRally.Card;
 import dtu.roboRally.Game;
@@ -6,6 +9,7 @@ import dtu.roboRally.Player;
 import dtu.roboRally.Position;
 import dtu.roboRally.cardTypes.MoveBackwardCard;
 import dtu.roboRally.cardTypes.MoveForwardOneCard;
+import dtu.roboRally.cardTypes.OilSPillCard;
 import dtu.roboRally.cardTypes.RotateClockwiseCard;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -64,14 +68,6 @@ public class StepsDefinitionGame {
 	    }
 
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 	@Given("they have robots on the board")
 	public void they_have_robots_on_the_board() {
 		for(int i=0;i<newgame.numberOfPlayers();i++) {
@@ -90,15 +86,6 @@ public class StepsDefinitionGame {
 		}
 	}
 	/////////
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	@Given("they have a dead robot")
 	public void they_have_a_dead_robot() {
 		
@@ -116,6 +103,52 @@ public class StepsDefinitionGame {
 	    int j=(newgame.getPlayers().get(0).getRobot().getPosition()).getOrientation();
 	    assertEquals(0, j);
 	}
+/////
+	@Given("robot is near end posistion")
+	public void robot_is_near_end_posistion() {
+	    ArrayList<Position> endPosition=new ArrayList<>();
+		//finds all end position
+	    for (int rows=0;rows<newgame.getBoard().getRows();rows++) {
+	    	for (int cols=0;cols<newgame.getBoard().getCols();cols++) {
+	    		if(newgame.getBoard().getTile(cols, rows).getLabel()=="E ") {
+	    		endPosition.add(new Position(cols,rows,1));
+	    		}
+	    	}
+	    }
+	    int x= endPosition.get(0).getX();
+		int y= endPosition.get(0).getY();
+		int o= endPosition.get(0).getOrientation();
+		newgame.getPlayers().get(0).getRobot().setPosition(new Position(x-1, y, 1));
+	}
+	@When("robot moves to a end position")
+	public void robot_moves_to_a_end_position() {
+		newgame.getPlayers().get(0).use(new MoveForwardOneCard());
+		int x=newgame.getPlayers().get(0).getRobot().getPosition().getX();
+		int y=newgame.getPlayers().get(0).getRobot().getPosition().getY();
+		assertEquals("E ", newgame.getBoard().getTile(x, y).getLabel());
+		newgame.hasWon(0);
+	}
+	@Then("player wins")
+	public void player_wins() {
+	    assertNotEquals(null, newgame.getWinner());
+	}
+	/////
 	
-	
+	@Given("a clear board")
+	public void a_clear_board() {
+	    newgame.getBoard().emptyTheBoard();
+	}
+	@Given("a player with robot with position \\({int}, {int}, {int})")
+	public void a_player_with_robot_with_position(int x, int y, int o) {
+	    newgame.getPlayers().get(0).setRobot(o, x, y);
+	}
+	@When("the player uses an oil spill card")
+	public void the_player_uses_an_oil_spill_card() {
+		 newgame.getPlayers().get(0).use(new OilSPillCard());
+
+	}
+	@Then("then there is an oil spill at {int}, {int}")
+	public void then_there_is_an_oil_spill_at(int x, int y) {
+	    assertEquals("O ", newgame.getBoard().getTile(x, y).getLabel());
+	}
 }

@@ -36,19 +36,22 @@ Feature: setting up the game
     When robot has to move accordingly
     Then the living robot have new positions
     
-#	 @tag5
-#   Scenario: player has won
-#    Given a player has a robot 
-#    When robot moves to a end position
-#    Then player wins
-
-
+	 @tag5
+   Scenario: player has won
+    Given robot is near end posistion 
+    When robot moves to a end position
+    Then player wins
 	 
-	 #to do stories
-	 ##getBoard
-
-	 #to do methods
-	 ##set board
-	 ##has won
-	 
+	  @tag6
+ 		Scenario: Player uses an oil spill card on a robot
+  	And a clear board
+  	And a player with robot with position (1, 1, <start_o>)
+  	When the player uses an oil spill card
+  	Then then there is an oil spill at <x>, <y>
+  	Examples:
+  	| start_o | x | y |
+  	| 0       | 1 | 0 |
+  	| 1       | 0 | 1 |
+  	| 2       | 1 | 2 |
+  	| 3       | 2 | 1 |
 	 

@@ -7,10 +7,11 @@ public class Game {
 
 	private ArrayList<Player> players = new ArrayList<>();
 	private static Game instance;
-	private final Board board;
+	private Board board;
+	private Player winner;
 	
-	public Game(int numberOfPlayers) { // Made temporarily public to make GUI
-		board = new Board(9, 14, numberOfPlayers); //maybe change size
+	private Game(int numberOfPlayers) {
+		board = new Board(12, 12, numberOfPlayers); //maybe change size
 		for(int i =0;i<numberOfPlayers;i++) {
 			players.add(new Player());
 		}
@@ -19,6 +20,7 @@ public class Game {
 	public static Game getInstance(int nbPlayers) {
 		if(instance==null) {
 			instance = new Game(nbPlayers);
+			instance.board=new Board(10, 10, nbPlayers);
 		}
 		//setNumberPlayers(nbPlayers);
 		return instance;
@@ -80,17 +82,23 @@ public class Game {
 				priorities.set(indexMaxPriority, 0);
 				}
 				//check if player won
-				Position positionRobot = currPlayer.getRobot().getPosition();
-				if(board.getTile(positionRobot.getX(), positionRobot.getY()) instanceof EndPosition) {
-					instance.hasWon(indexMaxPriority);
-				}
+				instance.hasWon(indexMaxPriority);
+
 			}
 		}
 	}
 	
 	public void hasWon(int playerIndex) {
+		Position positionRobot = instance.getPlayers().get(playerIndex).getRobot().getPosition();
+		if(board.getTile(positionRobot.getX(), positionRobot.getY()) instanceof EndPosition) {
 		System.out.println("Congratulations! Player " + playerIndex + " won the game!");
-		System.exit(0);
+		
+		winner = players.get(playerIndex);
+		
+		//players.clear();
+		//players.add(winner);
+		
+		}
 	}
 	
 	public int numberOfPlayers() {
@@ -105,9 +113,10 @@ public class Game {
 	public Board getBoard() {
 		return board;
 	}
-	
-	public void Clearb() {
-		this.board.emptyTheBoard();
-		board.printBoard();
+	public void setBoard() {
+		this.board=new Board(12,12,instance.numberOfPlayers());
+	}
+	public Player getWinner() {
+		return winner;
 	}
 }

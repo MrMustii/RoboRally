@@ -19,4 +19,8 @@ Feature: Tiles
       |"+ "							|  	-3		|		8			|
       |"W0"							|		0			|		5			|
       
-
+  @tag2
+  Scenario Outline: oil spill rotation
+    Given the robot has 5 lives and moves to a tile
+    When the robot interacts with the oil tile
+    Then the oriantation changes

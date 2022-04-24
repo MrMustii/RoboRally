@@ -1,12 +1,17 @@
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
+import java.util.ArrayList;
+
 import dtu.roboRally.Card;
+import dtu.roboRally.Game;
 import dtu.roboRally.Player;
+import dtu.roboRally.Position;
 import dtu.roboRally.cardTypes.MoveBackwardCard;
 import dtu.roboRally.cardTypes.MoveForwardOneCard;
 import dtu.roboRally.cardTypes.MoveForwardThreeCard;
 import dtu.roboRally.cardTypes.MoveForwardTwoCard;
+import dtu.roboRally.cardTypes.OilSPillCard;
 import dtu.roboRally.cardTypes.RotateClockwiseCard;
 import dtu.roboRally.cardTypes.RotateCounterClockwiseCard;
 import dtu.roboRally.cardTypes.UTurnCard;
@@ -90,6 +95,7 @@ public class StepsDefinitionPlayer {
 	}
 	@Then("the robot has a position")
 	public void the_robot_has_a_position() {
+		
 		int o=player.getRobot().getPosition().getOrientation();
 		int x=player.getRobot().getPosition().getX();
 		int y=player.getRobot().getPosition().getY();
@@ -127,6 +133,39 @@ public class StepsDefinitionPlayer {
 	    assertEquals(x, player.getRobot().getPosition().getX());
 	    assertEquals(y, player.getRobot().getPosition().getY());
 	}
+	//player initialize 
+	Game game=Game.getInstance(3);
+	@Given("there us a board")
+	public void there_us_a_board() {
+	    Game game=Game.getInstance(3);
+	    game.setBoard();
+	}
+	@When("a player initialize on the starting tile")
+	public void a_player_initialize_on_the_starting_tile() {
+		//get the starting positions
+	    ArrayList<Position> startingPosition=new ArrayList<>();
+		for (int rows=0;rows<game.getBoard().getRows();rows++) {
+	    	for (int cols=0;cols<game.getBoard().getCols();cols++) {
+	    		if(game.getBoard().getTile(cols, rows).getLabel()=="S ") {
+	    		startingPosition.add(new Position(cols,rows,1));
+	    		}
+	    	}
+	    }
+		//initialize
+		int x= startingPosition.get(0).getX();
+		int y= startingPosition.get(0).getY();
+		int o= startingPosition.get(0).getOrientation();
+		player.initializeRobot(o, x, y);
+		
+
+
+	}
+	@Then("the robot has a position of the starting tile")
+	public void the_robot_has_a_position_of_the_starting_tile() {
+		
+	    assertEquals("S ", game.getBoard().getTile(player.getRobot().getPosition().getX(), player.getRobot().getPosition().getY()).getLabel());
+	}
+	
 }
 
 
