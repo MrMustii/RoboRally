@@ -9,7 +9,7 @@ public class Game {
 	private static Game instance;
 	private final Board board;
 	
-	private Game(int numberOfPlayers) {
+	public Game(int numberOfPlayers) { // Made temporarily public to make GUI
 		board = new Board(9, 14, numberOfPlayers); //maybe change size
 		for(int i =0;i<numberOfPlayers;i++) {
 			players.add(new Player());

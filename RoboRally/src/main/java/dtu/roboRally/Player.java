@@ -35,6 +35,10 @@ public class Player {
 //		myTurn = false;
 	}
 	
+//	public void addCardInPlay(Card card) {
+//		cardsInPlay.add(card);
+//	}
+	
 	
 	public void use(Card card) {
 		Board board = Game.getInstance().getBoard();
