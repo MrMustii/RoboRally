@@ -1,4 +1,4 @@
-package dtu.roboRally.GUI;
+package dtu.roboRally.XGUI;
 
 import java.awt.Color;
 import java.awt.Component;

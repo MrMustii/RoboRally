@@ -14,8 +14,8 @@ public class Robot {
 		startPosition = new Position(startx, starty, o);
 		setPosition(startPosition.clone());
 		this.lives = startingLives;
-		isDead=false;
-		shielded=false;
+		isDead = false;
+		shielded = false;
 		Game.getInstance().getBoard().getTile(startx, starty).setOccupied(true);
 	}
 	
@@ -75,18 +75,25 @@ public class Robot {
 	}
 	
 	public void damage(int damage){
-		if (shielded==false) {
+		if (!shielded) {
 			lives -= damage;
-			if(lives<=0){
-				isDead=true;
+			
+			if(lives <= 0){
+				isDead = true;
 			}
-		}	
+		} else {
+			shielded = false;
+		}
 	}
 	
 	public void respawn() {
 		setPosition(startPosition.clone());
 		setLives(startingLives);
 		isDead=false;
+	}
+	
+	public void resurrect() {
+		isDead = false;
 	}
 
 	public void setLives(int lives){

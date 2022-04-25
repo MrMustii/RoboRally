@@ -11,7 +11,7 @@ public class Game {
 	private Player winner;
 	
 	private Game(int numberOfPlayers) {
-		board = new Board(12, 12, numberOfPlayers); //maybe change size
+		board = new Board(9, 12, numberOfPlayers); //maybe change size
 		for(int i = 0; i<numberOfPlayers; i++) {
 			players.add(new Player());
 		}
@@ -40,11 +40,11 @@ public class Game {
 			p.pickCardsInPlay();
 		}
 		//respawn at the start of phase 2
-		for(Player p:instance.getPlayers()) {
-			if (p.getRobot().isDead()==true){
-				p.getRobot().respawn();
-				}
-		}
+//		for(Player p:instance.getPlayers()) {
+//			if (p.getRobot().isDead()){
+//				p.getRobot().respawn();
+//				}
+//		}
 	}
 	
 	public void phase2() {		
@@ -73,10 +73,12 @@ public class Game {
 				}
 				// use of card (robot behaves accordingly)
 				Player currPlayer = instance.getPlayers().get(indexMaxPriority);
-				if (currPlayer.getRobot().isDead()==true) {
-					currPlayer.getCardsInPlay().remove(0);
-					priorities.set(indexMaxPriority, 0);
-				}else {
+				
+				if (currPlayer.getRobot().isDead()) {
+					currPlayer.getCardsInPlay().clear();
+//					priorities.set(indexMaxPriority, 0);
+					currPlayer.getRobot().resurrect();
+				} else {
 				currPlayer.use(currPlayer.getCardsInPlay().remove(0));
 				priorities.set(indexMaxPriority, 0);
 				}

@@ -25,18 +25,16 @@ public class SetPlayerNamesView {
 		
 		VBox playerNamesBox = new VBox();
         playerNamesBox.setSpacing(50);
-        
-        ArrayList<String> playerNames = new ArrayList();
-        
+                
         for(int i = 0; i<Game.getInstance().getPlayers().size(); i++) {
         	TextField t = new TextField();
         	t.setText("Player" + String.valueOf(i+1));
-        	playerNames.add(t.getText());
+        	controller.addPlayerName(i, t.getText());
         	
         	int playerIndex = i;
         	t.textProperty().addListener((observable, oldValue, newValue) -> {
-        		playerNames.remove(playerIndex);
-        		playerNames.add(playerIndex, newValue);
+        		controller.removePlayerName(playerIndex);
+        		controller.addPlayerName(playerIndex, newValue);
         	});
         	
         	playerNamesBox.getChildren().add(new HBox(t));
@@ -47,7 +45,7 @@ public class SetPlayerNamesView {
         confirmButton.setFont(Font.font("Courier New", FontWeight.BOLD, 27));
 		confirmButton.setOnAction(value ->  {
 			
-			controller.setGameLayout(playerNames);
+			controller.pickCards();
 		        
 		    });
 		

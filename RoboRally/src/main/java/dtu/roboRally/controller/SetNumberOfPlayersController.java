@@ -7,7 +7,6 @@ import javafx.stage.Stage;
 public class SetNumberOfPlayersController {
 	
 	private RoboRallyController application;
-	private Game game;
 	private SetNumberOfPlayersView view;
 	private Stage primaryStage;
 	
@@ -18,7 +17,7 @@ public class SetNumberOfPlayersController {
 	}
 	
 	public void setPlayerNames(int nbOfPlayers) {
-		game.getInstance(nbOfPlayers);
+		application.instantiateGame(nbOfPlayers);
 		application.setPlayerNames(primaryStage);
 	}
 	
