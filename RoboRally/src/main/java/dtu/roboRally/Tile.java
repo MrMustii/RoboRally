@@ -197,54 +197,80 @@ class Teleporter extends Tile {
 			    		}
 			    	}
 			    }
-			}
-//				for (Tile[] row : board) {
-//					for (Tile col : row) {
-//						if (label == "T2") {
-//							robot.setPosition(new Position(i, j, position.getOrientation()));
-//							
-//						}
-//					j++;
-//					}
-//				j = 0;
-//				i++;
-//				}
-				
-			
-			else { //if label == "T2"
-				
-				//parse for T1
+			}			
+			else {
 				for (int rows=0;rows<game.getBoard().getRows();rows++) {
 			    	for (int cols=0;cols<game.getBoard().getCols();cols++) {
 			    		if(game.getBoard().getTile(cols, rows).getLabel() == "T1") {
 			    			robot.setPosition(new Position(cols, rows, position.getOrientation()));
-//			    		endPosition.add(new Position(cols,rows,1));
 			    		}
 			    	}
 			    }
 			}
-//				for (Tile[] row : board) {
-//					for (Tile col : row) {
-//						if (label == "T1") {
-//								robot.setPosition(new Position(i, j, position.getOrientation()));
-//						}
-//					j++;
-//					}
-//				j = 0;	
-//				i++;
-//				}
-			}
 		}
-		
-		
 	}
 	
+}
 
-// TODO: implement laser as an advanced obstacle
-//class Laser extends Tile{
-//	public Laser() {
-//		super("L",2);
-//	}
-//}
+class ConveyorBelt extends Tile {
+	
+	int orientation;
+	public ConveyorBelt(int orientation) {
+		super("C"+orientation,0);
+		this.orientation = orientation;
+	}
+	
+	public void interact(Robot robot) {
+		Position position = robot.getPosition();
+		Game game = Game.getInstance();
+		int x,y,roboOrientation;
+		int xnew,ynew;
+		x = position.getX();
+		y = position.getY();
+		roboOrientation = position.getOrientation();
+		
+		if(orientation == 0) {
+			ynew = y-1;
+			xnew = x;
+		}
+		else if(orientation == 1) {
+			xnew = x + 1;
+			ynew = y;
+		}
+		else if(orientation == 2) {
+			ynew = y+1;
+			xnew = x;
+		}
+		else {
+			xnew = x-1;
+			ynew = y;
+		}
+		Position newPos = new Position(xnew, ynew, roboOrientation);
+		robot.setPosition(newPos);
+		if (game.getBoard().getTile(xnew, ynew) instanceof ConveyorBelt) {
+			interact(robot);
+		}
+		else {
+			super.interact(robot);
+		}
+		
+	}
+}
+class LaserShooter extends Tile{
+	int orientation;
+	public LaserShooter(int orientation) {
+		super("L" + orientation, 0);
+		this.orientation = orientation;
+	}
+}
+class LaserBeam extends Tile{
+	int orientation;
+	public LaserBeam(int orientation) {
+		super("B" + orientation, 1);
+		this.orientation = orientation;
+	}
+}
+
+
 
 
