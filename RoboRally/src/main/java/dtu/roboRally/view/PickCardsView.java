@@ -8,6 +8,8 @@ import dtu.roboRally.Board;
 import dtu.roboRally.Card;
 import dtu.roboRally.Game;
 import dtu.roboRally.controller.PickCardsController;
+import dtu.roboRally.utils.BoardTilePane;
+import dtu.roboRally.utils.PlayerStatusPanel;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -40,9 +42,9 @@ public class PickCardsView {
 		layout.setHgap(20);
 		layout.setPadding(new Insets(40, 0, 0, 40));	
 		
-		addPlayerStatusColumn();
+		layout.add(new PlayerStatusPanel(controller.getPlayerNames()), 0, 0, 1, 3);
 		
-		addBoardGUI();
+		layout.add(new BoardTilePane(), 1, 0, 1, 1);
 		
 		addProgressBar();
 		
@@ -51,50 +53,6 @@ public class PickCardsView {
 		addConfirmCardsButton();
 		
 		return new Scene(layout);
-	}
-	
-	public void addPlayerStatusColumn() {
-		
-		/*VBox playersStatus = new VBox();
-		playersStatus.setSpacing(60);
-		for(String playerName : controller.getPlayerNames()) {// TODO: add player lives to the status
-			Label name = new Label(playerName);
-			name.setFont(Font.font("Courier New", FontWeight.BOLD, 28));
-			playersStatus.getChildren().add(name);
-		}
-		 */
-		//layout.add(playersStatus, 0, 0, 1, 3);
-		layout.add(new PlayerStatusPanel(controller.getPlayerNames()), 0, 0, 1, 3);
-	}
-	
-	public void addBoardGUI() {
-		
-		Board board = Game.getInstance().getBoard();
-		
-		int rows = board.getRows();
-		int cols = board.getCols();
-		
-		TilePane boardGUI = new TilePane();
-		boardGUI.setPrefColumns(cols);
-		boardGUI.setPrefRows(rows);
-		
-		for (int j = 0; j < rows; j++) {
-			for (int i = 0; i < cols; i++) {
-				FileInputStream tiles = null;
-				try {
-					tiles = new FileInputStream("src/main/resources/tileImages/"+board.getTile(i, j).getLabel()+".png");
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
-				}
-				Image tileImage = new Image(tiles);
-				ImageView tileImageView = new ImageView(tileImage);
-				tileImageView.setFitHeight(50);
-				tileImageView.setFitWidth(50);
-				boardGUI.getChildren().add(tileImageView);
-			}
-		}
-		
-		layout.add(boardGUI, 1, 0, 1, 1);
 	}
 	
 	public void addProgressBar() {
@@ -115,7 +73,6 @@ public class PickCardsView {
 		handGUI.setVgap(45);
 		
 		cardsPlayed.setSpacing(24);
-		System.out.println(hand.size());
 		for(int i = 0; i<hand.size(); i++) {
 			
 			String cardName = hand.get(i).getClass().getSimpleName();

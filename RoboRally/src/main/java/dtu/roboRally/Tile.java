@@ -141,9 +141,6 @@ class Repair extends Tile {
 	public Repair() {
 		super("+ ",-3);	
 	}
-	public boolean canMoveOut(int robotOrientation) {
-		return false;
-	}
 }
 
 

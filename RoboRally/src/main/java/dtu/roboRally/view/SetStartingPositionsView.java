@@ -1,17 +1,18 @@
 package dtu.roboRally.view;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 import dtu.roboRally.Board;
 import dtu.roboRally.Game;
 import dtu.roboRally.controller.SetStartingPositionsController;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.TilePane;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 
 public class SetStartingPositionsView {
 
@@ -28,7 +29,8 @@ public class SetStartingPositionsView {
     }
 
     public Scene initGUI(){
-
+    	
+    	layout.setPadding(new Insets(40, 0, 0, 40));
         addLabel();
         addBoardGUI();
 
@@ -37,7 +39,7 @@ public class SetStartingPositionsView {
 
     public void addLabel(){
         Label playerID = new Label(playerName + ", please pick a starting position by clicking on it");
-        layout.add(playerID,0,0);
+        layout.add(playerID, 0, 1);
     }
 
     public void addBoardGUI() {
@@ -55,7 +57,7 @@ public class SetStartingPositionsView {
             for (int i = 0; i < cols; i++) {
                 FileInputStream tiles = null;
                 try {
-                    tiles = new FileInputStream("resources/tileImages/"+board.getTile(i, j).getLabel()+".png");
+                    tiles = new FileInputStream("src/main/resources/tileImages/"+board.getTile(i, j).getLabel()+".png");
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
@@ -78,7 +80,7 @@ public class SetStartingPositionsView {
             }
         }
 
-        layout.add(boardGUI, 1, 0, 1, 1);
+        layout.add(boardGUI, 0, 0, 1, 1);
     }
 
 }

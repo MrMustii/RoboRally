@@ -1,4 +1,4 @@
-package dtu.roboRally.view;
+package dtu.roboRally.utils;
 
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;

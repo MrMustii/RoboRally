@@ -186,9 +186,6 @@ public class Board {
 		}
 	}
 	
-
-
-
 	public Tile getTile(int x, int y) {
 		return board[y][x];
 	}

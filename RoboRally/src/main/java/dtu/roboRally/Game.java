@@ -3,23 +3,27 @@ package dtu.roboRally;
 
 import java.util.ArrayList;
 
+import dtu.roboRally.controller.RoboRallyController;
+
 public class Game {
 
 	private ArrayList<Player> players = new ArrayList<>();
 	private static Game instance;
 	private Board board;
 	private Player winner;
+	private RoboRallyController observer;
 	
-	private Game(int numberOfPlayers) {
+	private Game(RoboRallyController observer, int numberOfPlayers) {
 		board = new Board(9, 12, numberOfPlayers); //maybe change size
 		for(int i = 0; i<numberOfPlayers; i++) {
 			players.add(new Player());
 		}
+		this.observer = observer;
 	}
 	
-	public static Game getInstance(int nbPlayers) {
+	public static Game getInstance(RoboRallyController observer, int nbPlayers) {
 		if(instance == null) {
-			instance = new Game(nbPlayers);
+			instance = new Game(observer, nbPlayers);
 		}
 		//setNumberPlayers(nbPlayers);
 		return instance;
@@ -80,6 +84,7 @@ public class Game {
 					currPlayer.getRobot().resurrect();
 				} else {
 				currPlayer.use(currPlayer.getCardsInPlay().remove(0));
+				observer.updateMovingRobotsView();
 				priorities.set(indexMaxPriority, 0);
 				}
 				//check if player won
