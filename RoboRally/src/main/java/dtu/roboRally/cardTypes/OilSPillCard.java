@@ -12,23 +12,23 @@ public class OilSPillCard extends Card{
 
 		@Override
 		public Position useCard(Robot robot, Position position) {
-		
-			
-			Position oldPosition=new Position(position.getX(),position.getY(),position.getOrientation());
+
 			int x=position.getX();
 			int y=position.getY();
+			//Position oldPosition=new Position(x,y,position.getOrientation());
 
-			switch (position.getOrientation()) {
+			/*switch (position.getOrientation()) {
 			case 0: y-=1;break;
 			case 1: x-=1;break;
 			case 2: y+=1;break;
 			case 3: x+=1;break;
 			}
+			 */
 
-			if (Game.getInstance().getBoard().getTile(x, y).getLabel()=="0 ") {
+			if (Game.getInstance().getBoard().getTile(x, y).getLabel().equals("0 ")) {
 				Game.getInstance().getBoard().setOilTile(x, y);
 				}
-			return oldPosition;
+			return position;
 		}
 		
 }
