@@ -36,6 +36,7 @@ public class Board {
 		loadStartPosition(numberOfPlayers);
 		loadEndPosition();
 		loadTeleporter();
+		loadLasers();
 	}
 	
 	// Method for robot.move testing
@@ -185,11 +186,7 @@ public class Board {
 		}
 	}
 	
-	//getter for board
-//	public Tile[][] getBoard() {
-//		return board;
-//	}
-//	
+
 
 
 	public Tile getTile(int x, int y) {
@@ -220,5 +217,32 @@ public class Board {
 	}
 	public void setAcidTile (int x, int y) {
 		board[y][x] = new Acid();
+	}
+	
+
+	public void loadLasers() {
+		int x,y;
+		do {
+			x = (int) ((int) 3+ Math.floor(Math.random()*(cols-6)));
+			y = (int) Math.floor(Math.random()*(rows-4));
+		} while((board[y][x] instanceof Teleporter) || board[y+1][x] instanceof Teleporter ||board[y+2][x] instanceof Teleporter 
+				||board[y+3][x] instanceof Teleporter || board[y+4][x] instanceof Teleporter);
+		board[y][x] = new LaserShooter(2);
+		board[y+1][x] = new LaserBeam();
+		board[y+2][x] = new LaserBeam();
+		board[y+3][x] = new LaserBeam();
+		board[y+4][x] = new LaserShooter(0);
+		do {
+			x = (int) ((int) 3+ Math.floor(Math.random()*(cols-6)));
+			y = (int) Math.floor(Math.random()*(rows-4));
+		} while((board[y][x] instanceof Teleporter) || board[y+1][x] instanceof Teleporter ||board[y+2][x] instanceof Teleporter 
+				||board[y+3][x] instanceof Teleporter || board[y+4][x] instanceof Teleporter ||
+				board[y][x] instanceof LaserShooter || board[y+1][x] instanceof LaserShooter || board[y+2][x] instanceof LaserShooter ||
+				board[y+3][x] instanceof LaserShooter || board[y][x] instanceof LaserShooter );
+		board[y][x] = new LaserShooter(2);
+		board[y+1][x] = new LaserBeam();
+		board[y+2][x] = new LaserBeam();
+		board[y+3][x] = new LaserBeam();
+		board[y+4][x] = new LaserShooter(0);
 	}
 }

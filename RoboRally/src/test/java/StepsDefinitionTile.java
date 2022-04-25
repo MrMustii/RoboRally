@@ -80,6 +80,32 @@ public class StepsDefinitionTile {
 
 	}
 	
+	@Given("two new teleporter tiles at x- and y positions {int} and {int}, and {int} and {int}")
+	public void two_new_teleporter_tiles_at_x_and_y_positions_and_and_and(int x3, int y3, int x4, int y4) {
+		robot.setPosition(new Position(2,2,0));
+		x3 = 2;
+		y3 = 2;
+		game.getBoard().setTeleporter(x3, y3);
+		game.getBoard().getTile(x3, y3).setLabel("T2");
+		
+		
+		x4 = 5;
+		y4 = 5;
+		game.getBoard().setTeleporter(x4, y4);
+		game.getBoard().getTile(x4, y4).setLabel("T1");
+	}
+	@When("the robot interacts with the new teleporter tile at position {int} and {int}")
+	public void the_robot_interacts_with_the_new_teleporter_tile_at_position_and(int x3, int y3) {
+		game.getBoard().getTile(x3,y3).interact(robot);
+		
+	}
+	@Then("the robot will teleport to the other new teleporter at position {int} and {int}")
+	public void the_robot_will_teleport_to_the_other_new_teleporter_at_position_and(int x4, int y4) {
+		assertEquals(y4,robot.getPosition().getX());
+		assertEquals(x4,robot.getPosition().getY());
+	}
+
+	
 	@Given("a series of conveyer belts on positions {int} and {int}, {int} and {int}, {int} and {int} and all have orientation {int}")
 	public void a_series_of_conveyer_belts_on_positions_and_and_and_and_all_have_orientation(int x1, int y1, int x2, int y2, int x3, int y3, int orientation) {
 		orientation = 1;

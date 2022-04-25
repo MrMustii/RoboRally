@@ -264,10 +264,8 @@ class LaserShooter extends Tile{
 	}
 }
 class LaserBeam extends Tile{
-	int orientation;
-	public LaserBeam(int orientation) {
-		super("B" + orientation, 1);
-		this.orientation = orientation;
+	public LaserBeam() {
+		super("B ", 1);
 	}
 }
 
