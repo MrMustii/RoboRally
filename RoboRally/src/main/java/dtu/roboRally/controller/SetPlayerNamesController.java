@@ -19,8 +19,8 @@ public class SetPlayerNamesController {
 		this.view = new SetPlayerNamesView(this);
 	}
 	
-	public void pickCards() {
-		application.managePlayerTurn(primaryStage, 0);
+	public void pickStartingPositions() {
+		application.pickStartingPositions(primaryStage);
 	}
 	
 	public void addPlayerName(int nameIndex, String name) {

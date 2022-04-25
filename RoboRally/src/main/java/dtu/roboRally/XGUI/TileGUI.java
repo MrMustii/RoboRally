@@ -19,7 +19,7 @@ public class TileGUI extends JPanel {
 		super(true);
 		
 		try {
-			this.image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("tileImages/"+ type + ".png"));
+			this.image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("resources/tileImages/" + type + ".png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

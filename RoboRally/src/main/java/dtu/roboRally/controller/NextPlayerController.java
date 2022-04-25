@@ -25,9 +25,10 @@ public class NextPlayerController {
 		primaryStage.setScene(view.initGUI());
 	}
 	
-	public void nextPlayer() {
+	/*public void nextPlayer() {
 		application.managePlayerTurn(primaryStage, playerIndex+1);
 	}
+	 */
 	
 	public void pickCards() {
 		application.pickCards(primaryStage, playerIndex);

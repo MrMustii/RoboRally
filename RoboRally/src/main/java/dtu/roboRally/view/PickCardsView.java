@@ -55,14 +55,16 @@ public class PickCardsView {
 	
 	public void addPlayerStatusColumn() {
 		
-		VBox playersStatus = new VBox();
+		/*VBox playersStatus = new VBox();
 		playersStatus.setSpacing(60);
 		for(String playerName : controller.getPlayerNames()) {// TODO: add player lives to the status
 			Label name = new Label(playerName);
 			name.setFont(Font.font("Courier New", FontWeight.BOLD, 28));
 			playersStatus.getChildren().add(name);
 		}
-		layout.add(playersStatus, 0, 0, 1, 3);
+		 */
+		//layout.add(playersStatus, 0, 0, 1, 3);
+		layout.add(new PlayerStatusPanel(controller.getPlayerNames()), 0, 0, 1, 3);
 	}
 	
 	public void addBoardGUI() {

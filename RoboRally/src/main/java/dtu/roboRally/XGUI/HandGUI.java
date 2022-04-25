@@ -31,7 +31,7 @@ public class HandGUI extends JPanel {
 		
 		try {
 			for(int i = 0; i<hand.size(); i++) {
-				imagesHand.add(ImageIO.read(getClass().getClassLoader().getResourceAsStream("cardImages/"+hand.get(i).getClass().getSimpleName()+".png")));
+				imagesHand.add(ImageIO.read(getClass().getClassLoader().getResourceAsStream("resources/cardImages/" +hand.get(i).getClass().getSimpleName()+".png")));
 			}
 		
 		} catch (IOException e) {

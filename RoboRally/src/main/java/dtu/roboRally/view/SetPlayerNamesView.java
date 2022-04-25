@@ -45,7 +45,7 @@ public class SetPlayerNamesView {
         confirmButton.setFont(Font.font("Courier New", FontWeight.BOLD, 27));
 		confirmButton.setOnAction(value ->  {
 			
-			controller.pickCards();
+			controller.pickStartingPositions();
 		        
 		    });
 		
