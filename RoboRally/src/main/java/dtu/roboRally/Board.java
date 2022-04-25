@@ -190,9 +190,7 @@ public class Board {
 //		return board;
 //	}
 //	
-	public void setTeleporter(int x,int y) {
-        board[y][x]=new Teleporter();
-    }
+
 
 	public Tile getTile(int x, int y) {
 		return board[y][x];
@@ -209,7 +207,18 @@ public class Board {
 	}
 
 	//setter for Tile
-		public void setOilTile(int x,int y) {
-			board[y][x]=new Oil();
-		}
+	public void setOilTile(int x,int y) {
+		board[y][x]=new Oil();
+	}
+	
+	public void setTeleporter(int x,int y) {
+        board[y][x]=new Teleporter();
+    }
+	
+	public void setConveyorBelt(int x, int y, int orientation) {
+		board[y][x] = new ConveyorBelt(orientation);
+	}
+	public void setAcidTile (int x, int y) {
+		board[y][x] = new Acid();
+	}
 }

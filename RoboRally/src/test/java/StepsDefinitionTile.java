@@ -10,7 +10,7 @@ public class StepsDefinitionTile {
 	Robot robot;
 	Game game = Game.getInstance();
 	Board board;
-//	Board board=Game.getInstance().getBoard();
+
 	
 	
 	@Given("the robot has {int} lives and moves to a tile")
@@ -28,7 +28,7 @@ public class StepsDefinitionTile {
 	public void the_robot_takes_damage_and_has_left(int int1) {
 	    assertEquals(int1, robot.getLives());
 	}
-//<<<<<<< Updated upstream
+
 	@When("the robot interacts with the oil tile")
 	public void the_robot_interacts_with_the_oil_tile() {
 	    Board b=new Board(12,12,3);
@@ -39,7 +39,6 @@ public class StepsDefinitionTile {
 	public void the_oriantation_changes() {
 	    assertNotEquals(1, robot.getPosition().getOrientation());
 	}
-//=======
 	
 	@Given("a robot")
 	public void a_robot() {
@@ -48,15 +47,11 @@ public class StepsDefinitionTile {
 	@Given("an empty board")
 	public void an_empty_board() {
 		game.getBoard().emptyTheBoard();
-//		Game game = Game.getInstance();
-//		Board board = Game.getInstance().getBoard();
-		
-//		board = new Board(12,12,1);
-//	    this.board = board.emptyTheBoard();
+
 	}
 	@Given("two teleporter tiles at x- and y positions {int} and {int}, and {int} and {int}")
 	public void two_teleporter_tiles_at_x_and_y_positions_and_and_and(int x1, int y1, int x2, int y2) {
-//		Game game = Game.getInstance();
+
 		x1 = 1;
 		y1 = 1;
 		game.getBoard().setTeleporter(x1, y1);
@@ -72,7 +67,7 @@ public class StepsDefinitionTile {
 	}
 	@When("the robot interacts with the teleporter tile at position {int} and {int}")
 	public void the_robot_interacts_with_the_teleporter_tile_at_position_and(int x1, int y1) {
-//		Game game = Game.getInstance();
+
 	    game.getBoard().getTile(x1,y1).interact(robot);
 
 	}
@@ -82,6 +77,91 @@ public class StepsDefinitionTile {
 
 		assertEquals(y2,robot.getPosition().getX());
 		assertEquals(x2,robot.getPosition().getY());
-//>>>>>>> Stashed changes
+
+	}
+	
+	@Given("a series of conveyer belts on positions {int} and {int}, {int} and {int}, {int} and {int} and all have orientation {int}")
+	public void a_series_of_conveyer_belts_on_positions_and_and_and_and_all_have_orientation(int x1, int y1, int x2, int y2, int x3, int y3, int orientation) {
+		orientation = 1;
+		x1 = 1;
+		y1 = 1;
+		game.getBoard().setConveyorBelt(x1, y1, orientation);
+
+		
+		
+		x2 = 2;
+		y2 = 1;
+		game.getBoard().setConveyorBelt(x2, y2, orientation);
+
+		
+		x3 = 3;
+		y3 = 1;
+		game.getBoard().setConveyorBelt(x3, y3, orientation);
+
+		
+		
+	}
+	@When("the robot interacts with the conveyor belt on position {int} and {int}")
+	public void the_robot_interacts_with_the_conveyor_belt_on_position_and(int x1, int y1) {
+		game.getBoard().getTile(x1,y1).interact(robot);
+	}
+	@Then("the robot will move down the series of conveyor belts and end on position {int} and {int}")
+	public void the_robot_will_move_down_the_series_of_conveyor_belts_and_end_on_position_and(int x4, int y4) {
+		Position position = robot.getPosition();
+		x4 = 4;
+		y4 = 1;
+	    assertEquals(x4, position.getX());
+	    assertEquals(y4, position.getY());
+	}
+	@Given("a robot with {int} lives")
+	public void a_robot_with_lives(int lives) {
+		robot = new Robot(1,1,1);
+		lives = 5;
+		robot.setLives(lives);
+	}
+	
+	@Given("a conveyer belt on position {int} and {int} with orientation {int}")
+	public void a_conveyer_belt_on_position_and_with_orientation(int x, int y, int ori) {
+	    x = 1;
+	    y = 1;
+	    ori = 1;
+		game.getBoard().setConveyorBelt(x, y, ori);
+	    
+	}
+	@When("the robot interacts with the conveyer belt on position {int} and {int}")
+	public void the_robot_interacts_with_the_conveyer_belt_on_position_and(int x, int y) {
+		game.getBoard().getTile(x,y).interact(robot);
+	}
+	@Then("the robot will be pushed to position {int} and {int}")
+	public void the_robot_will_be_pushed_to_position_and(int newx, int newy) {
+		newx = 2; newy = 1;
+		assertEquals(newx,robot.getPosition().getX());
+		assertEquals(newy,robot.getPosition().getY());
+	}
+	@Then("the tile is a damaging tile with position {int} and {int}")
+	public void the_tile_is_a_damaging_tile(int newx, int newy) {
+		game.getBoard().setAcidTile(newx,newy);
+	}
+	@Then("the robot will recieve corresponding damage on position {int} and {int}")
+	public void the_robot_will_recieve_corresponding_damage(int newx, int newy) {
+		game.getBoard().getTile(newx, newy).interact(robot);
+		assertEquals(3, robot.getLives());
+	}
+	
+	@Given("a conveyer belts on position {int} and {int} with orientation {int} and position {int} and {int} with orientation {int}, and position {int} and {int} with orientation {int}")
+	public void a_conveyer_belts_on_position_and_with_orientation_and_position_and_with_orientation_and_position_and_with_orientation(int x1, int y1, int ori1, int x2, int y2, int ori2, int x3, int y3, int ori3) {
+	    x1=2;y1=2;ori1=0;
+	    x2=2;y2=1;ori2=3;
+	    x3=1;y3=1;ori3=2;
+	    game.getBoard().setConveyorBelt(x1, y1, ori1);
+	    game.getBoard().setConveyorBelt(x2, y2, ori2);
+	    game.getBoard().setConveyorBelt(x3, y3, ori3);
+	    
+	}
+	@Then("the robot will move to position {int} and {int}")
+	public void the_robot_will_move_to_position_and(int newx, int newy) {
+		newx = 1;newy=2;
+		assertEquals(newx,robot.getPosition().getX());
+		assertEquals(newy,robot.getPosition().getY());
 	}
 }
