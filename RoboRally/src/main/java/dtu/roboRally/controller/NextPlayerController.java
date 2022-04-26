@@ -24,7 +24,7 @@ public class NextPlayerController {
 	public void display() {
 		primaryStage.setScene(view.initGUI());
 	}
-	
+
 	public void pickCards() {
 		application.pickCards(primaryStage, playerIndex);
 	}

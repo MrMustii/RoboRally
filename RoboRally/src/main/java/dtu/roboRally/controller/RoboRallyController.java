@@ -56,7 +56,7 @@ public class RoboRallyController extends Application {
 	 * @param nbOfPlayers (int)
 	 */
 	public void instantiateGame(int nbOfPlayers) {
-		Game.getInstance(nbOfPlayers);
+		Game.getInstance(this, nbOfPlayers);
 		//TODO: should it be in the same method?
 	}
 

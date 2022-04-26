@@ -120,6 +120,10 @@ public class Robot {
 		return position;
 	}
 
+	public Position getStartPosition(){
+		return startPosition;
+	}
+
 	public void setPosition(Position position) {
 		this.position = position;
 	}
