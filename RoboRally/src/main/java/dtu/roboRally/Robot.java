@@ -92,9 +92,9 @@ public class Robot {
 		isDead=false;
 	}
 	
-	public void resurrect() {
-		isDead = false;
-	}
+//	public void resurrect() {
+//		isDead = false;
+//	}
 
 	public void setLives(int lives){
 		this.lives = lives;

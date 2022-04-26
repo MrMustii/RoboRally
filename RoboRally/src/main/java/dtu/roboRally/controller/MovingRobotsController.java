@@ -2,6 +2,8 @@ package dtu.roboRally.controller;
 
 import java.util.ArrayList;
 
+import dtu.roboRally.Game;
+import dtu.roboRally.Player;
 import dtu.roboRally.view.MovingRobotsView;
 import javafx.stage.Stage;
 
@@ -31,8 +33,31 @@ public class MovingRobotsController {
     }
     
     public void updateView() {
-    	primaryStage.setScene(view.updateRobots());
+    	
+//    	Task<Void> sleeper = new Task<Void>() {
+//            @Override
+//            protected Void call() throws Exception {
+//                try {
+//                    Thread.sleep(1000);
+//                } catch (InterruptedException e) {
+//                }
+//                return null;
+//            }
+//        };
+//        sleeper.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+//            @Override
+//            public void handle(WorkerStateEvent event) {
+//            	primaryStage.setScene(view.updateRobots());
+//            }
+//        });
+//        new Thread(sleeper).start();
+    	
+    	primaryStage.setScene(view.updateRobotsAndLives());
     	//view = new MovingRobotsView(this);
+    }
+    
+    public ArrayList<Integer> getLivesOfRobots() {
+    	return application.getLivesOfRobots();
     }
 
 }

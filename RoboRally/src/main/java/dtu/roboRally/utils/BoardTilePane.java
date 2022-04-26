@@ -102,14 +102,27 @@ public class BoardTilePane extends TilePane {
 	
 	public void deleteRobots() {
 				
-		for(int i = 0; i<players.size(); i++) {
-			int x = players.get(i).getRobot().getPosition().getX();
-			int y = players.get(i).getRobot().getPosition().getY();
-			
-			int index = y*cols + x;
-			
-			StackPane stack = (StackPane) getChildren().get(index);
-			stack.getChildren().remove(stack.getChildren().size()-1);
+//		for(int i = 0; i<players.size(); i++) {
+//			int x = players.get(i).getRobot().getPosition().getX();
+//			int y = players.get(i).getRobot().getPosition().getY();
+//			
+//			int index = y*cols + x;
+//			
+//			StackPane stack = (StackPane) getChildren().get(index);
+//	
+//			if(stack.getChildren().size() == 2) {
+//				stack.getChildren().remove(1);
+//			}
+////			stack.getChildren().remove(stack.getChildren().size()-1);
+//			System.out.println(i);
+//			System.out.println(stack.getChildren().size());
+//			
+//		}
+ 		for(int i = 0; i<getChildren().size(); i++) {
+ 			StackPane tile = (StackPane) getChildren().get(i);
+			if(tile.getChildren().size() > 1) {
+				tile.getChildren().remove(1);
+			}
 		}
 		
 	}

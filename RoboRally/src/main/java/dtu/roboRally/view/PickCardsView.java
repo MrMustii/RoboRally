@@ -42,7 +42,7 @@ public class PickCardsView {
 		layout.setHgap(20);
 		layout.setPadding(new Insets(40, 0, 0, 40));	
 		
-		layout.add(new PlayerStatusPanel(controller.getPlayerNames()), 0, 0, 1, 3);
+		layout.add(new PlayerStatusPanel(controller.getPlayerNames(), controller.getLivesOfRobots()), 0, 0, 1, 3);
 		
 		layout.add(new BoardTilePane(), 1, 0, 1, 1);
 		

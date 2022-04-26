@@ -26,12 +26,13 @@ public class SetStartingPositionsController {
     }
 
     public void nextPlayer(){
-        if(!allPlayerInitialised()){
+    	
+        if(!allPlayersInitialised()){
             int playerID = getRandomPlayer();
             view = new SetStartingPositionsView(this, playerID, playerNames.get(playerID));
             primaryStage.setScene(view.initGUI());
-        }else{
-            application.managePlayerTurn(primaryStage, 0);
+        } else {
+            application.managePickCards(primaryStage, 0);
         }
     }
 
@@ -41,12 +42,12 @@ public class SetStartingPositionsController {
 
         if(players.get(random).getRobot() != null){ //the player already has a robot
             return getRandomPlayer();
-        }else{
+        } else {
             return random;
         }
     }
 
-    public boolean allPlayerInitialised(){
+    public boolean allPlayersInitialised(){
         for(Player p: players){
             if(p.getRobot() == null){
                 return false;
@@ -56,6 +57,6 @@ public class SetStartingPositionsController {
     }
 
     public void addRobot(int playerID, int x, int y){
-        application.initializeRobot(players.get(playerID), x,y);
+        application.initializeRobot(players.get(playerID), x, y);
     }
 }

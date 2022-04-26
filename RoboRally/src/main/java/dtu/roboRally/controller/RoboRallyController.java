@@ -1,6 +1,8 @@
 package dtu.roboRally.controller;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import dtu.roboRally.Game;
 import dtu.roboRally.Player;
@@ -29,10 +31,6 @@ public class RoboRallyController extends Application {
 		
 		primaryStage.show();
 	}
-	
-	public void updateMovingRobotsView() {
-		MRC.updateView();
-	}
 
 	/**
 	 * gives initial value and initializes the primary Stage used all long
@@ -46,7 +44,8 @@ public class RoboRallyController extends Application {
 	}
 
 	/**
-	 * Creates a new SetNumberOfPlayerController and displays it
+	 * Creates a new SetNumberOfPlayerController and displays the 
+	 * corresponding view
 	 * this controller will call instantiateGame and setPlayerNames
 	 * @param primaryStage (Stage)
 	 */
@@ -76,7 +75,7 @@ public class RoboRallyController extends Application {
 	}
 
 	/**
-	 * called by SetPlayerNAmesController.pickStartingPositions()
+	 * called by SetPlayerNamesController.pickStartingPositions()
 	 * instantiates a new SetStartingPositionsController that will call initialiseRobot and managePlayerTurn.
 	 * @param primaryStage (Stage)
 	 */
@@ -87,7 +86,7 @@ public class RoboRallyController extends Application {
 
 	/**
 	 * called by SetStartingPositionsController.addRobot()
-	 * initialises the robot of the given player to the given position, with orientation RIGHT
+	 * initializes the robot of the given player to the given position, with orientation RIGHT
 	 * @param player (Player)
 	 * @param x (int)
 	 * @param y (int)
@@ -97,14 +96,14 @@ public class RoboRallyController extends Application {
 	}
 
 	/**
-	 * called by pickStartingPositionsController.nextPlayer() or PickCardsController.nextPlayer()
+	 * called by setStartingPositionsController.nextPlayer() or PickCardsController.nextPlayer()
 	 * manages if the next scene is a player picking card or if the robot should be moved
 	 * calls nextPlayer if there is still a player to play
 	 * instantiates a new MovingRobotsController if it was the last player TODO: what it calls
 	 * @param primaryStage (Stage)
 	 * @param playerIndex (int) the index of the next player to pick its card(if smaller than the number of players)
 	 */
-	public void managePlayerTurn(Stage primaryStage, int playerIndex) {
+	public void managePickCards(Stage primaryStage, int playerIndex) {
 		if(playerIndex < playerNames.size()) {
 			nextPlayer(primaryStage, playerNames.get(playerIndex), playerIndex);
 		} else {
@@ -140,6 +139,30 @@ public class RoboRallyController extends Application {
 		PCC = new PickCardsController(this, primaryStage, playerNames, playerIndex);
 		PCC.display();
 		
+	}
+	
+	public void updateMovingRobotsView() {
+		
+//		Timer t = new Timer();
+//    	TimerTask tt = new TimerTask() {
+//    		@Override
+//    		public void run() {
+//    			MRC.updateView();
+//    		}
+//    	};
+//    	
+//    	t.schedule(tt, 100);
+		MRC.updateView();
+	}
+	
+	public ArrayList<Integer> getLivesOfRobots() {
+		
+		ArrayList<Integer> robotLives = new ArrayList<>();
+    	
+    	for(Player player : Game.getInstance().getPlayers()) {
+    		robotLives.add(player.getRobot().getLives());
+    	}
+    	return robotLives;
 	}
 	
 }

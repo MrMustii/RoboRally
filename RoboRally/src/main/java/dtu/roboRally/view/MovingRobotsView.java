@@ -1,5 +1,6 @@
 package dtu.roboRally.view;
 
+import dtu.roboRally.Game;
 import dtu.roboRally.controller.MovingRobotsController;
 import dtu.roboRally.utils.BoardTilePane;
 import dtu.roboRally.utils.PlayerStatusPanel;
@@ -26,8 +27,8 @@ public class MovingRobotsView {
 		layout.setHgap(20);
 		layout.setPadding(new Insets(40, 0, 0, 40));
 
-        layout.add(new PlayerStatusPanel(controller.getPlayerNames()), 0, 0, 1, 3);
-		layout.add(new BoardTilePane(), 1, 0, 1, 1);
+        layout.add(new PlayerStatusPanel(controller.getPlayerNames(), controller.getLivesOfRobots()), 0, 0, 1, 3);
+		layout.add(board, 1, 0, 1, 1);
 
         // i need some kind of listeners here, either on robot positions, either on cards?
         //not robot caus it still should update if shield or oil
@@ -40,12 +41,12 @@ public class MovingRobotsView {
         return new Scene(layout);
     }
     
-    public Scene updateRobots() {
+    public Scene updateRobotsAndLives() {
     	board.deleteRobots();
     	board.setRobots();
     	
     	GridPane layout = new GridPane();
-        layout.add(new PlayerStatusPanel(controller.getPlayerNames()), 0, 0, 1, 3);
+        layout.add(new PlayerStatusPanel(controller.getPlayerNames(), controller.getLivesOfRobots()), 0, 0, 1, 3);
 		layout.add(board, 1, 0, 1, 1);
     	
     	return new Scene(layout);

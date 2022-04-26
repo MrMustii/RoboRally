@@ -262,7 +262,7 @@ class LaserShooter extends Tile{
 }
 class LaserBeam extends Tile{
 	public LaserBeam() {
-		super("B ", 1);
+		super("B ", 5);
 	}
 }
 
