@@ -40,31 +40,43 @@ public class Robot {
 			
 			//if moving on X axis
 			for (int i=0; i<Math.abs(deltaX); i++) {
-				Tile currentCell = board.getTile(position.getX()+i*n, position.getY());
-				Tile nextCell = board.getTile(position.getX()+(i+1)*n, position.getY());
-				//checks if it is possible to moveOut of the current cell
-				boolean moveOut = currentCell.canMoveOut(position.getOrientation());
-				//checks if it possible to moveIn the next cell
-				boolean moveIn = nextCell.canMoveIn(position.getOrientation());
-				if(!moveOut || ! moveIn) {
-					//move not possible, change to best position
-					position = new Position(position.getX()+i*n, position.getY(), position.getOrientation());
+				//check if next cell is on board
+				int nextTileX = position.getX()+(i+1)*n;
+				if(nextTileX < 0 || nextTileX>= board.getCols()){
+					System.out.println("robot cannot move out of board");
+					return false;
+				}else {
+					Tile currentCell = board.getTile(position.getX() + i * n, position.getY());
+					Tile nextCell = board.getTile(nextTileX, position.getY());
+					//checks if it is possible to moveOut of the current cell
+					boolean moveOut = currentCell.canMoveOut(position.getOrientation());
+					//checks if it possible to moveIn the next cell
+					boolean moveIn = nextCell.canMoveIn(position.getOrientation());
+					if (!moveOut || !moveIn) {
+						//move not possible, change to best position
+						position = new Position(position.getX() + i * n, position.getY(), position.getOrientation());
+						return false;
+					}
+					//if move possible, interact with the cell
+					nextCell.interact(this);
+				}
+			}
+			//moving on Y axis
+			for (int i=0; i<Math.abs(deltaY); i++) {
+				int nextTileY = position.getY()+(i+1)*n;
+				if(nextTileY<0 || nextTileY>=board.getRows()){
+					System.out.println("Robot cannot move out of board");
 					return false;
 				}
-				//if move possible, interact with the cell
-				if(moveIn) nextCell.interact(this);
-			}
-			
-			for (int i=0; i<Math.abs(deltaY); i++) {
 				Tile currentCell = board.getTile(position.getX(), position.getY()+i*n);
-				Tile nextCell = board.getTile(position.getX(), position.getY()+(i+1)*n);
+				Tile nextCell = board.getTile(position.getX(), nextTileY);
 				boolean moveOut = currentCell.canMoveOut(position.getOrientation());
 				boolean moveIn = nextCell.canMoveIn(position.getOrientation());
 				if(!moveOut || ! moveIn) {
 					position = new Position(position.getX(), position.getY()+i*n, position.getOrientation());
 					return false;
 				}
-				if(moveIn) nextCell.interact(this);
+				nextCell.interact(this);
 			}
 		
 			position = newPosition;
