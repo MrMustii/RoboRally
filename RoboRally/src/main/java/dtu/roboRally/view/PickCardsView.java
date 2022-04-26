@@ -7,9 +7,11 @@ import java.util.ArrayList;
 import dtu.roboRally.Board;
 import dtu.roboRally.Card;
 import dtu.roboRally.Game;
+import dtu.roboRally.Position;
 import dtu.roboRally.controller.PickCardsController;
 import dtu.roboRally.utils.BoardTilePane;
 import dtu.roboRally.utils.PlayerStatusPanel;
+import dtu.roboRally.utils.ProgressBarPlayer;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -56,8 +58,8 @@ public class PickCardsView {
 	}
 	
 	public void addProgressBar() {
-		
-		ProgressBar progressBar = new ProgressBar(); //TODO: implement progress in the game. maybe create custom progressbar Class with calculateProgress(pos rob, pos end)
+		Position[] positions = controller.extractPosition();
+		ProgressBarPlayer progressBar = new ProgressBarPlayer(positions[0], positions[1], positions[3]);
 		progressBar.setPrefWidth(600);
 		
 		layout.add(progressBar, 1, 1, 1, 1);

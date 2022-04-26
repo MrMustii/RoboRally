@@ -2,13 +2,11 @@ package dtu.roboRally.controller;
 
 import java.util.ArrayList;
 
-import dtu.roboRally.Card;
-import dtu.roboRally.Game;
-import dtu.roboRally.Player;
+import dtu.roboRally.*;
 import dtu.roboRally.view.PickCardsView;
 import javafx.stage.Stage;
 
-public class PickCardsController {
+public class PickCardsController{
 	
 	private RoboRallyController application;
 	private Stage primaryStage;
@@ -48,6 +46,24 @@ public class PickCardsController {
 	
 	public ArrayList<Integer> getLivesOfRobots() {
 		return application.getLivesOfRobots();
+	}
+
+	public Position[] extractPosition(){
+		Position[] positions = new Position[3];
+		positions[0] = player.getRobot().getPosition();
+		positions[1] = player.getRobot().getStartPosition();
+
+		Board board = Game.getInstance().getBoard();
+		for(int j=0; j<board.getRows(); j++){
+			for(int i=board.getCols()-4; i<board.getCols(); i++){ //loop trough the last 3 cols
+				if(board.getTile(i,j).getLabel().equals("E ")){
+					positions[2] = new Position(i,j,0); //dont care about orientation
+					return positions;
+				}
+			}
+		}
+		System.out.println("error while searching for endPosition in PickCardsController.extractPosition()");
+		return null;
 	}
 	
 }

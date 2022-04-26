@@ -9,7 +9,6 @@ import dtu.roboRally.Player;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-
 public class RoboRallyController extends Application {
 	
 	private SetNumberOfPlayersController SNOPC;
@@ -33,7 +32,7 @@ public class RoboRallyController extends Application {
 	}
 
 	/**
-	 * gives initial value and initializes the primary Stage used all long
+	 * gives initial value and initialises the primary Stage used all long
 	 * @param primaryStage (Stage)
 	 */
 	public void setStage(Stage primaryStage) {
@@ -106,9 +105,9 @@ public class RoboRallyController extends Application {
 	public void managePickCards(Stage primaryStage, int playerIndex) {
 		if(playerIndex < playerNames.size()) {
 			nextPlayer(primaryStage, playerNames.get(playerIndex), playerIndex);
-		} else {
+		}else {
 			MRC = new MovingRobotsController(this, primaryStage, playerNames);
-			Game.getInstance().phase2();
+			MRC.display();
 			//when phase2 is done, call playerTurnManager again
 		}
 	}
@@ -131,8 +130,8 @@ public class RoboRallyController extends Application {
 	 * called by NextPlayerController.pickCards()
 	 * completes phase1 of the game: the given player will draw hand, and pick cardsInPlay through the PickCardsController
 	 * instantiates a new PickCardsController that will modify the players cardsInPlay and calls managePlayerTurn
-	 * @param primaryStage
-	 * @param playerIndex
+	 * @param primaryStage (Stage)
+	 * @param playerIndex (int)
 	 */
 	public void pickCards(Stage primaryStage, int playerIndex) {
 		Game.getInstance().getPlayers().get(playerIndex).drawHand();
