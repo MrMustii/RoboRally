@@ -39,12 +39,7 @@ public class BoardTilePane extends TilePane {
 		
 		for (int j = 0; j < rows; j++) {
 			for (int i = 0; i < cols; i++) {
-				FileInputStream tiles = null;
-				try {
-					tiles = new FileInputStream("src/main/resources/tileImages/"+board.getTile(i, j).getLabel()+".png");
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
-				}
+				FileInputStream tiles = FileLoader.loadFile("src/main/resources/tileImages/"+board.getTile(i, j).getLabel()+".png");
 				Image tileImage = new Image(tiles);
 				ImageView tileImageView = new ImageView(tileImage);
 				tileImageView.setFitHeight(50);
@@ -60,17 +55,11 @@ public class BoardTilePane extends TilePane {
 			
 			int index = y*cols + x;
 			
-			FileInputStream robotFile = null;
-			try {
-				robotFile = new FileInputStream("src/main/resources/robotImages/robot"+i+".png");
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			}
+			FileInputStream robotFile = FileLoader.loadFile("src/main/resources/robotImages/robot"+i+".png");
 			ImageView robotImageView = new ImageView(new Image(robotFile));
 			robotImageView.setFitHeight(50);
 			robotImageView.setFitWidth(50);
-			
-			
+
 			StackPane stack = (StackPane) getChildren().get(index);
 			stack.getChildren().add(robotImageView);
 		}
@@ -85,12 +74,7 @@ public class BoardTilePane extends TilePane {
 			
 			int index = y*cols + x;
 			
-			FileInputStream robotFile = null;
-			try {
-				robotFile = new FileInputStream("src/main/resources/robotImages/robot"+i+".png");
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			}
+			FileInputStream robotFile = FileLoader.loadFile("src/main/resources/robotImages/robot"+i+".png");
 			ImageView robotImageView = new ImageView(new Image(robotFile));
 			robotImageView.setFitHeight(50);
 			robotImageView.setFitWidth(50);

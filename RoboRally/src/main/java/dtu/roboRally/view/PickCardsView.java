@@ -10,6 +10,7 @@ import dtu.roboRally.Game;
 import dtu.roboRally.Position;
 import dtu.roboRally.controller.PickCardsController;
 import dtu.roboRally.utils.BoardTilePane;
+import dtu.roboRally.utils.FileLoader;
 import dtu.roboRally.utils.PlayerStatusPanel;
 import dtu.roboRally.utils.ProgressBarPlayer;
 import javafx.geometry.Insets;
@@ -80,13 +81,7 @@ public class PickCardsView {
 			String cardName = hand.get(i).getClass().getSimpleName();
 			Card card = hand.get(i);
 			
-			FileInputStream input = null;
-			
-			try {
-				input = new FileInputStream("src/main/resources/cardImages/"+cardName+".png");
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			}
+			FileInputStream input = FileLoader.loadFile("src/main/resources/cardImages/"+cardName+".png");
 			Image image = new Image(input);
 			
 			ImageView imageViewHand = new ImageView(image);

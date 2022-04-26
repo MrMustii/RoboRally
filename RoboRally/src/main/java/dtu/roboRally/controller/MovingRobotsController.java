@@ -25,7 +25,6 @@ public class MovingRobotsController {
 
     public void display() {
         primaryStage.setScene(view.initGUI());
-      
     }
 
     public ArrayList<String> getPlayerNames(){
