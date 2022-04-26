@@ -59,7 +59,7 @@ public class PickCardsView {
 	
 	public void addProgressBar() {
 		Position[] positions = controller.extractPosition();
-		ProgressBarPlayer progressBar = new ProgressBarPlayer(positions[0], positions[1], positions[3]);
+		ProgressBarPlayer progressBar = new ProgressBarPlayer(positions[0], positions[1], positions[2]);
 		progressBar.setPrefWidth(600);
 		
 		layout.add(progressBar, 1, 1, 1, 1);

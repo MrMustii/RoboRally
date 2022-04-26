@@ -1,8 +1,6 @@
 package dtu.roboRally.controller;
 
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import dtu.roboRally.Game;
 import dtu.roboRally.Player;
@@ -102,11 +100,12 @@ public class RoboRallyController extends Application {
 	 * @param primaryStage (Stage)
 	 * @param playerIndex (int) the index of the next player to pick its card(if smaller than the number of players)
 	 */
-	public void managePickCards(Stage primaryStage, int playerIndex) {
+	public void managePlayerTurn(Stage primaryStage, int playerIndex) {
 		if(playerIndex < playerNames.size()) {
 			nextPlayer(primaryStage, playerNames.get(playerIndex), playerIndex);
 		}else {
 			MRC = new MovingRobotsController(this, primaryStage, playerNames);
+			Game.getInstance().phase2();
 			MRC.display();
 			//when phase2 is done, call playerTurnManager again
 		}

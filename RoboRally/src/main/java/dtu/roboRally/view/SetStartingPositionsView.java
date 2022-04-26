@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
 
 public class SetStartingPositionsView {
@@ -71,12 +72,15 @@ public class SetStartingPositionsView {
                     int y = j;
                     tileImageView.setOnMouseClicked(value -> {
                         controller.addRobot(playerID, x, y);
+                        int index = y*cols + x;
+                        StackPane stack = (StackPane) boardGUI.getChildren().get(index);
+            			stack.getChildren().add(robotImageView);
                         //TODO: add picture robot
                         //TODO: check if tile occupied?
                         controller.nextPlayer();
                     });
                 }
-                boardGUI.getChildren().add(tileImageView);
+                boardGUI.getChildren().add(new StackPane(tileImageView));
             }
         }
 

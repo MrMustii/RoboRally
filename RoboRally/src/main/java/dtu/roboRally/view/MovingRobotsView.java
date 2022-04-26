@@ -1,12 +1,14 @@
 package dtu.roboRally.view;
 
-import dtu.roboRally.Game;
 import dtu.roboRally.controller.MovingRobotsController;
 import dtu.roboRally.utils.BoardTilePane;
 import dtu.roboRally.utils.PlayerStatusPanel;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 public class MovingRobotsView {
 
@@ -22,21 +24,10 @@ public class MovingRobotsView {
 
     public Scene initGUI(){
     	
-    	GridPane layout = new GridPane();
-    	layout.setVgap(20);
-		layout.setHgap(20);
-		layout.setPadding(new Insets(40, 0, 0, 40));
-
+    	GridPane layout = createLayout();
         layout.add(new PlayerStatusPanel(controller.getPlayerNames(), controller.getLivesOfRobots()), 0, 0, 1, 3);
 		layout.add(board, 1, 0, 1, 1);
-
-        // i need some kind of listeners here, either on robot positions, either on cards?
-        //not robot caus it still should update if shield or oil
-        //maybe when player.use(card) repaint board? --> which makes that we just have to call phase2() in application
-
-        // need to update the board everytime a card is played
-        //okay maybe have a board object and reupload it everytime ? HOW
-        
+		layout.add(createResumeGameButton(), 0, 1, 1, 1);
         
         return new Scene(layout);
     }
@@ -45,11 +36,33 @@ public class MovingRobotsView {
     	board.deleteRobots();
     	board.setRobots();
     	
-    	GridPane layout = new GridPane();
+    	GridPane layout = createLayout();
         layout.add(new PlayerStatusPanel(controller.getPlayerNames(), controller.getLivesOfRobots()), 0, 0, 1, 3);
 		layout.add(board, 1, 0, 1, 1);
+		layout.add(createResumeGameButton(), 0, 1, 1, 1);
     	
     	return new Scene(layout);
+    }
+    
+    public Button createResumeGameButton() {
+    	Button button = new Button("RESUME GAME");
+    	button.setFont(Font.font("Courier New", FontWeight.BOLD, 28));
+    	
+    	button.setOnAction(value -> {
+    		controller.resumeGame();
+    	});
+    	
+    	return button;
+    }
+    
+    public GridPane createLayout() {
+      	
+    	GridPane layout = new GridPane();
+    	layout.setVgap(20);
+		layout.setHgap(20);
+		layout.setPadding(new Insets(40, 0, 0, 40));
+    	
+		return layout;
     }
 
 }

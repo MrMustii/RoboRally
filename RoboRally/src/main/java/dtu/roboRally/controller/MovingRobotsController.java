@@ -34,30 +34,16 @@ public class MovingRobotsController {
     
     public void updateView() {
     	
-//    	Task<Void> sleeper = new Task<Void>() {
-//            @Override
-//            protected Void call() throws Exception {
-//                try {
-//                    Thread.sleep(1000);
-//                } catch (InterruptedException e) {
-//                }
-//                return null;
-//            }
-//        };
-//        sleeper.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
-//            @Override
-//            public void handle(WorkerStateEvent event) {
-//            	primaryStage.setScene(view.updateRobots());
-//            }
-//        });
-//        new Thread(sleeper).start();
-    	
     	primaryStage.setScene(view.updateRobotsAndLives());
     	//view = new MovingRobotsView(this);
     }
     
     public ArrayList<Integer> getLivesOfRobots() {
     	return application.getLivesOfRobots();
+    }
+    
+    public void resumeGame() {
+    	application.managePlayerTurn(primaryStage, 0);
     }
 
 }

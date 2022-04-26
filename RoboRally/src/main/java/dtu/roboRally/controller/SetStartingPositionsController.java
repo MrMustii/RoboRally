@@ -32,7 +32,7 @@ public class SetStartingPositionsController {
             view = new SetStartingPositionsView(this, playerID, playerNames.get(playerID));
             primaryStage.setScene(view.initGUI());
         } else {
-            application.managePickCards(primaryStage, 0);
+            application.managePlayerTurn(primaryStage, 0);
         }
     }
 

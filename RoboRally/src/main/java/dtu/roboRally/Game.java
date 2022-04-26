@@ -126,7 +126,7 @@ public class Game {
 		return board;
 	}
 	public void setBoard() {
-		this.board=new Board(12,12,instance.numberOfPlayers());
+		this.board = new Board(12,12,instance.numberOfPlayers());
 	}
 	public Player getWinner() {
 		return winner;

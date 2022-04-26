@@ -98,6 +98,11 @@ public class Robot {
 		}
 	}
 	
+	public void repair() {
+		lives +=1;
+		if(lives > 5) lives = 5;
+	}
+	
 	public void respawn() {
 		setPosition(startPosition.clone());
 		setLives(startingLives);

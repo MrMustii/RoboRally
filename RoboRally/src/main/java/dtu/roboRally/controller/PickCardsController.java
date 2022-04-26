@@ -41,7 +41,7 @@ public class PickCardsController{
 	}
 	
 	public void nextPlayer() {
-		application.managePickCards(primaryStage, playerIndex+1);
+		application.managePlayerTurn(primaryStage, playerIndex+1);
 	}
 	
 	public ArrayList<Integer> getLivesOfRobots() {

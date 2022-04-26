@@ -27,7 +27,7 @@ public class BoardTilePane extends TilePane {
 		rows = board.getRows();
 		cols = board.getCols();
 		
-		players = Game.getInstance().getPlayers();
+		players = Game.getInstance().getPlayers(); //TODO: pass this data from controller
 		createTilePane();
 		setRobots();
 	}
@@ -81,6 +81,7 @@ public class BoardTilePane extends TilePane {
 		for(int i = 0; i<players.size(); i++) {
 			int x = players.get(i).getRobot().getPosition().getX();
 			int y = players.get(i).getRobot().getPosition().getY();
+			int o = players.get(i).getRobot().getPosition().getOrientation();
 			
 			int index = y*cols + x;
 			
@@ -93,7 +94,7 @@ public class BoardTilePane extends TilePane {
 			ImageView robotImageView = new ImageView(new Image(robotFile));
 			robotImageView.setFitHeight(50);
 			robotImageView.setFitWidth(50);
-			
+			robotImageView.setRotate(90*o);
 			
 			StackPane stack = (StackPane) getChildren().get(index);
 			stack.getChildren().add(robotImageView);
