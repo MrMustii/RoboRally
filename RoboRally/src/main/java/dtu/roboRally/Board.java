@@ -315,4 +315,7 @@ public class Board {
 
 		}
 	}
+    public void setWall(int x, int y, int o) {
+        board[y][x]=new Wall(o);
+    }
 }

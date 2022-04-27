@@ -16,6 +16,7 @@ import dtu.roboRally.cardTypes.RotateClockwiseCard;
 import dtu.roboRally.cardTypes.RotateCounterClockwiseCard;
 import dtu.roboRally.cardTypes.ShieldCard;
 import dtu.roboRally.cardTypes.UTurnCard;
+import dtu.roboRally.controller.RoboRallyController;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -136,10 +137,10 @@ public class StepsDefinitionPlayer {
 	    assertEquals(y, player.getRobot().getPosition().getY());
 	}
 	//player initialize 
-	Game game=Game.getInstance(3);
+	Game game=Game.getInstance(new RoboRallyController(),3);
 	@Given("there us a board")
 	public void there_us_a_board() {
-	    Game game=Game.getInstance(3);
+	    Game game=Game.getInstance(new RoboRallyController(),3);
 	    game.setBoard();
 	}
 	@When("a player initialize on the starting tile")

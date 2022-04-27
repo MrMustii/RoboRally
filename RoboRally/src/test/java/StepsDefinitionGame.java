@@ -7,12 +7,15 @@ import dtu.roboRally.Card;
 import dtu.roboRally.Game;
 import dtu.roboRally.Player;
 import dtu.roboRally.Position;
+import dtu.roboRally.Robot;
 import dtu.roboRally.cardTypes.MoveBackwardCard;
 import dtu.roboRally.cardTypes.MoveForwardOneCard;
 import dtu.roboRally.cardTypes.MoveForwardTwoCard;
 import dtu.roboRally.cardTypes.OilSPillCard;
 import dtu.roboRally.cardTypes.RotateClockwiseCard;
+import dtu.roboRally.cardTypes.RotateCounterClockwiseCard;
 import dtu.roboRally.cardTypes.ShieldCard;
+import dtu.roboRally.controller.RoboRallyController;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -24,11 +27,11 @@ public class StepsDefinitionGame {
 	}
 	@When("creation instances of {int} players")
 	public void creation_instances_of_players(int p) {
-		Game newgame=Game.getInstance(p);
+		Game newgame=Game.getInstance(null,p);
 	}
 	@Then("the number of players should be set to {int}")
 	public void the_number_of_players_should_be_set_to(int p){
-		Game newgame=Game.getInstance(p);
+		Game newgame=Game.getInstance(null,p);
 	    assertEquals(3, newgame.getPlayers().size());
 	}
 	////
@@ -41,7 +44,7 @@ public class StepsDefinitionGame {
 	    assertEquals(3, newgame.numberOfPlayers());
 	}
 	////
-	Game newgame=Game.getInstance(3);
+	Game newgame=Game.getInstance(new RoboRallyController(),3);
 	
 	@Given("that the players dont have full a hand")
 	public void that_the_players_dont_have_full_a_hand() {
@@ -64,6 +67,7 @@ public class StepsDefinitionGame {
 	@Given("That the players have picked cards")
 	public void that_the_players_have_picked_cards() {
 		for(Player p:newgame.getPlayers()) {
+			p.getCardsInPlay().clear();
 			for (int i=0;i<5;i++) {
 			p.getCardsInPlay().add( new RotateClockwiseCard());
 			}
@@ -93,17 +97,36 @@ public class StepsDefinitionGame {
 		
 	    newgame.getPlayers().get(0).getRobot().damage(5);
 	    assertEquals(true, newgame.getPlayers().get(0).getRobot().isDead());
+	    
+	}
+	@Given("That the players have picked {int} card")
+	public void that_the_players_have_picked_card(int a) {
+		for(Player p:newgame.getPlayers()) {
+			for (int i=0;i<a;i++) {
+
+				p.getCardsInPlay().add( new RotateCounterClockwiseCard());
+			}
+		}
+	    
+	}
+	@Then("dead robot does not move")
+	public void dead_robot_does_not_move() {
+	    int j=newgame.getPlayers().get(0).getRobot().getPosition().getOrientation();
+	    assertEquals(0, j);
+	    
 	}
 	
 	
 	@Then("the living robot have new positions")
 	public void the_living_robot_have_new_positions() {
-	    for(int i=1;i<newgame.numberOfPlayers();i++) {
-	    	int j=(newgame.getPlayers().get(i).getRobot().getPosition()).getOrientation();
-	    	assertEquals(1,j);
+	    
+		for(int i=1;i<newgame.numberOfPlayers();i++) {
+	    	int j=newgame.getPlayers().get(i).getRobot().getPosition().getOrientation();
+	    	
+	    	System.out.println(newgame.getPlayers().get(i).getRobot().getPosition().getOrientation());
+	    	
+	    	assertEquals(3,j);
 	    }
-	    int j=(newgame.getPlayers().get(0).getRobot().getPosition()).getOrientation();
-	    assertEquals(0, j);
 	}
 /////
 	@Given("robot is near end posistion")
@@ -152,7 +175,7 @@ public class StepsDefinitionGame {
 	}
 	@Then("then there is an oil spill at {int}, {int}")
 	public void then_there_is_an_oil_spill_at(int x, int y) {
-	    assertEquals("O ", newgame.getBoard().getTile(x, y).getLabel());
+	    assertEquals("O ", newgame.getBoard().getTile(1, 1).getLabel());
 	}
 	@Given("players with shielded robots")
 	public void players_with_shielded_robots() {
@@ -162,7 +185,9 @@ public class StepsDefinitionGame {
 	}
 	@When("phase {int} starts")
 	public void phase_starts(Integer int1) {
-	    newgame.phase1();
+		for(Player p:newgame.getPlayers()) {
+			p.getRobot().damage(1);
+		}
 	}
 	@Then("the robot are unshielded")
 	public void the_robot_are_unshielded() {
@@ -170,4 +195,72 @@ public class StepsDefinitionGame {
 			assertEquals(false, p.getRobot().getShielded());
 		}
 	}
+	@Given("a robot with a position with coordinates {int}, {int} and orientation {int}")
+	public void a_robot_with_a_position_with_coordinates_and_orientation(int a, int b, int c) {
+	    newgame.getPlayers().get(0).setRobot(c, a, b);
+	    newgame.getBoard().getTile(a, b).setOccupidRobot(newgame.getPlayers().get(0).getRobot());
+	}
+	@Given("another robot with a position with coordinates \\({int}, {int}) and orientation {int}")
+	public void another_robot_with_a_position_with_coordinates_and_orientation(int x, int y, int z) {
+		 newgame.getPlayers().get(1).setRobot(z, x, y);
+		 newgame.getBoard().getTile(x, y).setOccupidRobot(newgame.getPlayers().get(1).getRobot());
+		 
+
+	}
+	@When("the robot moves to {int}, {int}, {int}")
+	public void the_robot_moves_to(int x, int y, int o ) {
+		newgame.getPlayers().get(0).getRobot().move(newgame.getBoard(), new Position(x, y, o));
+	    
+	}
+	@Then("one robot is pushed  {int}, {int}, {int} and {int}, {int}, {int}")
+	public void one_robot_is_pushed_and(int anew, int bnew, int cnew, int xnew, int ynew, int znew) {
+		Robot robot=newgame.getPlayers().get(0).getRobot();
+		Robot bot=newgame.getPlayers().get(1).getRobot();
+
+		
+		assertEquals(anew, robot.getPosition().getX());
+		assertEquals(bnew, robot.getPosition().getY());
+		assertEquals(cnew, robot.getPosition().getOrientation());
+		assertEquals(xnew, bot.getPosition().getX());
+		assertEquals(ynew, bot.getPosition().getY());
+		//assertEquals(znew, bot.getPosition().getOrientation());
+	}
+	@Given("a third robot with a position with coordinates \\({int}, {int}) and orientation {int}")
+	public void a_third_robot_with_a_position_with_coordinates_and_orientation(int i, int j, int k) {
+		newgame.getPlayers().get(2).setRobot(k, i, j);
+		newgame.getBoard().getTile(i, j).setOccupidRobot(newgame.getPlayers().get(2).getRobot());
+	}
+	@Then("then the new positions for all robots are \\({int}, {int}, {int}), \\({int}, {int}, {int}), and \\({int}, {int}, {int})")
+	public void then_the_new_positions_for_all_robots_are_and(int a, int b, int c,  int x, int y, int z, int i,int j, int k) {
+		Robot robot=newgame.getPlayers().get(0).getRobot();
+		Robot bot=newgame.getPlayers().get(1).getRobot();
+		Robot rob=newgame.getPlayers().get(2).getRobot();
+		
+		assertEquals(a, robot.getPosition().getX());
+		assertEquals(b, robot.getPosition().getY());
+		assertEquals(c, robot.getPosition().getOrientation());
+		assertEquals(x, bot.getPosition().getX());
+		assertEquals(y, bot.getPosition().getY());
+		assertEquals(z, bot.getPosition().getOrientation());
+		assertEquals(i, rob.getPosition().getX());
+		assertEquals(j, rob.getPosition().getY());
+		assertEquals(k, rob.getPosition().getOrientation());
+	}
+	@Given("setting a wall at {int}, {int}, {int}")
+	public void setting_a_wall_at(int x,int y,int o) {
+	    newgame.getBoard().setWall(x, y, o);
+	}
+	@Then("then the new positions for all robots are \\({int}, {int}, {int}), \\({int}, {int}, {int})")
+	public void then_the_new_positions_for_all_robots_are(int a, int b, int c, int x, int y,int z) {
+		Robot robot=newgame.getPlayers().get(0).getRobot();
+		Robot bot=newgame.getPlayers().get(1).getRobot();
+		
+		assertEquals(a, robot.getPosition().getX());
+		assertEquals(b, robot.getPosition().getY());
+		assertEquals(c, robot.getPosition().getOrientation());
+		assertEquals(x, bot.getPosition().getX());
+		assertEquals(y, bot.getPosition().getY());
+		assertEquals(z, bot.getPosition().getOrientation());
+	}
+
 }

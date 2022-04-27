@@ -24,7 +24,7 @@ import dtu.roboRally.Player;
 
 public class PlayerGUI extends JPanel {
 	
-	Game game = Game.getInstance(2);
+	Game game = Game.getInstance();
 	ArrayList<Player> players = game.getPlayers();
 	ArrayList<String> names = new ArrayList<>(Arrays.asList("Julie", "Alberte"));
 	ArrayList<Integer> lives = new ArrayList<>();

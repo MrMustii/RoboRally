@@ -11,7 +11,7 @@ import dtu.roboRally.Tile;
 
 public class BoardGUI extends JPanel {
 	
-	Game game = Game.getInstance(2);
+	Game game = Game.getInstance();
 	Board board = game.getBoard();
 	TileGUI[][] boardGUI;
 	

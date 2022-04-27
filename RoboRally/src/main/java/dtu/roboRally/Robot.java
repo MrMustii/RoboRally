@@ -1,14 +1,11 @@
 package dtu.roboRally;
 
-import dtu.roboRally.controller.RoboRallyController;
-
 public class Robot {
 	private Position position;
 	private Position startPosition;
 	private int lives;
 	private boolean isDead;
 	private boolean shielded;
-	
 
 	//final values same for all robot
 	private final int startingLives = 5;
@@ -23,13 +20,13 @@ public class Robot {
 	}
 	
 	public boolean move(Board board, Position newPosition) {
-				
+		
 		int deltaX = newPosition.getX() - position.getX();
 		int deltaY = newPosition.getY() - position.getY();
 		int deltaO = newPosition.getOrientation() - position.getOrientation();
 		
 		board.getTile(position.getX(), position.getY()).setOccupied(false);
-		board.getTile(position.getX(), position.getY()).setOccupidRobot(null);
+		//board.getTile(position.getX(), position.getY()).setOccupidRobot(null);
 		
 		// to set movement direction
 		int n = 1;
@@ -48,17 +45,21 @@ public class Robot {
 				if(nextTileX < 0 || nextTileX>= board.getCols()){
 					System.out.println("robot cannot move out of board");
 					return false;
-				} else {
+				}else {
 					Tile currentCell = board.getTile(position.getX() + i * n, position.getY());
 					Tile nextCell = board.getTile(nextTileX, position.getY());
 					//checks if it is possible to moveOut of the current cell
 					boolean moveOut = currentCell.canMoveOut(position.getOrientation());
 					//checks if it possible to moveIn the next cell
 					boolean moveIn = nextCell.canMoveIn(position.getOrientation());
-					if (!moveOut || !moveIn) {
+					if (!moveOut || !moveIn|| (nextCell.getOccupied()==true && nextTileX+1>=Game.getInstance().getBoard().getCols())) {
 						//move not possible, change to best position
 						position = new Position(position.getX() + i * n, position.getY(), position.getOrientation());
 						return false;
+					}
+					if(nextCell.getOccupied()==true) {
+						Position pushedTo=new Position(position.getX()+(i+2)*n, position.getY(), nextCell.getOccupidRobot().getPosition().getOrientation());
+						nextCell.getOccupidRobot().move(board, pushedTo);
 					}
 					//if move possible, interact with the cell
 					nextCell.interact(this);
@@ -75,9 +76,15 @@ public class Robot {
 				Tile nextCell = board.getTile(position.getX(), nextTileY);
 				boolean moveOut = currentCell.canMoveOut(position.getOrientation());
 				boolean moveIn = nextCell.canMoveIn(position.getOrientation());
-				if(!moveOut || ! moveIn) {
+				if(!moveOut || ! moveIn || (nextCell.getOccupied()==true && nextTileY+1>=Game.getInstance().getBoard().getCols())) {
 					position = new Position(position.getX(), position.getY()+i*n, position.getOrientation());
 					return false;
+				}
+				if(nextCell.getOccupied()==true) {
+					Position pushedTo=new Position(position.getX(),position.getY()+(i+2)*n , nextCell.getOccupidRobot().getPosition().getOrientation());
+
+					 nextCell.getOccupidRobot().move(board, pushedTo);
+
 				}
 				nextCell.interact(this);
 			}
@@ -85,11 +92,10 @@ public class Robot {
 			position = newPosition;
 			board.getTile(position.getX(), position.getY()).setOccupied(true);
 			board.getTile(position.getX(), position.getY()).setOccupidRobot(this);
-			
 			return true;
 		}	
+		
 	}
-	
 	public void damage(int damage){
 		if (!shielded) {
 			lives -= damage;
@@ -100,11 +106,6 @@ public class Robot {
 		} else {
 			shielded = false;
 		}
-	}
-	
-	public void repair() {
-		lives +=1;
-		if(lives > 5) lives = 5;
 	}
 	
 	public void respawn() {
@@ -145,4 +146,9 @@ public class Robot {
 	public void setShielded(boolean bool) {
 		shielded=bool;
 	}
+	public void repair() {
+		lives +=1;
+		if(lives > 5) lives = 5;
+	}
+	
 }

@@ -71,5 +71,8 @@ Feature: Robot
 			    When the robot moves
 			    Then the old tile is unoccupied 
 			    And new tile is occupied
+			
+
 					
+
 					

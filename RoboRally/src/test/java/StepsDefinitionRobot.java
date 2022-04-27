@@ -12,7 +12,7 @@ import io.cucumber.java.en.When;
 
 public class StepsDefinitionRobot {
 	Robot robot;
-	Board board = new Board(10, 10, 2);
+	Board board = Game.getInstance().getBoard();
 	boolean canMove;
 
 	@Given("A robot with {int} lives")
@@ -95,5 +95,7 @@ public class StepsDefinitionRobot {
 	public void new_tile_is_occupied() {
 		assertEquals(true, Game.getInstance().getBoard().getTile(3, 4).getOccupied());
 	}
+	/////
+
 }
 	

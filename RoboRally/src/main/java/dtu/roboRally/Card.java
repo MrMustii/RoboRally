@@ -7,6 +7,7 @@ import dtu.roboRally.cardTypes.MoveForwardTwoCard;
 import dtu.roboRally.cardTypes.OilSPillCard;
 import dtu.roboRally.cardTypes.RotateClockwiseCard;
 import dtu.roboRally.cardTypes.RotateCounterClockwiseCard;
+import dtu.roboRally.cardTypes.ShieldCard;
 import dtu.roboRally.cardTypes.UTurnCard;
 
 public abstract class Card {
@@ -38,7 +39,7 @@ public abstract class Card {
 		} else if(chance>=0.80 && chance <0.95) {
 			return new UTurnCard();
 		}else if(chance>=0.95 && chance <=1) {
-			return new OilSPillCard();
+			return new ShieldCard();
 		}
 		return null;
 	}

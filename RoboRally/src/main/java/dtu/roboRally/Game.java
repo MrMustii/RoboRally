@@ -12,13 +12,13 @@ public class Game {
 	private Board board;
 	private Player winner;
 	private RoboRallyController observer;
-	
+	private boolean testing=true;
 	private Game(RoboRallyController observer, int numberOfPlayers) {
 		board = new Board(9, 12, numberOfPlayers); //maybe change size
 		for(int i = 0; i<numberOfPlayers; i++) {
 			players.add(new Player());
 		}
-		this.observer = observer;
+		if(!testing) {this.observer = observer;}
 	}
 	
 	public static Game getInstance(RoboRallyController observer, int nbPlayers) {
@@ -89,7 +89,7 @@ public class Game {
 				} else {
 					if(priorities.get(indexMaxPriority)>0 && !currPlayer.getCardsInPlay().isEmpty()) {
 						currPlayer.use(currPlayer.getCardsInPlay().remove(0));
-						observer.notifyRobotMove();
+						if(!testing) {observer.notifyRobotMove();}
 						priorities.set(indexMaxPriority, 0);
 					}
 				}
@@ -103,7 +103,7 @@ public class Game {
 	public void hasWon(int playerIndex) {
 		Position positionRobot = instance.getPlayers().get(playerIndex).getRobot().getPosition();
 		if(board.getTile(positionRobot.getX(), positionRobot.getY()) instanceof EndPosition) {
-		observer.notifyWin(playerIndex);
+		if(!testing) {observer.notifyWin(playerIndex);}
 		winner = players.get(playerIndex);
 		
 		//players.clear();

@@ -19,7 +19,7 @@ import dtu.roboRally.Player;
 
 public class MainGUI extends Container {
 	
-	Game game = Game.getInstance(2);
+	Game game = Game.getInstance();
 	ArrayList<Player> players = game.getPlayers();
 	
 	protected void makePanel(GridBagLayout gridbag, GridBagConstraints c, Color color) {
