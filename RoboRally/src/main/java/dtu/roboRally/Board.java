@@ -345,6 +345,13 @@ public class Board {
 
 		 */
 	}
+
+	public boolean isTileOnBoard(int x, int y){
+		boolean xOnBoard = (x>0) && (x<cols);
+		boolean yOnBoard = (y>0) && (y<rows);
+		return xOnBoard&&yOnBoard;
+	}
+
     public void setWall(int x, int y, int o) {
         board[y][x]=new Wall(o);
     }
