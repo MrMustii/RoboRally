@@ -39,6 +39,7 @@ public class Board {
 		loadBelts();
 		loadTeleporter();
 		loadTeleporter();
+
 	}
 	
 	// Method for robot.move testing
