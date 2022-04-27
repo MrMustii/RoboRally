@@ -4,6 +4,9 @@ import dtu.roboRally.Card;
 import dtu.roboRally.Position;
 import dtu.roboRally.Robot;
 
+/**
+ * A card that rotates a robot counterclockwise from its current orientation
+ */
 public class RotateCounterClockwiseCard extends Card {
 	public RotateCounterClockwiseCard() {
 		super(2);

@@ -10,16 +10,32 @@ import dtu.roboRally.cardTypes.RotateCounterClockwiseCard;
 import dtu.roboRally.cardTypes.ShieldCard;
 import dtu.roboRally.cardTypes.UTurnCard;
 
+/**
+ * Abstract class for the cards
+ * This includes giving cards a priority and a probability to each card
+ */
 public abstract class Card {
 	
 	private final int priority;
 	
+	/**
+	 * sets priority for a given card
+	 * @param priority (int)
+	 */
 	public Card(int priority) {
 		this.priority = priority;
 	}
 	
+	/**
+	 * @param robot (Robot)
+	 * @param position (Position)
+	 * @return The defined action of a card
+	 */
 	public abstract Position useCard(Robot robot, Position position);
 	
+	/**
+	 * @return a probability for each card to make the dealing of cards random
+	 */
 	public static Card random() {
 		
 		double chance =Math.random();
@@ -44,6 +60,10 @@ public abstract class Card {
 		return null;
 	}
 	
+	/**
+	 * Getter method to get the priority
+	 * @return (int) 
+	 */
 	public int getPriority() {
 		return priority;
 	}

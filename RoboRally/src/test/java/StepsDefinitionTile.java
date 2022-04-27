@@ -10,6 +10,7 @@ public class StepsDefinitionTile {
 	Robot robot;
 	Game game = Game.getInstance();
 	Board board;
+	
 
 	
 	
@@ -31,7 +32,7 @@ public class StepsDefinitionTile {
 
 	@When("the robot interacts with the oil tile")
 	public void the_robot_interacts_with_the_oil_tile() {
-	    Board b=new Board(12,12,3);
+	    Board b=new Board(12,12,3, null);
 	    b.setOilTile(2, 1);
 		b.getTile(2, 1).interact(robot);
 	}

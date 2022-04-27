@@ -1,56 +1,61 @@
 package dtu.roboRally;
 
-
 import java.util.ArrayList;
 
 import dtu.roboRally.controller.RoboRallyController;
 
+/**
+ * This class creates a game with a board-layout where robots moves accord to the played cards
+ */
 public class Game {
-
 	private ArrayList<Player> players = new ArrayList<>();
 	private static Game instance;
 	private Board board;
 	private Player winner;
 	private RoboRallyController observer;
-	private boolean testing=true;
+	private boolean testing=false;
+
+	/**
+	 * Creating a board-layout and adding the chosen amount of players
+	 * @param observer (RoboRallyController)
+	 * @param numberOfPlayers (int)
+	 */
 	private Game(RoboRallyController observer, int numberOfPlayers) {
-		board = new Board(9, 12, numberOfPlayers); //maybe change size
+		board = new Board(9, 12, numberOfPlayers,observer); //maybe change size
 		for(int i = 0; i<numberOfPlayers; i++) {
 			players.add(new Player());
 		}
 		if(!testing) {this.observer = observer;}
 	}
 	
+	/**
+	 * Creating one instance of the game 
+	 * @param observer (RoboRallyController)
+	 * @param nbPlayers (int)
+	 * @return (Game)
+	 */
 	public static Game getInstance(RoboRallyController observer, int nbPlayers) {
 		if(instance == null) {
 			instance = new Game(observer, nbPlayers);
 		}
-		//setNumberPlayers(nbPlayers);
 		return instance;
 	}
 	
+	/**
+	 * Checking if the game is instantiated
+	 * @return (Game)
+	 */
 	public static Game getInstance() {
 		if(instance==null) {
-			System.out.println("Game not initialised; call getInstance(int)");
+			System.out.println("Game not initialised; call getInstance(observer, int)");
 		}
 		//setNumberPlayers(nbPlayers);
 		return instance;
 	}
-	
-	public void phase1() {
-		for(Player p:instance.getPlayers()) {
-			p.drawHand();
-			p.showHand();
-			p.pickCardsInPlay();
-		}
-		//respawn at the start of phase 2
-//		for(Player p:instance.getPlayers()) {
-//			if (p.getRobot().isDead()){
-//				p.getRobot().respawn();
-//				}
-//		}
-	}
-	
+		
+	/**
+	 * Runs the game. This method makes sure that a robot moves accordingly to the played cards
+	 */
 	public void phase2() {		
 		// number of cards in play
 		int nbOfCards = instance.getPlayers().get(0).getCardsInPlay().size();		
@@ -95,40 +100,58 @@ public class Game {
 				}
 				//check if player won
 				instance.hasWon(indexMaxPriority);
-
 			}
 		}
 	}
 	
+	/**
+	 * Checking if the end-position has been reached. If so then a winner has been found
+	 * @param playerIndex (int)
+	 */
 	public void hasWon(int playerIndex) {
 		Position positionRobot = instance.getPlayers().get(playerIndex).getRobot().getPosition();
 		if(board.getTile(positionRobot.getX(), positionRobot.getY()) instanceof EndPosition) {
 		if(!testing) {observer.notifyWin(playerIndex);}
 		winner = players.get(playerIndex);
-		
-		//players.clear();
-		//players.add(winner);
-		
 		}
 	}
 	
+	/**
+	 * Gets the number of players
+	 * @return (int)
+	 */
 	public int numberOfPlayers() {
 		return players.size();
 	}
 	
+	/**
+	 * Getter method to get all of the players
+	 * @return (ArrayList<Player>)
+	 */
 	public ArrayList<Player> getPlayers() {
 		return players;
 	}
 	
-	//getter for board
+	/**
+	 * Getter method to get the board
+	 * @return (Board)
+	 */
 	public Board getBoard() {
 		return board;
 	}
+	
+	/**
+	 * Sets the board 
+	 */
 	public void setBoard() {
-		this.board = new Board(12,12,instance.numberOfPlayers());
+		this.board = new Board(12,12,instance.numberOfPlayers(), null);
 	}
+	
+	/**
+	 * Getter method to get the winner
+	 * @return (Player)
+	 */
 	public Player getWinner() {
 		return winner;
 	}
-	
 }

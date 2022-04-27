@@ -1,5 +1,7 @@
 package dtu.roboRally;
 
+import dtu.roboRally.controller.RoboRallyController;
+
 import java.util.Random;
 
 public class Board {
@@ -7,6 +9,8 @@ public class Board {
 	//initialize class attributes
 	private int rows;
 	private int cols;
+
+	private RoboRallyController observer; //to give to the tiles
 	
 	public int getRows() {
 		return rows;
@@ -26,11 +30,13 @@ public class Board {
 	private Random rnd = new Random();
 	
 	//Board constructor
-	public Board(int newRows, int newCols, int numberOfPlayers) {
+	public Board(int newRows, int newCols, int numberOfPlayers, RoboRallyController observer) {
 //		this.isRunning = true;
 		this.rows = newRows;
 		this.cols = newCols;
 		this.board = new Tile[rows][cols];
+
+		this.observer = observer;
 		
 		loadObstacles();
 		loadStartPosition(numberOfPlayers);
@@ -64,6 +70,7 @@ public class Board {
 		for (int j = 0; j < rows; j++) {
 			for (int i = 0; i < cols;i++) {
 				t = getRandomTileType();
+				t.setObserver(observer);
 				board[j][i] = t;
 			}
 		}
@@ -163,8 +170,14 @@ public class Board {
 			x2 = (int) ((int) 3+ Math.floor(Math.random()*(cols-6)));
 			y2 = (int) Math.floor(Math.random()*rows);
 		} while((! (board[y2][x2] instanceof Floor)) && (x1!=x2 || y1!=y2));
-		board[y1][x1] = new Teleporter(x2,y2);
-		board[y2][x2] = new Teleporter(x1,y1);
+
+		Teleporter t1 = new Teleporter(x2, y2);
+		Teleporter t2 = new Teleporter(x1, y1);
+		t1.setObserver(observer);
+		t2.setObserver(observer);
+
+		board[y1][x1] = t1;
+		board[y2][x2] = t2;
 
 		
 		
@@ -248,10 +261,18 @@ public class Board {
 		board[y+3][x] = new LaserBeam();
 		board[y+4][x] = new LaserShooter(0);
 	}
+
+	public void loadBelts(){
+		for(int i=0; i<3; i++){
+			loadOneBelt();
+		}
+	}
 	
-	public void loadBelts() {
+	public void loadOneBelt() {
+
 		int x,y, orientation;
-		do {
+		//first cb
+		do { //checks if the tile is available
 			x = (int) ((int) 3 + Math.floor(Math.random()*(cols-6)));
 			y = (int) ((int) 3 + Math.floor(Math.random()*(rows-7)));
 			orientation = (int) Math.floor(Math.random()*2);
@@ -261,17 +282,45 @@ public class Board {
 			
 		}while((orientation==2&&(isTpLsCb(x,y)||isTpLsCb(x,y+1)||isTpLsCb(x,y+2))
 				||(orientation==0)&&(isTpLsCb(x,y)||isTpLsCb(x,y-1)||isTpLsCb(x,y-2))));
+
+		//sets the belt
+		int nextY;
+		if (orientation == 2) {
+			nextY = y+1;
+
+		}else {
+			nextY = y-1;
+		}
+
+		ConveyorBelt cb1 = new ConveyorBelt(2);
+		cb1.setObserver(observer);
+		board[y][x] = cb1;
+		ConveyorBelt cb2 = new ConveyorBelt(2);
+		cb2.setObserver(observer);
+		board[nextY][x] = cb2;
+
+		/*
+		//second cb
+		do {
+			x = (int) ((int) 3 + Math.floor(Math.random()*(cols-6)));
+			y = (int) ((int) 2 + Math.floor(Math.random()*(rows-4)));
+			orientation = (int) Math.floor(Math.random()*2);
+			if (orientation == 1) {
+				orientation = 2;
+			}
+		}while((orientation==2&&(isTpLsCb(x,y)||isTpLsCb(x,y+1)||isTpLsCb(x,y+2))
+				||(orientation==0)&&(isTpLsCb(x,y)||isTpLsCb(x,y-1)||isTpLsCb(x,y-2))));
+
 		if (orientation == 2) {
 			board[y][x] = new ConveyorBelt(2);
 			board[y+1][x] = new ConveyorBelt(2);
-
-			
 		}
 		else {
 			board[y][x] = new ConveyorBelt(2);
 			board[y-1][x] = new ConveyorBelt(2);
-
 		}
+
+		//third cb
 		do {
 			x = (int) ((int) 3 + Math.floor(Math.random()*(cols-6)));
 			y = (int) ((int) 2 + Math.floor(Math.random()*(rows-4)));
@@ -293,28 +342,16 @@ public class Board {
 			board[y-1][x] = new ConveyorBelt(2);
 
 		}
-		do {
-			x = (int) ((int) 3 + Math.floor(Math.random()*(cols-6)));
-			y = (int) ((int) 2 + Math.floor(Math.random()*(rows-4)));
-			orientation = (int) Math.floor(Math.random()*2);
-			if (orientation == 1) {
-				orientation = 2;
-			}
-			
-		}while((orientation==2&&(isTpLsCb(x,y)||isTpLsCb(x,y+1)||isTpLsCb(x,y+2))
-				||(orientation==0)&&(isTpLsCb(x,y)||isTpLsCb(x,y-1)||isTpLsCb(x,y-2))));
-		if (orientation == 2) {
-			board[y][x] = new ConveyorBelt(2);
-			board[y+1][x] = new ConveyorBelt(2);
 
-			
-		}
-		else {
-			board[y][x] = new ConveyorBelt(2);
-			board[y-1][x] = new ConveyorBelt(2);
-
-		}
+		 */
 	}
+
+	public boolean isTileOnBoard(int x, int y){
+		boolean xOnBoard = (x>0) && (x<cols);
+		boolean yOnBoard = (y>0) && (y<rows);
+		return xOnBoard&&yOnBoard;
+	}
+
     public void setWall(int x, int y, int o) {
         board[y][x]=new Wall(o);
     }
