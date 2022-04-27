@@ -4,6 +4,9 @@ import dtu.roboRally.Card;
 import dtu.roboRally.Position;
 import dtu.roboRally.Robot;
 
+/**
+ * A card that makes a robot perform a u-turn
+ */
 public class UTurnCard extends Card {
 	public UTurnCard() {
 		super(3);

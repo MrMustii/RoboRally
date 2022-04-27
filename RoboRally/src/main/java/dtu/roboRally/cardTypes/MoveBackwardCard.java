@@ -4,6 +4,9 @@ import dtu.roboRally.Card;
 import dtu.roboRally.Position;
 import dtu.roboRally.Robot;
 
+/**
+ * A card that makes a robot move one tile backwards
+ */
 public class MoveBackwardCard extends Card {
 	public MoveBackwardCard() {
 		super(3);

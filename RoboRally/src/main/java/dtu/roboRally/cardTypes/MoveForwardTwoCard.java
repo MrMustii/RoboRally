@@ -4,6 +4,9 @@ import dtu.roboRally.Card;
 import dtu.roboRally.Position;
 import dtu.roboRally.Robot;
 
+/**
+ * A card that makes a robot move two tiles forward
+ */
 public class MoveForwardTwoCard extends Card {
 	public MoveForwardTwoCard() {
 		super(3);
