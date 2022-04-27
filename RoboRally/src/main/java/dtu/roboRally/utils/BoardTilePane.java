@@ -29,7 +29,9 @@ public class BoardTilePane extends TilePane {
 		
 		players = Game.getInstance().getPlayers(); //TODO: pass this data from controller
 		createTilePane();
-		setRobots();
+		if(players.get(0).getRobot()!=null) { //we don't want to setRobot for SetStartingPositionView
+			setRobots();
+		}
 	}
 	
 	public void createTilePane() {	
@@ -39,30 +41,33 @@ public class BoardTilePane extends TilePane {
 		
 		for (int j = 0; j < rows; j++) {
 			for (int i = 0; i < cols; i++) {
-				FileInputStream tiles = FileLoader.loadFile("src/main/resources/tileImages/"+board.getTile(i, j).getLabel()+".png");
-				Image tileImage = new Image(tiles);
-				ImageView tileImageView = new ImageView(tileImage);
+				String tileID = board.getTile(i, j).getLabel();
+				ImageView tileImageView = ImageViewLoader.loadFile("src/main/resources/tileImages/"+ tileID +".png");
 				tileImageView.setFitHeight(50);
 				tileImageView.setFitWidth(50);
-				getChildren().add(new StackPane(tileImageView));
+				
+				StackPane sp = new StackPane();
+				sp.setId(tileID);
+				sp.getChildren().add(tileImageView);
+				
+				getChildren().add(sp);
 			}
 		}
 		
 		
-		for(int i = 0; i<players.size(); i++) {
-			int x = players.get(i).getRobot().getPosition().getX();
-			int y = players.get(i).getRobot().getPosition().getY();
-			
-			int index = y*cols + x;
-			
-			FileInputStream robotFile = FileLoader.loadFile("src/main/resources/robotImages/robot"+i+".png");
-			ImageView robotImageView = new ImageView(new Image(robotFile));
-			robotImageView.setFitHeight(50);
-			robotImageView.setFitWidth(50);
-
-			StackPane stack = (StackPane) getChildren().get(index);
-			stack.getChildren().add(robotImageView);
-		}
+//		for(int i = 0; i<players.size(); i++) {
+//			int x = players.get(i).getRobot().getPosition().getX();
+//			int y = players.get(i).getRobot().getPosition().getY();
+//			
+//			int index = y*cols + x;
+//			
+//			ImageView robotImageView = ImageViewLoader.loadFile("src/main/resources/robotImages/robot"+i+".png");
+//			robotImageView.setFitHeight(50);
+//			robotImageView.setFitWidth(50);
+//
+//			StackPane stack = (StackPane) getChildren().get(index);
+//			stack.getChildren().add(robotImageView);
+//		}
 	}
 	
 	public void setRobots() {
@@ -74,8 +79,7 @@ public class BoardTilePane extends TilePane {
 			
 			int index = y*cols + x;
 			
-			FileInputStream robotFile = FileLoader.loadFile("src/main/resources/robotImages/robot"+i+".png");
-			ImageView robotImageView = new ImageView(new Image(robotFile));
+			ImageView robotImageView = ImageViewLoader.loadFile("src/main/resources/robotImages/robot"+i+".png");
 			robotImageView.setFitHeight(50);
 			robotImageView.setFitWidth(50);
 			robotImageView.setRotate(90*o);

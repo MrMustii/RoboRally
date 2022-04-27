@@ -29,8 +29,7 @@ public class PlayerStatusPanel  extends VBox {
             livesHB.setSpacing(10);
             
             for(int i = 0; i<robotLives.get(playerIndex); i++) {
-            	FileInputStream heart = FileLoader.loadFile("src/main/resources/images/heart.png");
-            	ImageView heartImageView = new ImageView(new Image(heart));
+            	ImageView heartImageView = ImageViewLoader.loadFile("src/main/resources/images/heart.png");
             	heartImageView.setFitHeight(20);
 				heartImageView.setFitWidth(20);
             	livesHB.getChildren().add(heartImageView);

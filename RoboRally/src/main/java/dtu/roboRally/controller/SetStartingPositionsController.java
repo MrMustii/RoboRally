@@ -1,11 +1,11 @@
 package dtu.roboRally.controller;
 
+import java.util.ArrayList;
+
 import dtu.roboRally.Game;
 import dtu.roboRally.Player;
 import dtu.roboRally.view.SetStartingPositionsView;
 import javafx.stage.Stage;
-
-import java.util.ArrayList;
 
 public class SetStartingPositionsController {
 
@@ -21,15 +21,21 @@ public class SetStartingPositionsController {
         this.primaryStage = primaryStage;
         this.playerNames = playerNames;
         players = Game.getInstance().getPlayers();
-
-        nextPlayer();
+        
+        int playerID = getRandomPlayer();
+        view = new SetStartingPositionsView(this, playerID, playerNames);
+    }
+    
+    public void display() {
+    	primaryStage.setScene(view.initGUI());
     }
 
     public void nextPlayer(){
-    	
+        
         if(!allPlayersInitialised()){
             int playerID = getRandomPlayer();
-            view = new SetStartingPositionsView(this, playerID, playerNames.get(playerID));
+            //view = new SetStartingPositionsView(this, playerID, playerNames.get(playerID));
+            view.nextPlayerChooseStart(playerID);
             primaryStage.setScene(view.initGUI());
         } else {
             application.managePlayerTurn(primaryStage, 0);

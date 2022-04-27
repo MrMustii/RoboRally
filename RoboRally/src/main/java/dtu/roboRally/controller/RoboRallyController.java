@@ -47,7 +47,6 @@ public class RoboRallyController extends Application {
 	 * @param primaryStage (Stage)
 	 */
 	public void startApplication(Stage primaryStage) {
-		
 		SNOPC = new SetNumberOfPlayersController(this, primaryStage);
 		SNOPC.display();
 	}
@@ -78,7 +77,7 @@ public class RoboRallyController extends Application {
 	 */
 	public void pickStartingPositions(Stage primaryStage){
 		SSPC = new SetStartingPositionsController(this, primaryStage, playerNames);
-		//display is made in the controller
+		SSPC.display();
 	}
 
 	/**
