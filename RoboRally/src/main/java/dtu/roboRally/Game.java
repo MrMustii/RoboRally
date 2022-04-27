@@ -62,7 +62,11 @@ public class Game {
 			
 			// creates list of n'th card priorities according to each player index
 			for(Player p:instance.getPlayers()) {
-				priorities.add(p.getCardsInPlay().get(0).getPriority());
+				if(!p.getCardsInPlay().isEmpty()) {
+					priorities.add(p.getCardsInPlay().get(0).getPriority());
+				}else {
+					priorities.add(-1);
+				}
 			}
 			// loop for robot to move according to the n'th card of each player
 			for(int playerIndex=0; playerIndex<numberOfPlayers(); playerIndex++) {
@@ -81,11 +85,13 @@ public class Game {
 				if (currPlayer.getRobot().isDead()) {
 					currPlayer.getCardsInPlay().clear();
 //					priorities.set(indexMaxPriority, 0);
-					currPlayer.getRobot().resurrect();
+					currPlayer.getRobot().respawn();
 				} else {
-				currPlayer.use(currPlayer.getCardsInPlay().remove(0));
-				observer.updateMovingRobotsView();
-				priorities.set(indexMaxPriority, 0);
+					if(priorities.get(indexMaxPriority)>0 && !currPlayer.getCardsInPlay().isEmpty()) {
+						currPlayer.use(currPlayer.getCardsInPlay().remove(0));
+						observer.updateMovingRobotsView();
+						priorities.set(indexMaxPriority, 0);
+					}
 				}
 				//check if player won
 				instance.hasWon(indexMaxPriority);

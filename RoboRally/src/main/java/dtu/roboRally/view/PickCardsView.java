@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import dtu.roboRally.Board;
 import dtu.roboRally.Card;
 import dtu.roboRally.Game;
+import dtu.roboRally.Position;
 import dtu.roboRally.controller.PickCardsController;
-import dtu.roboRally.utils.BoardTilePane;
-import dtu.roboRally.utils.PlayerStatusPanel;
+import dtu.roboRally.utils.*;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -24,43 +24,64 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
+/**
+ * view for the PickCardScene
+ */
 public class PickCardsView {
 	
 	private PickCardsController controller;
-	private GridPane layout = new GridPane();
+	private RoboRallyGridPane layout;
 	private ArrayList<Card> hand; 
 	HBox cardsPlayed = new HBox();
-	
+
+	/**
+	 * Constructor that retrieves relevant data from controller
+	 * @param controller (PickCardController)
+	 * @param hand (ArrayList<Card>)
+	 */
 	public PickCardsView(PickCardsController controller, ArrayList<Card> hand) {
 		this.controller = controller;
 		this.hand = hand;
 	}
-	
+
+	/**
+	 * creates the Scene from a GridPane with nodes: PlayerStatusPanel, BoardTilePane, ProgressBar, CardGUIs, and a Button
+	 * @return (Scene)
+	 */
 	public Scene initGUI() {
-		
+
+		//sets layout
+		PlayerStatusPanel psp = new PlayerStatusPanel(controller.getPlayerNames(), controller.getLivesOfRobots());
+		BoardTilePane btp = new BoardTilePane();
+		layout = new RoboRallyGridPane(psp, btp , addProgressBar(), addConfirmCardsButton());
+
+		/*
 		layout.setVgap(20);
 		layout.setHgap(20);
 		layout.setPadding(new Insets(40, 0, 0, 40));	
 		
-		layout.add(new PlayerStatusPanel(controller.getPlayerNames()), 0, 0, 1, 3);
+		layout.add(new PlayerStatusPanel(controller.getPlayerNames(), controller.getLivesOfRobots()), 0, 0, 1, 3);
 		
 		layout.add(new BoardTilePane(), 1, 0, 1, 1);
 		
 		addProgressBar();
+
+		 */
 		
 		addCardsGUI();
 		
-		addConfirmCardsButton();
+		//addConfirmCardsButton();
 		
 		return new Scene(layout);
 	}
 	
-	public void addProgressBar() {
-		
-		ProgressBar progressBar = new ProgressBar(); //TODO: implement progress in the game. maybe create custom progressbar Class with calculateProgress(pos rob, pos end)
+	public ProgressBarPlayer addProgressBar() {
+		Position[] positions = controller.extractPosition();
+		ProgressBarPlayer progressBar = new ProgressBarPlayer(positions[0], positions[1], positions[3]);
 		progressBar.setPrefWidth(600);
-		
-		layout.add(progressBar, 1, 1, 1, 1);
+		return progressBar;
+
+		//layout.add(progressBar, 1, 1, 1, 1);
 	}
 	
 	public void addCardsGUI() {
@@ -73,51 +94,44 @@ public class PickCardsView {
 		handGUI.setVgap(45);
 		
 		cardsPlayed.setSpacing(24);
-		for(int i = 0; i<hand.size(); i++) {
-			
-			String cardName = hand.get(i).getClass().getSimpleName();
-			Card card = hand.get(i);
-			
-			FileInputStream input = null;
-			
-			try {
-				input = new FileInputStream("src/main/resources/cardImages/"+cardName+".png");
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			}
+		for (Card item : hand) {
+
+			String cardName = item.getClass().getSimpleName();
+
+			FileInputStream input = FileLoader.loadFile("src/main/resources/cardImages/" + cardName + ".png");
 			Image image = new Image(input);
-			
+
 			ImageView imageViewHand = new ImageView(image);
 			imageViewHand.setId(cardName);
 			imageViewHand.setFitHeight(140);
 			imageViewHand.setFitWidth(100);
 //			imageView.setPreserveRatio(true);
-			
+
 			ImageView imageViewCardsPlayed = new ImageView(image);
 			imageViewHand.setId(cardName);
 			imageViewCardsPlayed.setFitHeight(140);
 			imageViewCardsPlayed.setFitWidth(100);
 //			imageViewCopy.setPreserveRatio(true);
-			
+
 			imageViewHand.setOnMouseClicked(value -> {
-				
-				if(cardsPlayed.getChildren().size()<5) {
+
+				if (cardsPlayed.getChildren().size() < 5) {
 					handGUI.getChildren().remove(imageViewHand);
 					cardsPlayed.getChildren().add(imageViewCardsPlayed);
-					
-					controller.addCardInPlay(card);
+
+					controller.addCardInPlay(item);
 				}
 			});
-			
+
 			imageViewCardsPlayed.setOnMouseClicked(value -> {
-				
+
 				cardsPlayed.getChildren().remove(imageViewCardsPlayed);
 				handGUI.getChildren().add(imageViewHand);
-				
-				controller.removeCardInPlay(card);
+
+				controller.removeCardInPlay(item);
 //				player.getCardsInPlay().remove(card);
 			});
-			
+
 			handGUI.getChildren().add(imageViewHand);
 		}
 		
@@ -125,11 +139,11 @@ public class PickCardsView {
 		layout.add(cardsPlayed, 1, 2, 1, 3);
 	}
 	
-	public void addConfirmCardsButton() {
+	public RoboRallyButton addConfirmCardsButton() {
 		
-		Button confirmCardsButton = new Button("CONFIRM CARDS");
-		confirmCardsButton.setFont(Font.font("Courier New", FontWeight.BOLD, 18));
-		layout.add(confirmCardsButton, 1, 3, 1, 1); // does not look nice
+		RoboRallyButton confirmCardsButton = new RoboRallyButton("CONFIRM CARDS");
+		//confirmCardsButton.setFont(Font.font("Courier New", FontWeight.BOLD, 18));
+		//layout.add(confirmCardsButton, 1, 3, 1, 1); // does not look nice
 //		playersStatus.getChildren().add(confirmCardsButton);
 		
 		confirmCardsButton.setOnAction(value -> {
@@ -138,5 +152,7 @@ public class PickCardsView {
 				controller.nextPlayer();
 			}
 		});
+
+		return confirmCardsButton;
 	}
 }
