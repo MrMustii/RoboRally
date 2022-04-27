@@ -1,14 +1,11 @@
 package dtu.roboRally.controller;
 
-import java.util.ArrayList;
-
 import dtu.roboRally.Game;
 import dtu.roboRally.Player;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import javafx.util.Duration;
+
+import java.util.ArrayList;
 
 public class RoboRallyController extends Application {
 	
