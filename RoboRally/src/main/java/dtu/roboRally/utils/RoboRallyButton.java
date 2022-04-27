@@ -8,7 +8,7 @@ import javafx.scene.text.FontWeight;
 public class RoboRallyButton extends Button {
 
     public RoboRallyButton(String text){
-        super();
+        super(text);
 
         Font font = Font.font("Courier New", FontWeight.BOLD, 28);
         setFont(font);

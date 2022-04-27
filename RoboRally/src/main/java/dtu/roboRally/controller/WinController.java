@@ -17,7 +17,11 @@ public class WinController {
 	}
 	
 	public void newGame() {
-		application.startApplication(primaryStage);
+		try {
+			application.start(primaryStage);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void display() {

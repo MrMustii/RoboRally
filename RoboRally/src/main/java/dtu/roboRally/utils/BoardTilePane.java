@@ -53,21 +53,6 @@ public class BoardTilePane extends TilePane {
 				getChildren().add(sp);
 			}
 		}
-		
-		
-//		for(int i = 0; i<players.size(); i++) {
-//			int x = players.get(i).getRobot().getPosition().getX();
-//			int y = players.get(i).getRobot().getPosition().getY();
-//			
-//			int index = y*cols + x;
-//			
-//			ImageView robotImageView = ImageViewLoader.loadFile("src/main/resources/robotImages/robot"+i+".png");
-//			robotImageView.setFitHeight(50);
-//			robotImageView.setFitWidth(50);
-//
-//			StackPane stack = (StackPane) getChildren().get(index);
-//			stack.getChildren().add(robotImageView);
-//		}
 	}
 	
 	public void setRobots() {
@@ -90,30 +75,11 @@ public class BoardTilePane extends TilePane {
 	}
 	
 	public void deleteRobots() {
-				
-//		for(int i = 0; i<players.size(); i++) {
-//			int x = players.get(i).getRobot().getPosition().getX();
-//			int y = players.get(i).getRobot().getPosition().getY();
-//			
-//			int index = y*cols + x;
-//			
-//			StackPane stack = (StackPane) getChildren().get(index);
-//	
-//			if(stack.getChildren().size() == 2) {
-//				stack.getChildren().remove(1);
-//			}
-////			stack.getChildren().remove(stack.getChildren().size()-1);
-//			System.out.println(i);
-//			System.out.println(stack.getChildren().size());
-//			
-//		}
  		for(int i = 0; i<getChildren().size(); i++) {
  			StackPane tile = (StackPane) getChildren().get(i);
 			if(tile.getChildren().size() > 1) {
 				tile.getChildren().remove(1);
 			}
 		}
-		
 	}
-	
 }

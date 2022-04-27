@@ -42,9 +42,9 @@ public class SetPlayerNamesController {
 	 * @param nameIndex (int) which player name to update
 	 * @param name (String) new name
 	 */
-	public void updatePlayerName(int nameIndex, String name) {
-		playerNames.set(nameIndex, name);
-		//playerNames.add(nameIndex, name);
+	public void addPlayerName(int nameIndex, String name) {
+		//playerNames.set(nameIndex, name);
+		playerNames.add(nameIndex, name);
 	}
 
 	/**
@@ -54,7 +54,6 @@ public class SetPlayerNamesController {
 		primaryStage.setScene(view.initGUI());
 	}
 
-	@Deprecated
 	public void removePlayerName(int nameIndex) {
 		playerNames.remove(nameIndex);
 	}

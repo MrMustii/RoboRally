@@ -22,11 +22,11 @@ import javafx.scene.layout.TilePane;
 public class SetStartingPositionsView {
 
     private SetStartingPositionsController controller;
-    private GridPane layout;
     private int playerID;
     private ArrayList<String> playerNames;
     private String playerName;
-        
+       
+    private GridPane layout;
     private BoardTilePane boardGUI;
     private Label instructions;
     private PlayerStatusPanel playerStatusPanel;
@@ -42,12 +42,8 @@ public class SetStartingPositionsView {
         boardGUI = new BoardTilePane();
         layout.add(boardGUI, 1, 0, 1, 1);
         
-      //list of 5 lives because robots are not initialized at that point
-        ArrayList<Integer> lives = new ArrayList<>();
-        for(int i=0; i<playerNames.size(); i++) {
-        	lives.add(5);
-        }
-        playerStatusPanel = new PlayerStatusPanel(playerNames, lives);
+      
+        playerStatusPanel = new PlayerStatusPanel(playerNames);
         layout.add(playerStatusPanel , 0, 0, 1, 3);
         
         addListeners();
@@ -92,51 +88,12 @@ public class SetStartingPositionsView {
     		}
     	}
     }
-
-//    public void addBoardGUI() {
-//
-//        Board board = Game.getInstance().getBoard();
-//
-//        int rows = board.getRows();
-//        int cols = board.getCols();
-//
-//        TilePane boardGUI = new TilePane();
-//        boardGUI.setPrefColumns(cols);
-//        boardGUI.setPrefRows(rows);
-//
-//        for (int j = 0; j < rows; j++) {
-//            for (int i = 0; i < cols; i++) {
-//                ImageView tileImageView = ImageViewLoader.loadFile("src/main/resources/tileImages/"+board.getTile(i, j).getLabel()+".png");
-//                tileImageView.setFitHeight(50);
-//                tileImageView.setFitWidth(50);
-//
-//                if(board.getTile(i,j).getLabel().equals("S ")){
-//                    int x = i;
-//                    int y = j;
-//                    tileImageView.setOnMouseClicked(value -> {
-//                    	int index = y*cols + x;
-//                    	StackPane stack = (StackPane) boardGUI.getChildren().get(index);
-//                    	
-//                    	if(stack.getChildren().size()<2) {
-//                    		controller.addRobot(playerID, x, y);
-//                			stack.getChildren().add(ImageViewLoader.loadFile("src/main/resources/robotImages/robot"+playerID+".png"));
-//                            //TODO: add picture robot
-//                            //TODO: check if tile occupied?
-//                            controller.nextPlayer();
-//                    	}
-//                    });
-//                }
-//                boardGUI.getChildren().add(new StackPane(tileImageView));
-//            }
-//        }
-//
-//        layout.add(boardGUI, 0, 0, 1, 1);
-//    }
     
     public void addRobotImage(int playerID, int index) {
     	ImageView robotImageView = ImageViewLoader.loadFile("src/main/resources/robotImages/robot"+playerID+".png");
     	robotImageView.setFitHeight(50);
 		robotImageView.setFitWidth(50);
+		robotImageView.setRotate(90);
     	StackPane stack = (StackPane)boardGUI.getChildren().get(index);
     	stack.getChildren().add(robotImageView);
     }

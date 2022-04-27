@@ -35,7 +35,7 @@ public class SetNumberOfPlayersView {
 	public Scene initGUI() {
 
 		//set slider
-		Slider slider = new Slider(2, 6, 0);
+		Slider slider = new Slider(1, 5, 0);
 	    slider.setMajorTickUnit(1.0);
 	    slider.setMinorTickCount(0);
 	    slider.setSnapToTicks(true);

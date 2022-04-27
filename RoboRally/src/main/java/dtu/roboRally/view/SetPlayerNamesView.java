@@ -42,12 +42,12 @@ public class SetPlayerNamesView {
         for(int i = 0; i<Game.getInstance().getPlayers().size(); i++) {
         	TextField t = new TextField();
         	t.setText("Player" + (i + 1));
-        	controller.updatePlayerName(i, t.getText());
+        	controller.addPlayerName(i, t.getText());
         	
         	int playerIndex = i;
         	t.textProperty().addListener((observable, oldValue, newValue) -> {
-        		//controller.removePlayerName(playerIndex); //TODO: delete
-        		controller.updatePlayerName(playerIndex, newValue);
+        		controller.removePlayerName(playerIndex); 
+        		controller.addPlayerName(playerIndex, newValue);
         	});
         	
         	playerNamesBox.getChildren().add(new HBox(t));

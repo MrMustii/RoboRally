@@ -1,7 +1,7 @@
 package dtu.roboRally.view;
 
 import dtu.roboRally.controller.WinController;
-import javafx.geometry.Pos;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -22,7 +22,7 @@ public class WinView {
 	public Scene initGUI() {
 		
 		VBox layout = new VBox();
-		layout.setAlignment(Pos.CENTER);
+		layout.setPadding(new Insets(40, 0, 0, 40));
 		layout.setSpacing(40);
 		
 		Label label = new Label("Congratulations! " + nameOfWinner + " has won the game.");
@@ -37,7 +37,8 @@ public class WinView {
 		
 		Button playAgain = new Button("PLAY AGAIN");
 		playAgain.setFont(Font.font("Courier New", FontWeight.BOLD, 28));
-		exit.setOnAction(value -> {
+		
+		playAgain.setOnAction(value -> {
 			controller.newGame();
 		});
 		

@@ -51,7 +51,7 @@ public class PickCardsView {
 	public Scene initGUI() {
 
 		//sets layout
-		PlayerStatusPanel psp = new PlayerStatusPanel(controller.getPlayerNames(), controller.getLivesOfRobots());
+		PlayerStatusPanel psp = new PlayerStatusPanel(controller.getPlayerNames());
 		BoardTilePane btp = new BoardTilePane();
 		layout = new RoboRallyGridPane(psp, btp , addProgressBar(), addConfirmCardsButton());
 
@@ -77,7 +77,7 @@ public class PickCardsView {
 	
 	public ProgressBarPlayer addProgressBar() {
 		Position[] positions = controller.extractPosition();
-		ProgressBarPlayer progressBar = new ProgressBarPlayer(positions[0], positions[1], positions[3]);
+		ProgressBarPlayer progressBar = new ProgressBarPlayer(positions[0], positions[1], positions[2]);
 		progressBar.setPrefWidth(600);
 		return progressBar;
 
@@ -98,16 +98,13 @@ public class PickCardsView {
 
 			String cardName = item.getClass().getSimpleName();
 
-			FileInputStream input = FileLoader.loadFile("src/main/resources/cardImages/" + cardName + ".png");
-			Image image = new Image(input);
-
-			ImageView imageViewHand = new ImageView(image);
+			ImageView imageViewHand =  ImageViewLoader.loadFile("src/main/resources/cardImages/" + cardName + ".png");
 			imageViewHand.setId(cardName);
 			imageViewHand.setFitHeight(140);
 			imageViewHand.setFitWidth(100);
 //			imageView.setPreserveRatio(true);
 
-			ImageView imageViewCardsPlayed = new ImageView(image);
+			ImageView imageViewCardsPlayed =  ImageViewLoader.loadFile("src/main/resources/cardImages/" + cardName + ".png");
 			imageViewHand.setId(cardName);
 			imageViewCardsPlayed.setFitHeight(140);
 			imageViewCardsPlayed.setFitWidth(100);

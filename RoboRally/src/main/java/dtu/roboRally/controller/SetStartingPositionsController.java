@@ -36,7 +36,8 @@ public class SetStartingPositionsController {
             int playerID = getRandomPlayer();
             //view = new SetStartingPositionsView(this, playerID, playerNames.get(playerID));
             view.nextPlayerChooseStart(playerID);
-            primaryStage.setScene(view.initGUI());
+//            primaryStage.setScene(view.initGUI());
+            display();
         } else {
             application.managePlayerTurn(primaryStage, 0);
         }
