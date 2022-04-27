@@ -1,5 +1,7 @@
 package dtu.roboRally;
 
+import dtu.roboRally.controller.RoboRallyController;
+
 import java.util.Random;
 
 
@@ -13,7 +15,8 @@ public class Tile {
 	private boolean occupied;
 	private Robot occupidRobot;
 	private int orientation;
-	
+
+	private RoboRallyController observer;
 	
 	
 	/**
@@ -27,6 +30,15 @@ public class Tile {
 		this.label = label;
 		this.damage = damage;
 	}
+
+	public void setObserver(RoboRallyController observer){
+		this.observer = observer;
+	}
+
+	public RoboRallyController getObserver(){
+		return observer;
+	}
+
 	
 	/** 
 	 * Base version of the interact method, which only checks how much damage a tile deals. 
@@ -36,7 +48,7 @@ public class Tile {
 	 */
 	public void interact(Robot robot) {
 		robot.damage(damage);
-	
+		observer.notifyRobotMove();
 	}
 	
 	/**
@@ -294,6 +306,7 @@ class Teleporter extends Tile {
 	public void interact(Robot robot) {
 		Position newPosition =new Position(getXPos(), getYPos(), robot.getPosition().getOrientation());
 		robot.setPosition(newPosition);
+		super.getObserver().notifyRobotMove();
 	}
 }
 
@@ -312,6 +325,7 @@ class ConveyorBelt extends Tile {
 	 */
 	@Override
 	public void interact(Robot robot) {
+		super.getObserver().notifyRobotMove();
 		Position position = robot.getPosition();
 		Game game = Game.getInstance();
 		int x,y,roboOrientation;
