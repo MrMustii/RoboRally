@@ -35,8 +35,11 @@ public class Board {
 		loadObstacles();
 		loadStartPosition(numberOfPlayers);
 		loadEndPosition();
-		loadTeleporter();
 		loadLasers();
+		loadBelts();
+		loadTeleporter();
+		loadTeleporter();
+
 	}
 	
 	// Method for robot.move testing
@@ -156,14 +159,13 @@ public class Board {
 			x1 = (int) ((int) 3+ Math.floor(Math.random()*(cols-6)));
 			y1 = (int) Math.floor(Math.random()*rows);
 		} while(! (board[y1][x1] instanceof Floor));
-		board[y1][x1] = new Teleporter();
-		board[y1][x1].setLabel("T1");
 		do {
 			x2 = (int) ((int) 3+ Math.floor(Math.random()*(cols-6)));
 			y2 = (int) Math.floor(Math.random()*rows);
-		} while(! (board[y2][x2] instanceof Floor));
-		board[y2][x2] = new Teleporter();
-		board[y2][x2].setLabel("T2");
+		} while((! (board[y2][x2] instanceof Floor)) && (x1!=x2 || y1!=y2));
+		board[y1][x1] = new Teleporter(x2,y2);
+		board[y2][x2] = new Teleporter(x1,y1);
+
 		
 		
 	}
@@ -205,8 +207,8 @@ public class Board {
 		board[y][x]=new Oil();
 	}
 	
-	public void setTeleporter(int x,int y) {
-        board[y][x] = new Teleporter();
+	public void setTeleporter(int x,int y, int otherX, int otherY) {
+        board[y][x]=new Teleporter(otherX, otherY);
     }
 	
 	public void setConveyorBelt(int x, int y, int orientation) {
@@ -230,8 +232,7 @@ public class Board {
 		do {
 			x = (int) ((int) 3+ Math.floor(Math.random()*(cols-6)));
 			y = (int) Math.floor(Math.random()*(rows-4));
-		} while((board[y][x] instanceof Teleporter) || board[y+1][x] instanceof Teleporter ||board[y+2][x] instanceof Teleporter 
-				||board[y+3][x] instanceof Teleporter || board[y+4][x] instanceof Teleporter);
+		} while(!( board[y][x] instanceof Floor));
 		board[y][x] = new LaserShooter(2);
 		board[y+1][x] = new LaserBeam();
 		board[y+2][x] = new LaserBeam();
@@ -240,8 +241,7 @@ public class Board {
 		do {
 			x = (int) ((int) 3+ Math.floor(Math.random()*(cols-6)));
 			y = (int) Math.floor(Math.random()*(rows-4));
-		} while(!((isTpLsCb(x,y)||isTpLsCb(x,y+1)||isTpLsCb(x,y+2))
-				||(isTpLsCb(x,y)||isTpLsCb(x,y-1)||isTpLsCb(x,y-2))));
+		} while(!(isTpLsCb(x,y)||isTpLsCb(x,y+1)||isTpLsCb(x,y+2)||isTpLsCb(x,y+3)||isTpLsCb(x,y+4)));
 		board[y][x] = new LaserShooter(2);
 		board[y+1][x] = new LaserBeam();
 		board[y+2][x] = new LaserBeam();
@@ -280,8 +280,8 @@ public class Board {
 				orientation = 2;
 			}
 			
-		}while(!(orientation==2&&(isTpLsCb(x,y)||isTpLsCb(x,y+1)||isTpLsCb(x,y+2))
-				||(orientation==0)&&(isTpLsCb(x,y)||isTpLsCb(x,y-1)||isTpLsCb(x,y-2))));
+		}while(!(orientation==2&&(isTpLsCb(x,y)||isTpLsCb(x,y+1)||isTpLsCb(x,y+2) || board[y+3][x] instanceof ConveyorBelt)
+				||(orientation==0)&&(isTpLsCb(x,y)||isTpLsCb(x,y-1)||isTpLsCb(x,y-2) || board[y-3][x] instanceof ConveyorBelt)));
 		if (orientation == 2) {
 			board[y][x] = new ConveyorBelt(2);
 			board[y+1][x] = new ConveyorBelt(2);
@@ -301,8 +301,8 @@ public class Board {
 				orientation = 2;
 			}
 			
-		}while(!(orientation==2&&(isTpLsCb(x,y)||isTpLsCb(x,y+1)||isTpLsCb(x,y+2))
-				||(orientation==0)&&(isTpLsCb(x,y)||isTpLsCb(x,y-1)||isTpLsCb(x,y-2))));
+		}while(!(orientation==2&&(isTpLsCb(x,y)||isTpLsCb(x,y+1)||isTpLsCb(x,y+2) || board[y+3][x] instanceof ConveyorBelt)
+				||(orientation==0)&&(isTpLsCb(x,y)||isTpLsCb(x,y-1)||isTpLsCb(x,y-2) || board[y-3][x] instanceof ConveyorBelt)));
 		if (orientation == 2) {
 			board[y][x] = new ConveyorBelt(2);
 			board[y+1][x] = new ConveyorBelt(2);
