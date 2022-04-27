@@ -279,7 +279,6 @@ public class Board {
 			if (orientation == 1) {
 				orientation = 2;
 			}
-			
 		}while((orientation==2&&(isTpLsCb(x,y)||isTpLsCb(x,y+1)||isTpLsCb(x,y+2))
 				||(orientation==0)&&(isTpLsCb(x,y)||isTpLsCb(x,y-1)||isTpLsCb(x,y-2))));
 
@@ -287,7 +286,6 @@ public class Board {
 		int nextY;
 		if (orientation == 2) {
 			nextY = y+1;
-
 		}else {
 			nextY = y-1;
 		}
