@@ -20,9 +20,6 @@ public class Game {
 	 * @param observer (RoboRallyController)
 	 * @param numberOfPlayers (int)
 	 */
-
-	
-
 	private Game(RoboRallyController observer, int numberOfPlayers) {
 		board = new Board(9, 12, numberOfPlayers,observer); //maybe change size
 		for(int i = 0; i<numberOfPlayers; i++) {

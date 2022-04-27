@@ -171,12 +171,6 @@ public class Robot {
             return true;
     }
 
-    public void respawn() {
-        setPosition(startPosition.clone());
-        setLives(startingLives);
-        isDead = false;
-    }
-
 //	public void resurrect() {
 //		isDead = false;
 //	}
