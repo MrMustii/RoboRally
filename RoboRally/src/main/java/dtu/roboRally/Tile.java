@@ -10,6 +10,7 @@ public class Tile {
 	Board board;
 	private boolean occupied;
 	private Robot occupidRobot;
+	private int orientation;
 
 	
 	//Tile constructor to assign attributes to subclass tiles
@@ -68,6 +69,10 @@ public class Tile {
 	public void setOccupidRobot(Robot occupidRobot) {
 		this.occupidRobot = occupidRobot;
 	}
+	public int getTileOrientation() {
+		return orientation;
+	}
+
 }
 
 // Tile subclasses that will make up the board 'matrix'
@@ -165,6 +170,9 @@ class Wall extends Tile {
 	public boolean canMoveOut(int robotOrientation) {
 		return orientation != robotOrientation;
 	}
+	public int getWallOrientation() {
+		return this.orientation;
+	}
 }
 
 class Teleporter extends Tile {
@@ -246,14 +254,33 @@ class ConveyorBelt extends Tile {
 			xnew = x-1;
 			ynew = y;
 		}
-		Position newPos = new Position(xnew, ynew, roboOrientation);
-		robot.setPosition(newPos);
-		if (game.getBoard().getTile(xnew, ynew) instanceof ConveyorBelt) {
-			interact(robot);
+		
+		
+		if (game.getBoard().getTile(xnew, ynew) instanceof Wall) {
+			if (! (Math.abs(orientation - game.getBoard().getTile(xnew, ynew).getTileOrientation()) == 2)) {
+				Position newPos = new Position(xnew, ynew, roboOrientation);
+				robot.setPosition(newPos);
+				if (game.getBoard().getTile(xnew, ynew) instanceof ConveyorBelt) {
+					interact(robot);
+				}
+					
+				else {
+					super.interact(robot);
+				}
+			}
 		}
-		else {
-			super.interact(robot);
+		else if (! (game.getBoard().getTile(xnew, ynew) instanceof LaserShooter)) {
+			Position newPos = new Position(xnew, ynew, roboOrientation);
+			robot.setPosition(newPos);
+			if (game.getBoard().getTile(xnew, ynew) instanceof ConveyorBelt) {
+				interact(robot);
+			}
+				
+			else {
+				super.interact(robot);
+			}
 		}
+		
 		
 	}
 }
@@ -263,6 +290,11 @@ class LaserShooter extends Tile{
 		super("L" + orientation, 0);
 		this.orientation = orientation;
 	}
+	@Override
+	public boolean canMoveIn(int robotOrientation) {
+		return false;
+	}
+	
 }
 class LaserBeam extends Tile{
 	public LaserBeam() {
