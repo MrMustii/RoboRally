@@ -215,6 +215,14 @@ public class Board {
 	public void setAcidTile (int x, int y) {
 		board[y][x] = new Acid();
 	}
+	public boolean isTpLsCb(int x, int y) {
+		if (board[y][x] instanceof Teleporter || board[y][x] instanceof LaserShooter || board[y][x] instanceof ConveyorBelt) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 	
 
 	public void loadLasers() {
@@ -232,14 +240,79 @@ public class Board {
 		do {
 			x = (int) ((int) 3+ Math.floor(Math.random()*(cols-6)));
 			y = (int) Math.floor(Math.random()*(rows-4));
-		} while((board[y][x] instanceof Teleporter) || board[y+1][x] instanceof Teleporter ||board[y+2][x] instanceof Teleporter 
-				||board[y+3][x] instanceof Teleporter || board[y+4][x] instanceof Teleporter ||
-				board[y][x] instanceof LaserShooter || board[y+1][x] instanceof LaserShooter || board[y+2][x] instanceof LaserShooter ||
-				board[y+3][x] instanceof LaserShooter || board[y][x] instanceof LaserShooter );
+		} while(!((isTpLsCb(x,y)||isTpLsCb(x,y+1)||isTpLsCb(x,y+2))
+				||(isTpLsCb(x,y)||isTpLsCb(x,y-1)||isTpLsCb(x,y-2))));
 		board[y][x] = new LaserShooter(2);
 		board[y+1][x] = new LaserBeam();
 		board[y+2][x] = new LaserBeam();
 		board[y+3][x] = new LaserBeam();
 		board[y+4][x] = new LaserShooter(0);
+	}
+	
+	public void loadBelts() {
+		int x,y, orientation;
+		do {
+			x = (int) ((int) 3 + Math.floor(Math.random()*(cols-6)));
+			y = (int) ((int) 2 + Math.floor(Math.random()*(rows-4)));
+			orientation = (int) Math.floor(Math.random()*2);
+			if (orientation == 1) {
+				orientation = 2;
+			}
+			
+		}while(!(orientation==2&&(isTpLsCb(x,y)||isTpLsCb(x,y+1)||isTpLsCb(x,y+2))
+				||(orientation==0)&&(isTpLsCb(x,y)||isTpLsCb(x,y-1)||isTpLsCb(x,y-2))));
+		if (orientation == 2) {
+			board[y][x] = new ConveyorBelt(2);
+			board[y+1][x] = new ConveyorBelt(2);
+			board[y+2][x] = new ConveyorBelt(2);
+			
+		}
+		else {
+			board[y][x] = new ConveyorBelt(2);
+			board[y-1][x] = new ConveyorBelt(2);
+			board[y-2][x] = new ConveyorBelt(2);
+		}
+		do {
+			x = (int) ((int) 3 + Math.floor(Math.random()*(cols-6)));
+			y = (int) ((int) 2 + Math.floor(Math.random()*(rows-4)));
+			orientation = (int) Math.floor(Math.random()*2);
+			if (orientation == 1) {
+				orientation = 2;
+			}
+			
+		}while(!(orientation==2&&(isTpLsCb(x,y)||isTpLsCb(x,y+1)||isTpLsCb(x,y+2))
+				||(orientation==0)&&(isTpLsCb(x,y)||isTpLsCb(x,y-1)||isTpLsCb(x,y-2))));
+		if (orientation == 2) {
+			board[y][x] = new ConveyorBelt(2);
+			board[y+1][x] = new ConveyorBelt(2);
+			board[y+2][x] = new ConveyorBelt(2);
+			
+		}
+		else {
+			board[y][x] = new ConveyorBelt(2);
+			board[y-1][x] = new ConveyorBelt(2);
+			board[y-2][x] = new ConveyorBelt(2);
+		}
+		do {
+			x = (int) ((int) 3 + Math.floor(Math.random()*(cols-6)));
+			y = (int) ((int) 2 + Math.floor(Math.random()*(rows-4)));
+			orientation = (int) Math.floor(Math.random()*2);
+			if (orientation == 1) {
+				orientation = 2;
+			}
+			
+		}while(!(orientation==2&&(isTpLsCb(x,y)||isTpLsCb(x,y+1)||isTpLsCb(x,y+2))
+				||(orientation==0)&&(isTpLsCb(x,y)||isTpLsCb(x,y-1)||isTpLsCb(x,y-2))));
+		if (orientation == 2) {
+			board[y][x] = new ConveyorBelt(2);
+			board[y+1][x] = new ConveyorBelt(2);
+			board[y+2][x] = new ConveyorBelt(2);
+			
+		}
+		else {
+			board[y][x] = new ConveyorBelt(2);
+			board[y-1][x] = new ConveyorBelt(2);
+			board[y-2][x] = new ConveyorBelt(2);
+		}
 	}
 }
