@@ -11,7 +11,6 @@ public class Tile {
 	private boolean occupied;
 	private Robot occupidRobot;
 	private int orientation;
-
 	
 	//Tile constructor to assign attributes to subclass tiles
 	public Tile(String label, int damage) {
@@ -172,49 +171,24 @@ class Wall extends Tile {
 }
 
 class Teleporter extends Tile {
-	public Teleporter() {
+	int TPxPos, TPyPos;
+	public Teleporter(int x, int y) {
 		super("T ", 0);
+		this.TPxPos = x;
+		this.TPyPos = y;
 	}
-	@Override
-	public void interact(Robot robot) {
-//		board = Game.getInstance().getBoard();
-		Position position;
-		String label;
-		Game game = Game.getInstance();
-		
-		// initialize x and y variables to get the position of the robot and check if its on a teleporter tile
-		int x,y;
-		position = robot.getPosition();
-		x = position.getX();
-		y = position.getY();
-		
-		//checks if teleporter is the first or second teleporter
-		if (game.getBoard().getTile(x,y) instanceof Teleporter) {
-			label = game.getBoard().getTile(x,y).getLabel();
-			
-			if (label == "T1") {
-				//parse for T2
-				for (int rows=0;rows<game.getBoard().getRows();rows++) {
-			    	for (int cols=0;cols<game.getBoard().getCols();cols++) {
-			    		if(game.getBoard().getTile(cols, rows).getLabel() == "T2") {
-			    			robot.setPosition(new Position(cols, rows, position.getOrientation()));
-
-			    		}
-			    	}
-			    }
-			}			
-			else {
-				for (int rows=0;rows<game.getBoard().getRows();rows++) {
-			    	for (int cols=0;cols<game.getBoard().getCols();cols++) {
-			    		if(game.getBoard().getTile(cols, rows).getLabel() == "T1") {
-			    			robot.setPosition(new Position(cols, rows, position.getOrientation()));
-			    		}
-			    	}
-			    }
-			}
-		}
+	public int getXPos() {
+		return this.TPxPos;
+	}
+	public int getYPos() {
+		return this.TPyPos;
 	}
 	
+	@Override
+	public void interact(Robot robot) {
+		Position newPosition =new Position(getXPos(), getYPos(), robot.getPosition().getOrientation());
+		robot.setPosition(newPosition);
+	}
 }
 
 class ConveyorBelt extends Tile {

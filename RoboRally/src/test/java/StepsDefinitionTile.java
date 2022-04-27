@@ -54,14 +54,11 @@ public class StepsDefinitionTile {
 
 		x1 = 1;
 		y1 = 1;
-		game.getBoard().setTeleporter(x1, y1);
-		game.getBoard().getTile(x1, y1).setLabel("T1");
-		
-		
 		x2 = 4;
 		y2 = 4;
-		game.getBoard().setTeleporter(x2, y2);
-		game.getBoard().getTile(x2, y2).setLabel("T2");
+		game.getBoard().setTeleporter(x1, y1, x2, y2);
+		game.getBoard().setTeleporter(x2, y2, x1, y1);
+
 		
 		
 	}
@@ -85,14 +82,11 @@ public class StepsDefinitionTile {
 		robot.setPosition(new Position(2,2,0));
 		x3 = 2;
 		y3 = 2;
-		game.getBoard().setTeleporter(x3, y3);
-		game.getBoard().getTile(x3, y3).setLabel("T2");
-		
-		
 		x4 = 5;
 		y4 = 5;
-		game.getBoard().setTeleporter(x4, y4);
-		game.getBoard().getTile(x4, y4).setLabel("T1");
+		game.getBoard().setTeleporter(x3, y3, x4, y4);
+		game.getBoard().setTeleporter(x4, y4, x3, y3);
+
 	}
 	@When("the robot interacts with the new teleporter tile at position {int} and {int}")
 	public void the_robot_interacts_with_the_new_teleporter_tile_at_position_and(int x3, int y3) {
