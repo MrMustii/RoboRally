@@ -253,7 +253,7 @@ public class Board {
 		int x,y, orientation;
 		do {
 			x = (int) ((int) 3 + Math.floor(Math.random()*(cols-6)));
-			y = (int) ((int) 3 + Math.floor(Math.random()*(rows-6)));
+			y = (int) ((int) 3 + Math.floor(Math.random()*(rows-7)));
 			orientation = (int) Math.floor(Math.random()*2);
 			if (orientation == 1) {
 				orientation = 2;
@@ -264,13 +264,13 @@ public class Board {
 		if (orientation == 2) {
 			board[y][x] = new ConveyorBelt(2);
 			board[y+1][x] = new ConveyorBelt(2);
-			board[y+2][x] = new ConveyorBelt(2);
+
 			
 		}
 		else {
 			board[y][x] = new ConveyorBelt(2);
 			board[y-1][x] = new ConveyorBelt(2);
-			board[y-2][x] = new ConveyorBelt(2);
+
 		}
 		do {
 			x = (int) ((int) 3 + Math.floor(Math.random()*(cols-6)));
@@ -280,18 +280,18 @@ public class Board {
 				orientation = 2;
 			}
 			
-		}while(!(orientation==2&&(isTpLsCb(x,y)||isTpLsCb(x,y+1)||isTpLsCb(x,y+2) || board[y+3][x] instanceof ConveyorBelt)
-				||(orientation==0)&&(isTpLsCb(x,y)||isTpLsCb(x,y-1)||isTpLsCb(x,y-2) || board[y-3][x] instanceof ConveyorBelt)));
+		}while(!(orientation==2&&(isTpLsCb(x,y)||isTpLsCb(x,y+1)||isTpLsCb(x,y+2))
+				||(orientation==0)&&(isTpLsCb(x,y)||isTpLsCb(x,y-1)||isTpLsCb(x,y-2))));
 		if (orientation == 2) {
 			board[y][x] = new ConveyorBelt(2);
 			board[y+1][x] = new ConveyorBelt(2);
-			board[y+2][x] = new ConveyorBelt(2);
+
 			
 		}
 		else {
 			board[y][x] = new ConveyorBelt(2);
 			board[y-1][x] = new ConveyorBelt(2);
-			board[y-2][x] = new ConveyorBelt(2);
+
 		}
 		do {
 			x = (int) ((int) 3 + Math.floor(Math.random()*(cols-6)));
@@ -301,18 +301,18 @@ public class Board {
 				orientation = 2;
 			}
 			
-		}while(!(orientation==2&&(isTpLsCb(x,y)||isTpLsCb(x,y+1)||isTpLsCb(x,y+2) || board[y+3][x] instanceof ConveyorBelt)
-				||(orientation==0)&&(isTpLsCb(x,y)||isTpLsCb(x,y-1)||isTpLsCb(x,y-2) || board[y-3][x] instanceof ConveyorBelt)));
+		}while(!(orientation==2&&(isTpLsCb(x,y)||isTpLsCb(x,y+1)||isTpLsCb(x,y+2))
+				||(orientation==0)&&(isTpLsCb(x,y)||isTpLsCb(x,y-1)||isTpLsCb(x,y-2))));
 		if (orientation == 2) {
 			board[y][x] = new ConveyorBelt(2);
 			board[y+1][x] = new ConveyorBelt(2);
-			board[y+2][x] = new ConveyorBelt(2);
+
 			
 		}
 		else {
 			board[y][x] = new ConveyorBelt(2);
 			board[y-1][x] = new ConveyorBelt(2);
-			board[y-2][x] = new ConveyorBelt(2);
+
 		}
 	}
 }
