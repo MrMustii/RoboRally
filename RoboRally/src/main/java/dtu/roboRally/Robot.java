@@ -49,8 +49,11 @@ public class Robot {
 			position = newPosition;
 			return true;
 		}
+
 		//changing position
 		int delta = 0;
+		deltaX = Math.abs(deltaX);
+		deltaY = Math.abs(deltaY);
 		//if moving on X axis:
 		if (deltaX > 0) {
 			delta = deltaX;
@@ -60,7 +63,7 @@ public class Robot {
 			System.out.println("error on computing delta moving in move robot");
 		}
 
-		for (int i = 0; i < Math.abs(delta); i++) {
+		for (int i = 0; i < delta; i++) {
 			//position of the cell we want to move in
 			int nextTileX;
 			int nextTileY;
