@@ -147,7 +147,7 @@ public class Game {
 	 * Sets the board 
 	 */
 	public void setBoard() {
-		this.board = new Board(12,12,instance.numberOfPlayers(),observer);
+		this.board = new Board(12,12,instance.numberOfPlayers(), null);
 	}
 	
 	/**
