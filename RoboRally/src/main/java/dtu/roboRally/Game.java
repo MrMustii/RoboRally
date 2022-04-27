@@ -13,15 +13,18 @@ public class Game {
 	private Board board;
 	private Player winner;
 	private RoboRallyController observer;
-	private boolean testing=true;
+	private boolean testing=false;
 
 	/**
 	 * Creating a board-layout and adding the chosen amount of players
 	 * @param observer (RoboRallyController)
 	 * @param numberOfPlayers (int)
 	 */
+
+	
+
 	private Game(RoboRallyController observer, int numberOfPlayers) {
-		board = new Board(9, 12, numberOfPlayers); //maybe change size
+		board = new Board(9, 12, numberOfPlayers,observer); //maybe change size
 		for(int i = 0; i<numberOfPlayers; i++) {
 			players.add(new Player());
 		}
@@ -144,7 +147,7 @@ public class Game {
 	 * Sets the board 
 	 */
 	public void setBoard() {
-		this.board = new Board(12,12,instance.numberOfPlayers());
+		this.board = new Board(12,12,instance.numberOfPlayers(),observer);
 	}
 	
 	/**

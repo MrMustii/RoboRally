@@ -48,7 +48,7 @@ public class Tile {
 	 */
 	public void interact(Robot robot) {
 		robot.damage(damage);
-		observer.notifyRobotMove();
+		//observer.notifyRobotMove();
 	}
 	
 	/**
