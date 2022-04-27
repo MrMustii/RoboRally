@@ -5,12 +5,11 @@ import dtu.roboRally.utils.RoboRallyButton;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.stage.Stage;
 
 /**
  * view for the SetNumberOfPlayer scene
@@ -34,6 +33,9 @@ public class SetNumberOfPlayersView {
 	 */
 	public Scene initGUI() {
 
+		Label label = new Label("Choose no. of players:");
+		label.setFont(Font.font("Courier New", 20));
+		
 		//set slider
 		Slider slider = new Slider(1, 5, 0);
 	    slider.setMajorTickUnit(1.0);
@@ -44,6 +46,7 @@ public class SetNumberOfPlayersView {
 
 	    //set Button
 	    RoboRallyButton startGameButton = new RoboRallyButton("START GAME");
+	    startGameButton.setStyle("-fx-background-color: #32CD32; -fx-border-color: #228B22; -fx-border-width: 7; -fx-text-fill: #FFFFFF");
 
 	    startGameButton.setOnAction(value ->  {
 	    	
@@ -53,7 +56,7 @@ public class SetNumberOfPlayersView {
 	     });
 
 	    //add nodes to the layout
-	    VBox vbox = new VBox(slider, startGameButton);
+	    VBox vbox = new VBox(label, slider, startGameButton);
 	    vbox.setAlignment(Pos.CENTER);
 	    vbox.setSpacing(50);
 	    VBox.setMargin(slider, new Insets(0, 400, 0, 400));
