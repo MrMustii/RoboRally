@@ -10,6 +10,7 @@ import dtu.roboRally.controller.SetStartingPositionsController;
 import dtu.roboRally.utils.BoardTilePane;
 import dtu.roboRally.utils.ImageViewLoader;
 import dtu.roboRally.utils.PlayerStatusPanel;
+import dtu.roboRally.utils.RoboRallyGridPane;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -19,54 +20,58 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
 
+/**
+ * View for the starting positions
+ */
 public class SetStartingPositionsView {
 
     private SetStartingPositionsController controller;
-    private int playerID;
-    private ArrayList<String> playerNames;
-    private String playerName;
        
     private GridPane layout;
     private BoardTilePane boardGUI;
     private Label instructions;
     private PlayerStatusPanel playerStatusPanel;
 
+    private int playerID;
+    private ArrayList<String> playerNames;
+    private String playerName;
 
+    /**
+     * Constructor that retrieves relevant data, creates the nodes and add listeners to the starting positions
+     * @param controller (RoboRallyController)
+     * @param playerID (int)
+     * @param playerNames (ArrayList<String>)
+     */
     public SetStartingPositionsView(SetStartingPositionsController controller, int playerID, ArrayList<String> playerNames){
-    	layout = new GridPane();
+    	//layout = new GridPane();
         this.controller = controller;
         this.playerID = playerID;
         this.playerNames = playerNames;
         playerName = playerNames.get(playerID);
         
         boardGUI = new BoardTilePane();
-        layout.add(boardGUI, 1, 0, 1, 1);
-        
-      
         playerStatusPanel = new PlayerStatusPanel(playerNames);
-        layout.add(playerStatusPanel , 0, 0, 1, 3);
-        
+
+        layout = new RoboRallyGridPane(playerStatusPanel, boardGUI);
+
         addListeners();
     }
 
+    /**
+     * creates a Scene for this view to display it with the updated board
+     * @return (Scene)
+     */
     public Scene initGUI(){
-    	layout = new GridPane();
-    	layout.setPadding(new Insets(40, 0, 0, 40));
         addLabel();
-        layout.add(boardGUI, 1, 0, 1, 1);
-        layout.add(playerStatusPanel,  0,  0, 1, 3);
-        //boardGUI = new BoardTilePane();
-        //layout.add(boardGUI, 1, 0, 1, 1);
-        //layout.add(playerStatusPanel , 0, 0, 1, 3);
-        
+
+        layout = new RoboRallyGridPane(playerStatusPanel, boardGUI);
         return new Scene(layout);
     }
 
-    public void addLabel(){
-        instructions = new Label(playerName + ", please pick a starting position by clicking on it");
-        layout.add(instructions, 0, 1);
-    }
-    
+    /**
+     * helper to add the listeners to the starting positions
+     * listeners asks the controller to set the robot, and update the board with the image of the robot
+     */
     public void addListeners() {
     	for(int i=0; i<boardGUI.getChildren().size(); i++) {
     		Node sp = boardGUI.getChildren().get(i);
@@ -88,20 +93,40 @@ public class SetStartingPositionsView {
     		}
     	}
     }
-    
+
+    /**
+     * helper method to create the label
+     */
+    public void addLabel(){
+        instructions = new Label(playerName + ", please pick a starting position by clicking on it");
+        layout.add(instructions, 0, 1);
+    }
+
+    /**
+     * adds the robot image of the given player to the board on the given tile
+     * @param playerID (int)
+     * @param index (int) tile index
+     */
     public void addRobotImage(int playerID, int index) {
-    	ImageView robotImageView = ImageViewLoader.loadFile("src/main/resources/robotImages/robot"+playerID+".png");
-    	robotImageView.setFitHeight(50);
-		robotImageView.setFitWidth(50);
+    	ImageView robotImageView = ImageViewLoader.loadFile("src/main/resources/robotImages/robot"+playerID+".png", 50, 50);
 		robotImageView.setRotate(90);
     	StackPane stack = (StackPane)boardGUI.getChildren().get(index);
     	stack.getChildren().add(robotImageView);
     }
-    
+
+    /**
+     * getter for the listener to take the current player thats picking the SS
+     * @return (int)
+     */
     public int getCurrentPlayerID() {
     	return playerID;
     }
-    
+
+    /**
+     * called by the controller
+     * changes the current player infos and updates the label
+     * @param nextPlayerID (int)
+     */
     public void nextPlayerChooseStart(int nextPlayerID) {
     	playerID = nextPlayerID;
     	playerName = playerNames.get(playerID);

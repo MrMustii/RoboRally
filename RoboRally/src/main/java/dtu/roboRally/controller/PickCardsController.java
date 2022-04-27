@@ -16,6 +16,7 @@ public class PickCardsController{
 	private RoboRallyController application;
 	private Stage primaryStage;
 	private PickCardsView view;
+
 	private ArrayList<String> playerNames;
 	private int playerIndex;
 	private Player player;
@@ -69,15 +70,16 @@ public class PickCardsController{
 	}
 
 	/**
-	 * getter for the view to get data about the start, end, and robot positions
+	 * getter for the view to get data about the robot and start positions
 	 * used to compute the progress bar
 	 * @return (Position[])
 	 */
 	public Position[] extractPosition(){
-		Position[] positions = new Position[3];
+		Position[] positions = new Position[2];
 		positions[0] = player.getRobot().getPosition();
 		positions[1] = player.getRobot().getStartPosition();
 
+		/*
 		//@TODO: change that with looking for the new label thingy, iterate on boardGUI instead of actual board (to that in the view?)
 		Board board = Game.getInstance().getBoard();
 		for(int j=0; j<board.getRows(); j++){
@@ -88,8 +90,13 @@ public class PickCardsController{
 				}
 			}
 		}
+
+		 */
+		return positions;
+		/*
 		System.out.println("error while searching for endPosition in PickCardsController.extractPosition()");
 		return null;
+		 */
 	}
 
 	/**
@@ -99,13 +106,4 @@ public class PickCardsController{
 	public ArrayList<String> getPlayerNames() {
 		return playerNames;
 	}
-
-	/**
-	 * getter for the view to get the lives of the robots from the application
-	 * @return (ArrayList<Integer>)
-	 */
-	public ArrayList<Integer> getLivesOfRobots() {
-		return application.getLivesOfRobots();
-	}
-	
 }

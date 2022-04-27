@@ -9,16 +9,28 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
+/**
+ * View for the win scene
+ */
 public class WinView {
 	
 	private WinController controller;
 	private String nameOfWinner;
-	
+
+	/**
+	 * constructor that retrieves relevant data
+	 * @param controller (RoboRallyController)
+	 * @param nameOfWinner (String)
+	 */
 	public WinView(WinController controller, String nameOfWinner) {
 		this.controller = controller;
 		this.nameOfWinner = nameOfWinner;
 	}
-	
+
+	/**
+	 * creates the scene with a 'new game' button and an 'exit' button
+	 * @return (Scene)
+	 */
 	public Scene initGUI() {
 		
 		VBox layout = new VBox();
@@ -45,7 +57,5 @@ public class WinView {
 		layout.getChildren().addAll(label, exit, playAgain);
 		
 		return new Scene(layout);
-		
 	}
-	
 }

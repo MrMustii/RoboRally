@@ -10,10 +10,10 @@ import javafx.stage.Stage;
 public class NextPlayerController {
 
 	private RoboRallyController application;
-	private int playerIndex;
 	private Stage primaryStage;
-	
 	private NextPlayerView view;
+
+	private int playerIndex;
 
 	/**
 	 * Constructor that retrieve relevant data from application and instantiates the view

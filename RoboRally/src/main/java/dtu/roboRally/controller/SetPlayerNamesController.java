@@ -16,7 +16,7 @@ public class SetPlayerNamesController {
 	private ArrayList<String> playerNames;
 
 	/**
-	 * Controller that retrives needed data from the application and instanciates the view
+	 * Controller that retrieves needed data from the application and instantiates the view
 	 * gets an empty playerNames array and update it with the new names
 	 * @param application (RoboRallyController)
 	 * @param primaryStage (Stage)
@@ -38,12 +38,11 @@ public class SetPlayerNamesController {
 	}
 
 	/**
-	 * called when a textFiled is changed, and adds the playerNames list
+	 * called when a textField is changed, and adds the playerNames list
 	 * @param nameIndex (int) which player name to update
 	 * @param name (String) new name
 	 */
 	public void addPlayerName(int nameIndex, String name) {
-		//playerNames.set(nameIndex, name);
 		playerNames.add(nameIndex, name);
 	}
 
@@ -54,6 +53,10 @@ public class SetPlayerNamesController {
 		primaryStage.setScene(view.initGUI());
 	}
 
+	/**
+	 * removes the player name at that given id (in order to update it)
+	 * @param nameIndex (int)
+	 */
 	public void removePlayerName(int nameIndex) {
 		playerNames.remove(nameIndex);
 	}

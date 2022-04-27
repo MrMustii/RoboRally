@@ -3,8 +3,17 @@ package dtu.roboRally.utils;
 import dtu.roboRally.Position;
 import javafx.scene.control.ProgressBar;
 
+/**
+ * Custom ProgressBar used in the game
+ */
 public class ProgressBarPlayer extends ProgressBar {
 
+    /**
+     * Constructor
+     * @param robotPosition (Position)
+     * @param startPosition (Position)
+     * @param endPosition (Position)
+     */
     public ProgressBarPlayer(Position robotPosition, Position startPosition, Position endPosition){
         super();
 
@@ -15,6 +24,12 @@ public class ProgressBarPlayer extends ProgressBar {
         setProgress(progress);
     }
 
+    /**
+     * helper to compute distance between two positions
+     * @param start (Position)
+     * @param end (Position)
+     * @return (double)
+     */
     private double computeDistance(Position start, Position end){
 
         int x = end.getX() - start.getX();

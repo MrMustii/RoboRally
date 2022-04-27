@@ -32,7 +32,8 @@ public class PickCardsView {
 	private PickCardsController controller;
 	private RoboRallyGridPane layout;
 	private ArrayList<Card> hand; 
-	HBox cardsPlayed = new HBox();
+	private HBox cardsPlayed = new HBox();
+	private BoardTilePane btp;
 
 	/**
 	 * Constructor that retrieves relevant data from controller
@@ -52,63 +53,50 @@ public class PickCardsView {
 
 		//sets layout
 		PlayerStatusPanel psp = new PlayerStatusPanel(controller.getPlayerNames());
-		BoardTilePane btp = new BoardTilePane();
+		btp = new BoardTilePane();
 		layout = new RoboRallyGridPane(psp, btp , addProgressBar(), addConfirmCardsButton());
-
-		/*
-		layout.setVgap(20);
-		layout.setHgap(20);
-		layout.setPadding(new Insets(40, 0, 0, 40));	
-		
-		layout.add(new PlayerStatusPanel(controller.getPlayerNames(), controller.getLivesOfRobots()), 0, 0, 1, 3);
-		
-		layout.add(new BoardTilePane(), 1, 0, 1, 1);
-		
-		addProgressBar();
-
-		 */
-		
 		addCardsGUI();
-		
-		//addConfirmCardsButton();
-		
+
 		return new Scene(layout);
 	}
-	
+
+	/**
+	 * helper to create the progressBar
+	 * @return (ProgressBarPlayer)
+	 */
 	public ProgressBarPlayer addProgressBar() {
 		Position[] positions = controller.extractPosition();
-		ProgressBarPlayer progressBar = new ProgressBarPlayer(positions[0], positions[1], positions[2]);
+		Position endPosition = btp.getEndPosition();
+
+		ProgressBarPlayer progressBar = new ProgressBarPlayer(positions[0], positions[1], endPosition);
 		progressBar.setPrefWidth(600);
 		return progressBar;
-
-		//layout.add(progressBar, 1, 1, 1, 1);
 	}
-	
+
+	/**
+	 * helper to create the cards hand and cards in play layouts
+	 */
 	public void addCardsGUI() {
-		
+
+		//hand panel
 		TilePane handGUI = new TilePane();
-		
 		handGUI.setPrefColumns(3);
 		handGUI.setPrefRows(3);
-//		hand.setHgap(0);
 		handGUI.setVgap(45);
-		
+
+		//cards in play
 		cardsPlayed.setSpacing(24);
+
+		//looping over the 9 cards in the hand and creating an image for all of them
 		for (Card item : hand) {
 
 			String cardName = item.getClass().getSimpleName();
 
-			ImageView imageViewHand =  ImageViewLoader.loadFile("src/main/resources/cardImages/" + cardName + ".png");
+			ImageView imageViewHand =  ImageViewLoader.loadFile("src/main/resources/cardImages/" + cardName + ".png", 140, 100);
 			imageViewHand.setId(cardName);
-			imageViewHand.setFitHeight(140);
-			imageViewHand.setFitWidth(100);
-//			imageView.setPreserveRatio(true);
 
-			ImageView imageViewCardsPlayed =  ImageViewLoader.loadFile("src/main/resources/cardImages/" + cardName + ".png");
+			ImageView imageViewCardsPlayed =  ImageViewLoader.loadFile("src/main/resources/cardImages/" + cardName + ".png", 140, 100);
 			imageViewHand.setId(cardName);
-			imageViewCardsPlayed.setFitHeight(140);
-			imageViewCardsPlayed.setFitWidth(100);
-//			imageViewCopy.setPreserveRatio(true);
 
 			imageViewHand.setOnMouseClicked(value -> {
 
@@ -135,17 +123,19 @@ public class PickCardsView {
 		layout.add(handGUI, 2, 0, 1, 3);
 		layout.add(cardsPlayed, 1, 2, 1, 3);
 	}
-	
-	public RoboRallyButton addConfirmCardsButton() {
+
+	/**
+	 * helper to add the button to confirm cards
+	 * this button tells the controller to manage the next turn and adds the cards to the player
+	 * @return (Button)
+	 */
+	public Button addConfirmCardsButton() {
 		
-		RoboRallyButton confirmCardsButton = new RoboRallyButton("CONFIRM CARDS");
-		//confirmCardsButton.setFont(Font.font("Courier New", FontWeight.BOLD, 18));
-		//layout.add(confirmCardsButton, 1, 3, 1, 1); // does not look nice
-//		playersStatus.getChildren().add(confirmCardsButton);
+		Button confirmCardsButton = new Button("CONFIRM CARDS");
+		confirmCardsButton.setFont(Font.font("Courier New", FontWeight.BOLD, 18));
 		
 		confirmCardsButton.setOnAction(value -> {
 			if(!(cardsPlayed.getChildren().size()<5)) {
-				
 				controller.nextPlayer();
 			}
 		});

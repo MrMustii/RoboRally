@@ -1,17 +1,15 @@
 package dtu.roboRally.controller;
 
-import java.util.ArrayList;
-
 import dtu.roboRally.utils.RoboRallyGridPane;
 import dtu.roboRally.view.MovingRobotsView;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
+import java.util.ArrayList;
 
 /**
  * Controller for the scene when the robots are moving
@@ -27,7 +25,7 @@ public class MovingRobotsController {
     private Scene scene = new Scene(root);
 
     /**
-     * constructor that retrieves relavant data and instantiates the view
+     * constructor that retrieves relevant data and instantiates the view
      * @param application (RoboRallyController)
      * @param primaryStage (Stage)
      * @param playerNames (ArrayList<String>)
@@ -38,19 +36,17 @@ public class MovingRobotsController {
         this.playerNames = playerNames;
 
         view = new MovingRobotsView(this);
-        display(); // TODO: is it needed?
+        //display(); // TODO: is it needed?
     }
 
+    /**
+     * creates a timeline to display every RoboRallyGridPane scene by scene, one per second
+     */
     public void display() {
     	Timeline timeline = new Timeline();
     	timeline.setCycleCount(layouts.size());
     	
-    	KeyFrame kf = new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
-    		
-    		public void handle(ActionEvent event) {
-    			scene.setRoot(layouts.remove(0));
-    		}
-    	});
+    	KeyFrame kf = new KeyFrame(Duration.seconds(1), event -> scene.setRoot(layouts.remove(0)));
     	
     	timeline.getKeyFrames().add(kf);
     	timeline.play();
@@ -59,21 +55,18 @@ public class MovingRobotsController {
     }
 
     /**
-     * called by the application whenever a card is played
-     * updates the scene and sets it on the primary stage
+     * called by the application whenever a card is played or a tile is interacted with
+     * creates a new RoboRallyGridPane for the move that was just made, and save it in the list layouts
+     * layouts will be displayed when all the robots moves were made
      */
     public void addBoardToList() {
     	layouts.add(view.initGUI());    	
     }
 
     /**
-     * getter for the view to have the lives of the robots
-     * @return (ArrayList<Integer>)
+     * manager called by clicking on the 'continue' button
+     * either starts a new phase of picking card, either declare winner to application
      */
-    public ArrayList<Integer> getLivesOfRobots() {
-    	return application.getLivesOfRobots();
-    }
-    
     public void manageEndOfRound() {
     	if(!application.hasWinner()) {
     		application.managePlayerTurn(primaryStage, 0);
@@ -89,5 +82,4 @@ public class MovingRobotsController {
     public ArrayList<String> getPlayerNames(){
         return playerNames;
     }
-
 }
