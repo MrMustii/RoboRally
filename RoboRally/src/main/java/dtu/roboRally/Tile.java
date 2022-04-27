@@ -110,18 +110,18 @@ class Oil extends Tile {
 
 	}
 
-public void interact(Robot robot) {
-	Random rnd = new Random();
-
-	int oldOri = robot.getPosition().getOrientation();
+	public void interact(Robot robot) {
+		Random rnd = new Random();
 	
-	
-	int newOri = rnd.nextInt(3);
-	
-	while (oldOri == newOri) {
-		newOri = rnd.nextInt(3);
-	} 
-	robot.getPosition().setOrientation(newOri);
+		int oldOri = robot.getPosition().getOrientation();
+		
+		
+		int newOri = rnd.nextInt(3);
+		
+		while (oldOri == newOri) {
+			newOri = rnd.nextInt(3);
+		} 
+		robot.getPosition().setOrientation(newOri);
 	
 	}
 }
@@ -143,7 +143,11 @@ class EndPosition extends Tile {
 
 class Repair extends Tile {
 	public Repair() {
-		super("+ ",-3);	
+		super("+ ",0);	
+	}
+	@Override
+	public void interact(Robot robot) {
+		robot.repair();
 	}
 }
 

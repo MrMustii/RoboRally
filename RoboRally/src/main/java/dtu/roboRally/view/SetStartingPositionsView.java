@@ -1,86 +1,112 @@
 package dtu.roboRally.view;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import dtu.roboRally.Board;
 import dtu.roboRally.Game;
+import dtu.roboRally.Position;
 import dtu.roboRally.controller.SetStartingPositionsController;
+import dtu.roboRally.utils.BoardTilePane;
+import dtu.roboRally.utils.ImageViewLoader;
+import dtu.roboRally.utils.PlayerStatusPanel;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
 
 public class SetStartingPositionsView {
 
     private SetStartingPositionsController controller;
-    private GridPane layout = new GridPane();
     private int playerID;
+    private ArrayList<String> playerNames;
     private String playerName;
+       
+    private GridPane layout;
+    private BoardTilePane boardGUI;
+    private Label instructions;
+    private PlayerStatusPanel playerStatusPanel;
 
 
-    public SetStartingPositionsView(SetStartingPositionsController controller, int playerID, String playerName){
+    public SetStartingPositionsView(SetStartingPositionsController controller, int playerID, ArrayList<String> playerNames){
+    	layout = new GridPane();
         this.controller = controller;
         this.playerID = playerID;
-        this.playerName = playerName;
+        this.playerNames = playerNames;
+        playerName = playerNames.get(playerID);
+        
+        boardGUI = new BoardTilePane();
+        layout.add(boardGUI, 1, 0, 1, 1);
+        
+      
+        playerStatusPanel = new PlayerStatusPanel(playerNames);
+        layout.add(playerStatusPanel , 0, 0, 1, 3);
+        
+        addListeners();
     }
 
     public Scene initGUI(){
-    	
+    	layout = new GridPane();
     	layout.setPadding(new Insets(40, 0, 0, 40));
         addLabel();
-        addBoardGUI();
-
+        layout.add(boardGUI, 1, 0, 1, 1);
+        layout.add(playerStatusPanel,  0,  0, 1, 3);
+        //boardGUI = new BoardTilePane();
+        //layout.add(boardGUI, 1, 0, 1, 1);
+        //layout.add(playerStatusPanel , 0, 0, 1, 3);
+        
         return new Scene(layout);
     }
 
     public void addLabel(){
-        Label playerID = new Label(playerName + ", please pick a starting position by clicking on it");
-        layout.add(playerID, 0, 1);
+        instructions = new Label(playerName + ", please pick a starting position by clicking on it");
+        layout.add(instructions, 0, 1);
     }
-
-    public void addBoardGUI() {
-
-        Board board = Game.getInstance().getBoard();
-
-        int rows = board.getRows();
-        int cols = board.getCols();
-
-        TilePane boardGUI = new TilePane();
-        boardGUI.setPrefColumns(cols);
-        boardGUI.setPrefRows(rows);
-
-        for (int j = 0; j < rows; j++) {
-            for (int i = 0; i < cols; i++) {
-                FileInputStream tiles = null;
-                try {
-                    tiles = new FileInputStream("src/main/resources/tileImages/"+board.getTile(i, j).getLabel()+".png");
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-                Image tileImage = new Image(tiles);
-                ImageView tileImageView = new ImageView(tileImage);
-                tileImageView.setFitHeight(50);
-                tileImageView.setFitWidth(50);
-
-                if(board.getTile(i,j).getLabel().equals("S ")){
-                    int x = i;
-                    int y = j;
-                    tileImageView.setOnMouseClicked(value -> {
-                        controller.addRobot(playerID, x, y);
-                        //TODO: add picture robot
-                        //TODO: check if tile occupied?
-                        controller.nextPlayer();
-                    });
-                }
-                boardGUI.getChildren().add(tileImageView);
-            }
-        }
-
-        layout.add(boardGUI, 0, 0, 1, 1);
+    
+    public void addListeners() {
+    	for(int i=0; i<boardGUI.getChildren().size(); i++) {
+    		Node sp = boardGUI.getChildren().get(i);
+    		int x = i% boardGUI.getPrefColumns();
+    		int y = (int)Math.floor((i-x)/(double)boardGUI.getPrefColumns());
+    		
+    		int idx = i;
+    		if(sp.getId().equals("S ")) {
+    			sp.setOnMouseClicked(value -> {
+    				if(((StackPane)boardGUI.getChildren().get(idx)).getChildren().size() < 2){
+    					int id = getCurrentPlayerID();
+    					controller.addRobot(id, x, y);
+    					addRobotImage(id, idx);
+    					
+    					controller.nextPlayer();
+    				}
+    				
+    			});
+    		}
+    	}
+    }
+    
+    public void addRobotImage(int playerID, int index) {
+    	ImageView robotImageView = ImageViewLoader.loadFile("src/main/resources/robotImages/robot"+playerID+".png");
+    	robotImageView.setFitHeight(50);
+		robotImageView.setFitWidth(50);
+		robotImageView.setRotate(90);
+    	StackPane stack = (StackPane)boardGUI.getChildren().get(index);
+    	stack.getChildren().add(robotImageView);
+    }
+    
+    public int getCurrentPlayerID() {
+    	return playerID;
+    }
+    
+    public void nextPlayerChooseStart(int nextPlayerID) {
+    	playerID = nextPlayerID;
+    	playerName = playerNames.get(playerID);
+    	addLabel();
+    	
     }
 
 }

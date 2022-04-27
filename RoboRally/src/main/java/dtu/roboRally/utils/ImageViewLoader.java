@@ -3,9 +3,12 @@ package dtu.roboRally.utils;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class FileLoader {
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
-    public static FileInputStream loadFile(String path){
+public class ImageViewLoader {
+
+    public static ImageView loadFile(String path){
         FileInputStream input = null;
         try {
             input = new FileInputStream(path);
@@ -13,7 +16,8 @@ public class FileLoader {
                 FileNotFoundException e) {
             e.printStackTrace();
         }
-        return input;
+   
+        return new ImageView(new Image(input));
     }
 
 

@@ -89,7 +89,7 @@ public class Game {
 				} else {
 					if(priorities.get(indexMaxPriority)>0 && !currPlayer.getCardsInPlay().isEmpty()) {
 						currPlayer.use(currPlayer.getCardsInPlay().remove(0));
-						observer.updateMovingRobotsView();
+						observer.notifyRobotMove();
 						priorities.set(indexMaxPriority, 0);
 					}
 				}
@@ -103,8 +103,7 @@ public class Game {
 	public void hasWon(int playerIndex) {
 		Position positionRobot = instance.getPlayers().get(playerIndex).getRobot().getPosition();
 		if(board.getTile(positionRobot.getX(), positionRobot.getY()) instanceof EndPosition) {
-		System.out.println("Congratulations! Player " + playerIndex + " won the game!");
-		
+		observer.notifyWin(playerIndex);
 		winner = players.get(playerIndex);
 		
 		//players.clear();
@@ -126,9 +125,10 @@ public class Game {
 		return board;
 	}
 	public void setBoard() {
-		this.board=new Board(12,12,instance.numberOfPlayers());
+		this.board = new Board(12,12,instance.numberOfPlayers());
 	}
 	public Player getWinner() {
 		return winner;
 	}
+	
 }

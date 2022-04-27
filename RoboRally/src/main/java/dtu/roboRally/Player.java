@@ -3,6 +3,8 @@ package dtu.roboRally;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import dtu.roboRally.controller.RoboRallyController;
+
 public class Player {
 	private ArrayList<Card> hand = new ArrayList<>();
 	private ArrayList<Card> cardsInPlay = new ArrayList<>();

@@ -1,11 +1,14 @@
 package dtu.roboRally;
 
+import dtu.roboRally.controller.RoboRallyController;
+
 public class Robot {
 	private Position position;
 	private Position startPosition;
 	private int lives;
 	private boolean isDead;
 	private boolean shielded;
+	
 
 	//final values same for all robot
 	private final int startingLives = 5;
@@ -20,7 +23,7 @@ public class Robot {
 	}
 	
 	public boolean move(Board board, Position newPosition) {
-		
+				
 		int deltaX = newPosition.getX() - position.getX();
 		int deltaY = newPosition.getY() - position.getY();
 		int deltaO = newPosition.getOrientation() - position.getOrientation();
@@ -45,7 +48,7 @@ public class Robot {
 				if(nextTileX < 0 || nextTileX>= board.getCols()){
 					System.out.println("robot cannot move out of board");
 					return false;
-				}else {
+				} else {
 					Tile currentCell = board.getTile(position.getX() + i * n, position.getY());
 					Tile nextCell = board.getTile(nextTileX, position.getY());
 					//checks if it is possible to moveOut of the current cell
@@ -82,6 +85,7 @@ public class Robot {
 			position = newPosition;
 			board.getTile(position.getX(), position.getY()).setOccupied(true);
 			board.getTile(position.getX(), position.getY()).setOccupidRobot(this);
+			
 			return true;
 		}	
 	}
@@ -96,6 +100,11 @@ public class Robot {
 		} else {
 			shielded = false;
 		}
+	}
+	
+	public void repair() {
+		lives +=1;
+		if(lives > 5) lives = 5;
 	}
 	
 	public void respawn() {

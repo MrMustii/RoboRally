@@ -65,7 +65,7 @@ public class PickCardsController{
 	 * asks the application to switch Scene, either next player to pick cards either moving robots
 	 */
 	public void nextPlayer() {
-		application.managePickCards(primaryStage, playerIndex+1);
+		application.managePlayerTurn(primaryStage, playerIndex+1);
 	}
 
 	/**

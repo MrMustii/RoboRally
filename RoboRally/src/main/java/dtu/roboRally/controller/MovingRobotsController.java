@@ -1,9 +1,17 @@
 package dtu.roboRally.controller;
 
-import dtu.roboRally.view.MovingRobotsView;
-import javafx.stage.Stage;
-
 import java.util.ArrayList;
+
+import dtu.roboRally.utils.RoboRallyGridPane;
+import dtu.roboRally.view.MovingRobotsView;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  * Controller for the scene when the robots are moving
@@ -14,6 +22,9 @@ public class MovingRobotsController {
     private MovingRobotsView view;
     private Stage primaryStage;
     private ArrayList<String> playerNames;
+    private ArrayList<RoboRallyGridPane> layouts = new ArrayList<>();
+    private Pane root = new Pane();
+    private Scene scene = new Scene(root);
 
     /**
      * constructor that retrieves relavant data and instantiates the view
@@ -30,39 +41,29 @@ public class MovingRobotsController {
         display(); // TODO: is it needed?
     }
 
-    /**
-     * sets the Scene to the primary stage
-     */
     public void display() {
-        primaryStage.setScene(view.initGUI());
+    	Timeline timeline = new Timeline();
+    	timeline.setCycleCount(layouts.size());
+    	
+    	KeyFrame kf = new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
+    		
+    		public void handle(ActionEvent event) {
+    			scene.setRoot(layouts.remove(0));
+    		}
+    	});
+    	
+    	timeline.getKeyFrames().add(kf);
+    	timeline.play();
+    	
+    	primaryStage.setScene(scene);
     }
 
     /**
      * called by the application whenever a card is played
      * updates the scene and sets it on the primary stage
      */
-    public void updateView() {
-    	
-//    	Task<Void> sleeper = new Task<Void>() {
-//            @Override
-//            protected Void call() throws Exception {
-//                try {
-//                    Thread.sleep(1000);
-//                } catch (InterruptedException e) {
-//                }
-//                return null;
-//            }
-//        };
-//        sleeper.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
-//            @Override
-//            public void handle(WorkerStateEvent event) {
-//            	primaryStage.setScene(view.updateRobots());
-//            }
-//        });
-//        new Thread(sleeper).start();
-    	
-    	primaryStage.setScene(view.updateRobotsAndLives());
-    	//view = new MovingRobotsView(this);
+    public void addBoardToList() {
+    	layouts.add(view.initGUI());    	
     }
 
     /**
@@ -71,6 +72,14 @@ public class MovingRobotsController {
      */
     public ArrayList<Integer> getLivesOfRobots() {
     	return application.getLivesOfRobots();
+    }
+    
+    public void manageEndOfRound() {
+    	if(!application.hasWinner()) {
+    		application.managePlayerTurn(primaryStage, 0);
+    	} else {
+    		application.crownWinner(primaryStage);
+    	}
     }
 
     /**

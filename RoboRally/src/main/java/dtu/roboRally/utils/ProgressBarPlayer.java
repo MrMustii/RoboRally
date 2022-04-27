@@ -11,7 +11,7 @@ public class ProgressBarPlayer extends ProgressBar {
         double totalDist = computeDistance(startPosition, endPosition);
         double currentDist = computeDistance(robotPosition, endPosition);
 
-        double progress = 1- currentDist/totalDist;
+        double progress = 1-currentDist/totalDist;
         setProgress(progress);
     }
 

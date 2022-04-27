@@ -4,8 +4,13 @@ import dtu.roboRally.controller.MovingRobotsController;
 import dtu.roboRally.utils.BoardTilePane;
 import dtu.roboRally.utils.PlayerStatusPanel;
 import dtu.roboRally.utils.RoboRallyGridPane;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 /**
  * view for the moving robot scene
@@ -13,8 +18,6 @@ import javafx.scene.layout.GridPane;
 public class MovingRobotsView {
 
     private MovingRobotsController controller;
-    //private GridPane layout = new GridPane();
-    private BoardTilePane board;
 
     /**
      * Constructor that initialises the board
@@ -22,35 +25,6 @@ public class MovingRobotsView {
      */
     public MovingRobotsView(MovingRobotsController controller){
         this.controller = controller;
-        board = new BoardTilePane();
-    }
-
-    /**
-     * creates the scene with the PlayerStatusPanel and BoardTilePanel
-     * @return (Scene)
-     */
-    public Scene initGUI(){
-
-        PlayerStatusPanel psp = new PlayerStatusPanel(controller.getPlayerNames(), controller.getLivesOfRobots());
-        RoboRallyGridPane layout = new RoboRallyGridPane(psp, board);
-    	/*GridPane layout = new GridPane();
-    	layout.setVgap(20);
-		layout.setHgap(20);
-		layout.setPadding(new Insets(40, 0, 0, 40));
-
-        layout.add(new PlayerStatusPanel(controller.getPlayerNames(), controller.getLivesOfRobots()), 0, 0, 1, 3);
-		layout.add(board, 1, 0, 1, 1);
-
-        // i need some kind of listeners here, either on robot positions, either on cards?
-        //not robot caus it still should update if shield or oil
-        //maybe when player.use(card) repaint board? --> which makes that we just have to call phase2() in application
-
-        // need to update the board everytime a card is played
-        //okay maybe have a board object and reupload it everytime ? HOW
-
-    	 */
-
-        return new Scene(layout);
     }
 
     /**
@@ -58,15 +32,26 @@ public class MovingRobotsView {
      * updates the board and the playerStatusPanel
      * @return (Scene)
      */
-    public Scene updateRobotsAndLives() {
-    	board.deleteRobots();
-    	board.setRobots();
-    	//TODO: set layout
-    	GridPane layout = new GridPane();
-        layout.add(new PlayerStatusPanel(controller.getPlayerNames(), controller.getLivesOfRobots()), 0, 0, 1, 3);
-		layout.add(board, 1, 0, 1, 1);
+    public RoboRallyGridPane initGUI() {
+    	BoardTilePane board = new BoardTilePane();
+    	PlayerStatusPanel panel = new PlayerStatusPanel(controller.getPlayerNames());
+    	RoboRallyGridPane layout = new RoboRallyGridPane(panel, board);
+    	layout.add(createContinueButton(), 1, 1, 1, 1);
     	
-    	return new Scene(layout);
+    	return layout;
+    	
+    }
+    
+    public Button createContinueButton() {
+    	Button button = new Button("CONTINUE");
+    	button.setFont(Font.font("Courier New", FontWeight.BOLD, 28));
+    	
+    	button.setOnAction(value -> {
+        	controller.manageEndOfRound();
+    		
+    	});
+    	
+    	return button;
     }
 
 }
