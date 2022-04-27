@@ -4,11 +4,7 @@ import dtu.roboRally.controller.MovingRobotsController;
 import dtu.roboRally.utils.BoardTilePane;
 import dtu.roboRally.utils.PlayerStatusPanel;
 import dtu.roboRally.utils.RoboRallyGridPane;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
@@ -20,7 +16,7 @@ public class MovingRobotsView {
     private MovingRobotsController controller;
 
     /**
-     * Constructor that initialises the board
+     * Constructor
      * @param controller (RoboRallyController)
      */
     public MovingRobotsView(MovingRobotsController controller){
@@ -28,21 +24,27 @@ public class MovingRobotsView {
     }
 
     /**
-     * called whenever the controller gets notified that a card has been played
+     * called whenever the controller gets notified that change occurred on the board
      * updates the board and the playerStatusPanel
      * @return (Scene)
      */
     public RoboRallyGridPane initGUI() {
     	BoardTilePane board = new BoardTilePane();
     	PlayerStatusPanel panel = new PlayerStatusPanel(controller.getPlayerNames());
+
     	RoboRallyGridPane layout = new RoboRallyGridPane(panel, board);
+
     	layout.add(createContinueButton(), 1, 1, 1, 1);
     	
     	return layout;
     	
     }
-    
-    public Button createContinueButton() {
+
+	/**
+	 * Button to press when all scene have been displayed
+	 * @return (Button)
+	 */
+	public Button createContinueButton() {
     	Button button = new Button("CONTINUE");
     	button.setFont(Font.font("Courier New", FontWeight.BOLD, 28));
     	

@@ -16,6 +16,7 @@ public class RoboRallyController extends Application {
 	private NextPlayerController NPC;
 	private MovingRobotsController MRC;
 	private WinController WC;
+
 	private boolean hasWinner;
 	private String nameOfWinner;
 	
@@ -50,8 +51,6 @@ public class RoboRallyController extends Application {
 	 * @param primaryStage (Stage)
 	 */
 	public void startApplication(Stage primaryStage) {
-//		WC = new WinController(this, primaryStage, "bla");
-//		WC.display();
 		hasWinner = false;
 		SNOPC = new SetNumberOfPlayersController(this, primaryStage);
 		SNOPC.display();
@@ -63,7 +62,6 @@ public class RoboRallyController extends Application {
 	 */
 	public void instantiateGame(int nbOfPlayers) {
 		Game.getInstance(this, nbOfPlayers);
-		//TODO: should it be in the same method?
 	}
 
 	/**
@@ -101,7 +99,8 @@ public class RoboRallyController extends Application {
 	 * called by setStartingPositionsController.nextPlayer() or PickCardsController.nextPlayer() or resumeGame button in MRC
 	 * manages if the next scene is a player picking card or if the robot should be moved
 	 * calls nextPlayer if there is still a player to play
-	 * instantiates a new MovingRobotsController if it was the last player TODO: what it calls
+	 * instantiates a new MovingRobotsController if it was the last player
+	 * starts the phase 2 of the game
 	 * @param primaryStage (Stage)
 	 * @param playerIndex (int) the index of the next player to pick its card(if smaller than the number of players)
 	 */
@@ -112,7 +111,6 @@ public class RoboRallyController extends Application {
 			MRC = new MovingRobotsController(this, primaryStage, playerNames);
 			Game.getInstance().phase2();
 			MRC.display();
-			//when phase2 is done, call playerTurnManager again
 		}
 	}
 
@@ -125,7 +123,6 @@ public class RoboRallyController extends Application {
 	 * @param playerIndex (int) id of the player to pass down to pickCards
 	 */
 	public void nextPlayer(Stage primaryStage, String playerName, int playerIndex) {
-
 		NPC = new NextPlayerController(this, primaryStage, playerName, playerIndex);
 		NPC.display();
 	}
@@ -142,35 +139,40 @@ public class RoboRallyController extends Application {
 		PCC = new PickCardsController(this, primaryStage, playerNames, playerIndex);
 		PCC.display();
 	}
-	
-	public void notifyRobotMove() {
 
+	/**
+	 * called by the observer in Game and Tiles
+	 * tells the MRC to stack a Pane for this set of the board
+	 */
+	public void notifyRobotMove() {
 		MRC.addBoardToList();
-		
 	}
-	
+
+	/**
+	 * called by the observer in Game
+	 * saves the name of the winner
+	 * @param playerIndex (int) id of the winner
+	 */
 	public void notifyWin(int playerIndex) {
 		nameOfWinner = playerNames.get(playerIndex);
 		hasWinner = true;
 	}
-	
-	public boolean hasWinner() {
-		return hasWinner;
-	}
-	
+
+	/**
+	 * instantiates a new WinnerController and displays it
+	 * @param primaryStage
+	 */
 	public void crownWinner(Stage primaryStage) {
 		WC = new WinController(this, primaryStage, nameOfWinner);
 		WC.display();
 	}
-	
-	public ArrayList<Integer> getLivesOfRobots() {
-		
-		ArrayList<Integer> robotLives = new ArrayList<>();
-    	
-    	for(Player player : Game.getInstance().getPlayers()) {
-    		robotLives.add(player.getRobot().getLives());
-    	}
-    	return robotLives;
+
+	/**
+	 * getter for the MRC to know if the game is finished
+	 * @return (boolean)
+	 */
+	public boolean hasWinner() {
+		return hasWinner;
 	}
 	
 }

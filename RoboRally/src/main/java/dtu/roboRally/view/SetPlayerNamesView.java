@@ -2,7 +2,6 @@ package dtu.roboRally.view;
 
 import dtu.roboRally.Game;
 import dtu.roboRally.controller.SetPlayerNamesController;
-import dtu.roboRally.utils.RoboRallyButton;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -30,7 +29,7 @@ public class SetPlayerNamesView {
 	/**
 	 * creates a new Scene with corresponding elements : correct number of text fields, Button to continue
 	 *
-	 * @return
+	 * @return (Scene)
 	 */
 	public Scene initGUI() {
 
@@ -55,7 +54,10 @@ public class SetPlayerNamesView {
         }
 
         //add button and listener
-        RoboRallyButton confirmButton = new RoboRallyButton("CONFIRM");
+        Button confirmButton = new Button("CONFIRM");
+		confirmButton.setStyle("-fx-background-color: #32CD32; -fx-border-color: #228B22; -fx-border-width: 7; -fx-text-fill: #FFFFFF");
+		confirmButton.setFont(Font.font("Courier New", FontWeight.BOLD, 20));
+		confirmButton.setPrefSize(150, 40);
 		confirmButton.setOnAction(value -> controller.pickStartingPositions());
 		
         playerNamesBox.getChildren().add(confirmButton);
