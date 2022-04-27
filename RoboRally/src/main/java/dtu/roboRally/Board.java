@@ -231,8 +231,7 @@ public class Board {
 		do {
 			x = (int) ((int) 3+ Math.floor(Math.random()*(cols-6)));
 			y = (int) Math.floor(Math.random()*(rows-4));
-		} while((board[y][x] instanceof Teleporter) || board[y+1][x] instanceof Teleporter ||board[y+2][x] instanceof Teleporter 
-				||board[y+3][x] instanceof Teleporter || board[y+4][x] instanceof Teleporter);
+		} while(!( board[y][x] instanceof Floor));
 		board[y][x] = new LaserShooter(2);
 		board[y+1][x] = new LaserBeam();
 		board[y+2][x] = new LaserBeam();
@@ -241,8 +240,7 @@ public class Board {
 		do {
 			x = (int) ((int) 3+ Math.floor(Math.random()*(cols-6)));
 			y = (int) Math.floor(Math.random()*(rows-4));
-		} while(!((isTpLsCb(x,y)||isTpLsCb(x,y+1)||isTpLsCb(x,y+2))
-				||(isTpLsCb(x,y)||isTpLsCb(x,y-1)||isTpLsCb(x,y-2))));
+		} while(!(isTpLsCb(x,y)||isTpLsCb(x,y+1)||isTpLsCb(x,y+2)||isTpLsCb(x,y+3)||isTpLsCb(x,y+4)));
 		board[y][x] = new LaserShooter(2);
 		board[y+1][x] = new LaserBeam();
 		board[y+2][x] = new LaserBeam();
