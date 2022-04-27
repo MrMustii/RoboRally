@@ -252,7 +252,7 @@ public class Board {
 		int x,y, orientation;
 		do {
 			x = (int) ((int) 3 + Math.floor(Math.random()*(cols-6)));
-			y = (int) ((int) 2 + Math.floor(Math.random()*(rows-4)));
+			y = (int) ((int) 3 + Math.floor(Math.random()*(rows-6)));
 			orientation = (int) Math.floor(Math.random()*2);
 			if (orientation == 1) {
 				orientation = 2;
