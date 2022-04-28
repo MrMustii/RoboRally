@@ -53,7 +53,7 @@ public class StepsDefinitionRobot {
 	}
 	@When("the robot gets a new position {int}, {int}, {int} by moving or rotating")
 	public void the_robot_gets_a_new_position_by_moving_or_rotating(int x, int y, int o) {
-	    canMove = robot.move(board, new Position(x,y,o));
+	    robot.move(board, new Position(x,y,o));
 	}
 	@Then("the robot has the position {int}, {int}, {int}")
 	public void the_robot_has_the_position(int x, int y, int o) {
@@ -89,11 +89,11 @@ public class StepsDefinitionRobot {
 	}
 	@Then("the old tile is unoccupied")
 	public void the_old_tile_is_unoccupied() {
-	    assertEquals(false, Game.getInstance().getBoard().getTile(3, 3).getOccupied());
+	    assertEquals(false, Game.getInstance().getBoard().getTile(3, 3).isOccupied());
 	}
 	@Then("new tile is occupied")
 	public void new_tile_is_occupied() {
-		assertEquals(true, Game.getInstance().getBoard().getTile(3, 4).getOccupied());
+		assertEquals(true, Game.getInstance().getBoard().getTile(3, 4).isOccupied());
 	}
 	/////
 
