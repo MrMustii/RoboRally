@@ -55,7 +55,11 @@ public class StepsDefinitionGame {
 	
 	@When("They draw thier hand, thier hand is showen and pick cards")
 	public void they_draw_thier_hand_thier_hand_is_showen_and_pick_cards() {
-	    newgame.phase1();
+		for(Player player : Game.getInstance().getPlayers()) {
+			player.drawHand();
+		}
+		
+//	    newgame.phase1();
 	}
 	@Then("all the players have picked cards")
 	public void all_the_players_have_picked_cards() {

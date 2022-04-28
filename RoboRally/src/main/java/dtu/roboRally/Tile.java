@@ -126,7 +126,7 @@ public class Tile {
 	 * 
 	 * @return boolean
 	 */
-	public boolean getOccupied() {
+	public boolean isOccupied() {
 		return occupied;
 	}
 	/**

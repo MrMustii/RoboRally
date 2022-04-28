@@ -347,8 +347,8 @@ public class Board {
 	}
 
 	public boolean isTileOnBoard(int x, int y){
-		boolean xOnBoard = (x>0) && (x<cols);
-		boolean yOnBoard = (y>0) && (y<rows);
+		boolean xOnBoard = (x>=0) && (x<cols);
+		boolean yOnBoard = (y>=0) && (y<rows);
 		return xOnBoard&&yOnBoard;
 	}
 

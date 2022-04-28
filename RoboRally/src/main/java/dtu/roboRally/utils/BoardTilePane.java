@@ -89,11 +89,9 @@ public class BoardTilePane extends TilePane {
 			for(int y=0; y<rows; y++) {
 				int i = y*cols + x;
 				StackPane sp = (StackPane) getChildren().get(i);
-				for (Node n : sp.getChildren()) {
-					if (n.getId() != null && n.getId().equals("E ")) {
+					if (sp.getId() != null && sp.getId().equals("E ")) {
 						return new Position(x,y,0); //dont care about o
 					}
-				}
 			}
 		}
 		System.out.println("Couldnt find end position");

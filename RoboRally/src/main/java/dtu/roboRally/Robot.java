@@ -31,86 +31,187 @@ public class Robot {
 	 * @param newPosition (Position)
 	 * @return A position
 	 */
-	public boolean move(Board board, Position newPosition) {
+	public void move(Board board, Position newPosition) {
 		
 		int deltaX = newPosition.getX() - position.getX();
 		int deltaY = newPosition.getY() - position.getY();
 		int deltaO = newPosition.getOrientation() - position.getOrientation();
 		
-		board.getTile(position.getX(), position.getY()).setOccupied(false);
-		//board.getTile(position.getX(), position.getY()).setOccupidRobot(null);
-		
-		// to set movement direction
-		int n = 1;
-		if(deltaX<0 || deltaY<0) n = -1;
-		
-		//if rotation
+		// if rotation
 		if (deltaO != 0) {
 			position = newPosition;
-			return true;
+			return;
 		}
-
+		
+		// to set movement direction
+		int dir = 1;
+		if(deltaX<0 || deltaY<0) dir = -1;
+		
 		//changing position
 		int delta = 0;
-		deltaX = Math.abs(deltaX);
-		deltaY = Math.abs(deltaY);
-		//if moving on X axis:
-		if (deltaX > 0) {
+		
+		boolean onX;
+		if (deltaX != 0) {
 			delta = deltaX;
-		} else if (deltaY > 0) {
+			onX = true;
+		} else if (deltaY != 0) {
 			delta = deltaY;
+			onX = false;
 		} else {
+			onX = false;
 			System.out.println("error on computing delta moving in move robot");
 		}
-
-		for (int i = 0; i < delta; i++) {
-			//position of the cell we want to move in
-			int nextTileX;
-			int nextTileY;
-			Tile currentCell;
-			Tile nextCell;
-			if (deltaX > 0) {
-				nextTileX = position.getX() + (i + 1) * n;
-				nextTileY = position.getY();
-				currentCell = board.getTile(position.getX() + i * n, position.getY());
-				nextCell = board.getTile(nextTileX, nextTileY);
-			} else { //deltaY
-				nextTileX = position.getX();
-				nextTileY = position.getY() + (i + 1) * n;
-				currentCell = board.getTile(position.getX(), position.getY() + i * n);
-				nextCell = board.getTile(position.getX(), nextTileY);
+		
+		for(int i = 0; i<Math.abs(delta); i++) {
+			if(isDead) return;
+			if(moveOne(dir, onX, board)) {
+				Tile currentTile = board.getTile(position.getX(), position.getY());
+				currentTile.interact(this);
 			}
-
-
-			//checks if it is possible to moveOut of the current cell
-			boolean moveOut = currentCell.canMoveOut(position.getOrientation());
-
-			//checks if it possible to moveIn the next cell
-			boolean moveIn = nextCell.canMoveIn(position.getOrientation());
-			moveIn = moveIn && board.isTileOnBoard(nextTileX, position.getY());
-
-			if (!moveOut || !moveIn) {
-				//move not possible, change to best position
-				if (deltaX > 0) {
-					position = new Position(position.getX() + i * n, position.getY(), position.getOrientation());
-				} else {
-					position = new Position(position.getX() + i * n, position.getY(), position.getOrientation());
-				}
-				return false;
-			}
-			if (nextCell.getOccupied()) {
-				Position pushedTo;
-				if (deltaX > 0) {
-					pushedTo = new Position(position.getX() + (i + 2) * n, position.getY(), nextCell.getOccupidRobot().getPosition().getOrientation());
-				} else {
-					pushedTo = new Position(position.getX(), position.getY() + (i + 2) * n, nextCell.getOccupidRobot().getPosition().getOrientation());
-				}
-				nextCell.getOccupidRobot().move(board, pushedTo);
-			}
-
-			//if move possible, interact with the cell
-			nextCell.interact(this);
 		}
+	}
+	
+	private boolean moveOne(int direction, boolean onXaxis, Board board) {
+		
+		int nextTileX;
+		int nextTileY;
+		Tile nextTile;
+		
+		Tile currentTile = board.getTile(position.getX(), position.getY());
+		
+		if(onXaxis) {
+			nextTileX = position.getX() + 1*direction;
+			nextTileY = position.getY();
+		} else {
+			nextTileX = position.getX();
+			nextTileY = position.getY() + 1*direction;
+		}
+		
+		if(board.isTileOnBoard(nextTileX, nextTileY)) {
+			nextTile = board.getTile(nextTileX, nextTileY);
+		} else {
+			System.out.println("Robot cannot move out of board");
+			return false;
+		}
+		
+		//find orientation of the move
+		int moveOrientation;
+		if(!onXaxis && direction < 0) {
+			moveOrientation = 0;
+		} else if(onXaxis && direction > 0) {
+			moveOrientation = 1;
+		} else if(!onXaxis && direction > 0) {
+			moveOrientation = 2;
+		} else {
+			moveOrientation = 3;
+		}
+		
+		boolean moveOut = currentTile.canMoveOut(moveOrientation);
+		boolean moveIn = nextTile.canMoveIn(moveOrientation);
+		
+		if(!moveOut || !moveIn) {
+			return false;
+		}
+		
+		if (nextTile.isOccupied()) {
+			Position prePushRobotPosition = nextTile.getOccupidRobot().getPosition();
+			Position postPushRobotPosition = prePushRobotPosition.clone();
+			
+			switch(moveOrientation) {
+			case 0: postPushRobotPosition.setY(prePushRobotPosition.getY()-1); break;
+			case 1: postPushRobotPosition.setX(prePushRobotPosition.getX()+1); break;
+			case 2: postPushRobotPosition.setY(prePushRobotPosition.getY()+1); break;
+			case 3: postPushRobotPosition.setX(prePushRobotPosition.getX()-1); break;
+			}
+			nextTile.getOccupidRobot().move(board, postPushRobotPosition);
+		}
+		position.setX(nextTileX);
+		position.setY(nextTileY);
+		return true;
+		
+	}
+		
+//		int deltaX = newPosition.getX() - position.getX();
+//		int deltaY = newPosition.getY() - position.getY();
+//		int deltaO = newPosition.getOrientation() - position.getOrientation();
+//		
+//		board.getTile(position.getX(), position.getY()).setOccupied(false); //TODO: only do this if not rotate
+//		//board.getTile(position.getX(), position.getY()).setOccupidRobot(null);
+//		
+//		// to set movement direction
+//		int n = 1;
+//		if(deltaX<0 || deltaY<0) n = -1;
+//		
+//		//if rotation
+//		if (deltaO != 0) {
+//			position = newPosition;
+//			return true;
+//		}
+//
+//		//changing position
+//		int delta = 0;
+//		deltaX = Math.abs(deltaX);
+//		deltaY = Math.abs(deltaY);
+//		//if moving on X axis:
+//		if (deltaX != 0) {
+//			delta = deltaX;
+//		} else if (deltaY != 0) {
+//			delta = deltaY;
+//		} else {
+//			System.out.println("error on computing delta moving in move robot");
+//			System.out.println(deltaO);
+//			System.out.println(deltaX);
+//			System.out.println(deltaY);
+//			System.out.println(delta);
+//		}
+//
+//		for (int i = 0; i < delta; i++) {
+//			//position of the cell we want to move in
+//			int nextTileX;
+//			int nextTileY;
+//			Tile currentCell;
+//			Tile nextCell;
+//			if (deltaX != 0) {
+//				nextTileX = position.getX() + (i + 1) * n;
+//				nextTileY = position.getY();
+//				currentCell = board.getTile(position.getX() + i * n, position.getY());
+//			} else { //deltaY
+//				nextTileX = position.getX();
+//				nextTileY = position.getY() + (i + 1) * n;
+//				currentCell = board.getTile(position.getX(), position.getY() + i * n);
+//			}
+//			
+//			nextCell = board.getTile(nextTileX, nextTileY);
+//
+//			//checks if it is possible to moveOut of the current cell
+//			boolean moveOut = currentCell.canMoveOut(position.getOrientation());
+//
+//			//checks if it possible to moveIn the next cell
+//			boolean moveIn = nextCell.canMoveIn(position.getOrientation());
+//			moveIn = moveIn && board.isTileOnBoard(nextTileX, nextTileY);
+//
+//			if (!moveOut || !moveIn) {
+//				//move not possible, change to best position
+//				if (deltaX != 0) {
+//					position = new Position(position.getX() + i * n, position.getY(), position.getOrientation());
+//				} else {
+//					position = new Position(position.getX() + i * n, position.getY(), position.getOrientation());
+//				}
+//				return false;
+//			}
+//			if (nextCell.getOccupied()) {
+//				Position pushedTo;
+//				if (deltaX != 0) {
+//					pushedTo = new Position(position.getX() + (i + 2) * n, position.getY(), nextCell.getOccupidRobot().getPosition().getOrientation());
+//				} else {
+//					pushedTo = new Position(position.getX(), position.getY() + (i + 2) * n, nextCell.getOccupidRobot().getPosition().getOrientation());
+//				}
+//				nextCell.getOccupidRobot().move(board, pushedTo);
+//			}
+//
+//			//if move possible, interact with the cell
+//			nextCell.interact(this);
+//		}
         	/*
             //if moving on X axis
             for (int i = 0; i < Math.abs(deltaX); i++) {
@@ -168,11 +269,11 @@ public class Robot {
             */
 
 
-            position = newPosition;
-            board.getTile(position.getX(), position.getY()).setOccupied(true);
-            board.getTile(position.getX(), position.getY()).setOccupidRobot(this);
-            return true;
-    }
+//            position = newPosition;
+//            board.getTile(position.getX(), position.getY()).setOccupied(true);
+//            board.getTile(position.getX(), position.getY()).setOccupidRobot(this);
+//            return true;
+
 
 //	public void resurrect() {
 //		isDead = false;
