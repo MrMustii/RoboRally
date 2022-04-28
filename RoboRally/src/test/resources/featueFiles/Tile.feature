@@ -13,11 +13,11 @@ Feature: Tiles
       |"0 "							|		0			|		5			|
       |"A "							|		2			|		3	    |
       |"R "							|  	1			|		4			|
-      |"P "							|		100	  |		-95   |
+      |"P "							|		5	  	|		5   	|
       |"S "							|  	0			|		5			|
       |"E "							|   0			|		5	    |
-      |"+ "							|  	-3		|		8			|
-      |"B "							|		1			|		4			|
+      |"+ "							|  	-1		|		6			|
+      |"B "							|		3			|		2			|
       |"W0"							|		0			|		5			|
 
   @tag2
@@ -47,30 +47,23 @@ Feature: Tiles
 	Scenario: Moving onto a conveyer belt
 		Given a robot
 		And an empty board
-		And a series of conveyer belts on positions 1 and 1, 2 and 1, 3 and 1 and all have orientation 1
+		And a series of conveyer belts on positions 1 and 1, 1 and 2, 1 and 3 and all have orientation 2
 		When the robot interacts with the conveyor belt on position 1 and 1
-		Then the robot will move down the series of conveyor belts and end on position 4 and 1
+		Then the robot will move down the series of conveyor belts and end on position 1 and 4
 		
 		
 	@tag6
 	Scenario: Interacting with a tile getting pushed off a conveyer belt
 		Given a robot with 5 lives
 		And an empty board
-		And a conveyer belt on position 1 and 1 with orientation 1
+		And a conveyer belt on position 1 and 1 with orientation 2
 		When the robot interacts with the conveyer belt on position 1 and 1
-		Then the robot will be pushed to position 2 and 1
-		And the tile is a damaging tile with position 2 and 1
-		Then the robot will recieve corresponding damage on position 2 and 1
+		Then the robot will be pushed to position 1 and 2
+		And the tile is a damaging tile with position 1 and 2
+		Then the robot will recieve corresponding damage on position 1 and 2
 		
 		
-	@tag7
-	Scenario: Getting pushed be a conveyor belt in other directions
-		Given a robot
-		And an empty board
-		And a conveyer belts on position 1 and 1 with orientation 0 and position 1 and 0 with orientation 3, and position 0 and 0 with orientation 2
-		When the robot interacts with the conveyor belt on position 1 and 1
-		Then the robot will move to position 1 and 0
-		
+
 		
 	
 
