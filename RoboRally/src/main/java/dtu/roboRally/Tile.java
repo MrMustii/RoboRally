@@ -327,57 +327,20 @@ class ConveyorBelt extends Tile {
 	public void interact(Robot robot) {
 		super.getObserver().notifyRobotMove();
 		Position position = robot.getPosition();
-		Game game = Game.getInstance();
+		Board board = Game.getInstance().getBoard();
 		int x,y,roboOrientation;
-		int xnew,ynew;
+		int ynew;
 		x = position.getX();
 		y = position.getY();
 		roboOrientation = position.getOrientation();
 		
 		if(orientation == 0) {
 			ynew = y-1;
-			xnew = x;
 		}
-		else if(orientation == 1) {
-			xnew = x + 1;
-			ynew = y;
-		}
-		else if(orientation == 2) {
+		else{
 			ynew = y+1;
-			xnew = x;
 		}
-		else {
-			xnew = x-1;
-			ynew = y;
-		}
-		
-		
-		if (game.getBoard().getTile(xnew, ynew) instanceof Wall) {
-			if (! (Math.abs(orientation - game.getBoard().getTile(xnew, ynew).getTileOrientation()) == 2)) {
-				Position newPos = new Position(xnew, ynew, roboOrientation);
-				robot.setPosition(newPos);
-				if (game.getBoard().getTile(xnew, ynew) instanceof ConveyorBelt) {
-					interact(robot);
-				}
-					
-				else {
-					super.interact(robot);
-				}
-			}
-		}
-		else if (! (game.getBoard().getTile(xnew, ynew) instanceof LaserShooter)) {
-			Position newPos = new Position(xnew, ynew, roboOrientation);
-			robot.setPosition(newPos);
-			if (game.getBoard().getTile(xnew, ynew) instanceof ConveyorBelt) {
-				interact(robot);
-			}
-				
-			else {
-				super.interact(robot);
-			}
-		}
-		
-		
+		robot.move(board, new Position(x, ynew, roboOrientation));
 	}
 }
 class LaserShooter extends Tile{
