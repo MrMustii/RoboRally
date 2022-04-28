@@ -21,7 +21,7 @@ public class Game {
 	 * @param numberOfPlayers (int)
 	 */
 	private Game(RoboRallyController observer, int numberOfPlayers) {
-		board = new Board(9, 12, numberOfPlayers,observer); //maybe change size
+		board = new Board(10, 14, numberOfPlayers,observer); //maybe change size
 		for(int i = 0; i<numberOfPlayers; i++) {
 			players.add(new Player());
 		}
@@ -90,7 +90,7 @@ public class Game {
 				if (currPlayer.getRobot().isDead()) {
 					currPlayer.getCardsInPlay().clear();
 //					priorities.set(indexMaxPriority, 0);
-					currPlayer.getRobot().respawn();
+					currPlayer.getRobot().setIsDead(false);
 				} else {
 					if(priorities.get(indexMaxPriority)>0 && !currPlayer.getCardsInPlay().isEmpty()) {
 						currPlayer.use(currPlayer.getCardsInPlay().remove(0));

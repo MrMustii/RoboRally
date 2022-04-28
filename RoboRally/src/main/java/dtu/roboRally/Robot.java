@@ -22,7 +22,10 @@ public class Robot {
 		this.lives = startingLives;
 		isDead = false;
 		shielded = false;
-		Game.getInstance().getBoard().getTile(startx, starty).setOccupied(true);
+		Tile currentTile = Game.getInstance().getBoard().getTile(startx, starty);
+		currentTile.setOccupied(true);
+		currentTile.setOccupidRobot(this);
+		
 	}
 
 	/**
@@ -31,7 +34,7 @@ public class Robot {
 	 * @param newPosition (Position)
 	 * @return A position
 	 */
-	public void move(Board board, Position newPosition) {
+	public boolean move(Board board, Position newPosition) {
 		
 		int deltaX = newPosition.getX() - position.getX();
 		int deltaY = newPosition.getY() - position.getY();
@@ -40,7 +43,7 @@ public class Robot {
 		// if rotation
 		if (deltaO != 0) {
 			position = newPosition;
-			return;
+			return true;
 		}
 		
 		// to set movement direction
@@ -63,12 +66,15 @@ public class Robot {
 		}
 		
 		for(int i = 0; i<Math.abs(delta); i++) {
-			if(isDead) return;
+			if(isDead) return false;
 			if(moveOne(dir, onX, board)) {
 				Tile currentTile = board.getTile(position.getX(), position.getY());
 				currentTile.interact(this);
+			} else {
+				return false;
 			}
 		}
+		return true;
 	}
 	
 	private boolean moveOne(int direction, boolean onXaxis, Board board) {
@@ -112,7 +118,8 @@ public class Robot {
 		if(!moveOut || !moveIn) {
 			return false;
 		}
-		
+	
+		//boolean canMoveIn = true;
 		if (nextTile.isOccupied()) {
 			Position prePushRobotPosition = nextTile.getOccupidRobot().getPosition();
 			Position postPushRobotPosition = prePushRobotPosition.clone();
@@ -123,10 +130,17 @@ public class Robot {
 			case 2: postPushRobotPosition.setY(prePushRobotPosition.getY()+1); break;
 			case 3: postPushRobotPosition.setX(prePushRobotPosition.getX()-1); break;
 			}
-			nextTile.getOccupidRobot().move(board, postPushRobotPosition);
+			moveIn = nextTile.getOccupidRobot().move(board, postPushRobotPosition);
 		}
-		position.setX(nextTileX);
-		position.setY(nextTileY);
+		
+		if(moveIn) {
+			position.setX(nextTileX);
+			position.setY(nextTileY);
+			currentTile.setOccupied(false);
+			nextTile.setOccupied(true);
+			nextTile.setOccupidRobot(this);
+		}
+		
 		return true;
 		
 	}
@@ -291,6 +305,7 @@ public class Robot {
 
 			if(lives <= 0){
 				isDead = true;
+				respawn();
 			}
 		} else {
 			shielded = false;
@@ -311,7 +326,11 @@ public class Robot {
 	public void respawn() {
 		setPosition(startPosition.clone());
 		setLives(startingLives);
-		isDead=false;
+//		isDead=false;
+	}
+	
+	public void setIsDead(boolean isDead) {
+		this.isDead = isDead;
 	}
 
 	/**

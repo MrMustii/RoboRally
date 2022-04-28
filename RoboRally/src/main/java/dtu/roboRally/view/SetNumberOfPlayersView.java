@@ -37,7 +37,7 @@ public class SetNumberOfPlayersView {
 		label.setFont(Font.font("Courier New", 20));
 		
 		//set slider
-		Slider slider = new Slider(1, 5, 0);
+		Slider slider = new Slider(1, 4, 0);
 	    slider.setMajorTickUnit(1.0);
 	    slider.setMinorTickCount(0);
 	    slider.setSnapToTicks(true);

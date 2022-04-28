@@ -1,8 +1,8 @@
 package dtu.roboRally;
 
-import dtu.roboRally.controller.RoboRallyController;
-
 import java.util.Random;
+
+import dtu.roboRally.controller.RoboRallyController;
 
 
 
@@ -363,7 +363,7 @@ class LaserShooter extends Tile{
 }
 class LaserBeam extends Tile{
 	public LaserBeam() {
-		super("B ", 5);
+		super("B ", 3);
 	}
 }
 

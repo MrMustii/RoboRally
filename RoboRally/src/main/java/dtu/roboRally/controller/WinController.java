@@ -1,6 +1,7 @@
 package dtu.roboRally.controller;
 
 import dtu.roboRally.view.WinView;
+import javafx.application.Application;
 import javafx.stage.Stage;
 
 /**
@@ -30,11 +31,7 @@ public class WinController {
 	 * tells the application to start a new game
 	 */
 	public void newGame() {
-		try {
-			application.start(primaryStage);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		Application.launch(RoboRallyController.class);
 	}
 
 	/**
