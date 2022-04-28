@@ -103,20 +103,20 @@ public class StepsDefinitionTile {
 	
 	@Given("a series of conveyer belts on positions {int} and {int}, {int} and {int}, {int} and {int} and all have orientation {int}")
 	public void a_series_of_conveyer_belts_on_positions_and_and_and_and_all_have_orientation(int x1, int y1, int x2, int y2, int x3, int y3, int orientation) {
-		orientation = 1;
+		orientation = 2;
 		x1 = 1;
 		y1 = 1;
 		game.getBoard().setConveyorBelt(x1, y1, orientation);
 
 		
 		
-		x2 = 2;
-		y2 = 1;
+		x2 = 1;
+		y2 = 2;
 		game.getBoard().setConveyorBelt(x2, y2, orientation);
 
 		
-		x3 = 3;
-		y3 = 1;
+		x3 = 1;
+		y3 = 3;
 		game.getBoard().setConveyorBelt(x3, y3, orientation);
 
 		
@@ -124,13 +124,17 @@ public class StepsDefinitionTile {
 	}
 	@When("the robot interacts with the conveyor belt on position {int} and {int}")
 	public void the_robot_interacts_with_the_conveyor_belt_on_position_and(int x1, int y1) {
+		System.out.println("");
+		game.getBoard().printBoard();
 		game.getBoard().getTile(x1,y1).interact(robot);
+		System.out.println("");
+		game.getBoard().printBoard();
 	}
 	@Then("the robot will move down the series of conveyor belts and end on position {int} and {int}")
 	public void the_robot_will_move_down_the_series_of_conveyor_belts_and_end_on_position_and(int x4, int y4) {
 		Position position = robot.getPosition();
-		x4 = 4;
-		y4 = 1;
+		x4 = 1;
+		y4 = 4;
 	    assertEquals(x4, position.getX());
 	    assertEquals(y4, position.getY());
 	}
@@ -145,7 +149,7 @@ public class StepsDefinitionTile {
 	public void a_conveyer_belt_on_position_and_with_orientation(int x, int y, int ori) {
 	    x = 1;
 	    y = 1;
-	    ori = 1;
+	    ori = 2;
 		game.getBoard().setConveyorBelt(x, y, ori);
 	    
 	}
@@ -155,7 +159,7 @@ public class StepsDefinitionTile {
 	}
 	@Then("the robot will be pushed to position {int} and {int}")
 	public void the_robot_will_be_pushed_to_position_and(int newx, int newy) {
-		newx = 2; newy = 1;
+		newx = 1; newy = 2;
 		assertEquals(newx,robot.getPosition().getX());
 		assertEquals(newy,robot.getPosition().getY());
 	}
@@ -167,22 +171,5 @@ public class StepsDefinitionTile {
 	public void the_robot_will_recieve_corresponding_damage(int newx, int newy) {
 		game.getBoard().getTile(newx, newy).interact(robot);
 		assertEquals(3, robot.getLives());
-	}
-	
-	@Given("a conveyer belts on position {int} and {int} with orientation {int} and position {int} and {int} with orientation {int}, and position {int} and {int} with orientation {int}")
-	public void a_conveyer_belts_on_position_and_with_orientation_and_position_and_with_orientation_and_position_and_with_orientation(int x1, int y1, int ori1, int x2, int y2, int ori2, int x3, int y3, int ori3) {
-	    x1=2;y1=2;ori1=0;
-	    x2=2;y2=1;ori2=3;
-	    x3=1;y3=1;ori3=2;
-	    game.getBoard().setConveyorBelt(x1, y1, ori1);
-	    game.getBoard().setConveyorBelt(x2, y2, ori2);
-	    game.getBoard().setConveyorBelt(x3, y3, ori3);
-	    
-	}
-	@Then("the robot will move to position {int} and {int}")
-	public void the_robot_will_move_to_position_and(int newx, int newy) {
-		newx = 1;newy=2;
-		assertEquals(newx,robot.getPosition().getX());
-		assertEquals(newy,robot.getPosition().getY());
 	}
 }
