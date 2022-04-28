@@ -15,7 +15,7 @@ public class Tile {
 	private boolean occupied;
 	private Robot occupidRobot;
 	private int orientation;
-	
+	protected boolean testing = false;
 
 	private RoboRallyController observer;
 	
@@ -33,7 +33,7 @@ public class Tile {
 	}
 
 	public void setObserver(RoboRallyController observer){
-		this.observer = observer;
+		if (!testing) {this.observer = observer;}
 	}
 
 	public RoboRallyController getObserver(){
@@ -49,7 +49,7 @@ public class Tile {
 	 */
 	public void interact(Robot robot) {
 		robot.damage(damage);
-		observer.notifyRobotMove();
+		if (!testing) {observer.notifyRobotMove();}
 	}
 	
 	/**
@@ -307,7 +307,7 @@ class Teleporter extends Tile {
 	public void interact(Robot robot) {
 		Position newPosition =new Position(getXPos(), getYPos(), robot.getPosition().getOrientation());
 		robot.setPosition(newPosition);
-		super.getObserver().notifyRobotMove();
+		if (!testing) {super.getObserver().notifyRobotMove();}
 	}
 }
 
@@ -326,7 +326,7 @@ class ConveyorBelt extends Tile {
 	 */
 	@Override
 	public void interact(Robot robot) {
-		super.getObserver().notifyRobotMove();
+		if (!testing) {super.getObserver().notifyRobotMove();}
 		Position position = robot.getPosition();
 		Board board = Game.getInstance().getBoard();
 		int x,y,roboOrientation;

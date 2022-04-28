@@ -77,7 +77,7 @@ public class Robot {
 		return true;
 	}
 	
-	private boolean moveOne(int direction, boolean onXaxis, Board board) {
+	public boolean moveOne(int direction, boolean onXaxis, Board board) {
 		
 		int nextTileX;
 		int nextTileY;

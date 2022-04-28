@@ -53,15 +53,30 @@ Feature: Tiles
 		
 		
 	@tag6
-	Scenario: Interacting with a tile getting pushed off a conveyer belt
-		Given a robot with 5 lives
+	Scenario: Interacting with a tile getting pushed off a conveyer belt, and other orientation conveyor belt
+		Given two robots with 5 lives
 		And an empty board
-		And a conveyer belt on position 1 and 1 with orientation 2
-		When the robot interacts with the conveyer belt on position 1 and 1
-		Then the robot will be pushed to position 1 and 2
+		And two conveyer belts on position 1 and 1  and 3 and 3 with orientation 2 and 0
+		When the robots interacts with the conveyer belts on position 1 and 1 and 3 and 3
+		Then the robot will be pushed to position 1 and 2 and 3 and 2
 		And the tile is a damaging tile with position 1 and 2
 		Then the robot will recieve corresponding damage on position 1 and 2
 		
+	@tag7
+	Scenario: Interacting with a repair kit
+	Given a robot on position with 3 lives
+	And an empty board 
+	And a repair kit on position 1 and 2
+	When the robot interacts with the repair kit on position 1 and 2
+	Then the robot should have 4 lives
+	
+	@tag8
+	Scenario: Moving onto a laser shooter tile
+	Given a robot on position 1 and 1 with orienation 1
+	And an empty board
+	And a laser shooter tile on position 2 and 1 with orientation 2
+	When the robot tries to move onto the laser shooter tile
+	Then the robot will stay at the same position 1 and 1
 		
 
 		
