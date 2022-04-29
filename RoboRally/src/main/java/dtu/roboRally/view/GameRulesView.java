@@ -39,6 +39,7 @@ public class GameRulesView {
 
         Text text1 = new Text("The aim of the game is to be the first to bring your robot on the end tile of the board, " +
                 "by programming your robot's move with the movement cards you pick. Each rounds are divided in two phases," +
+                "by programming your robots move with the movement cards you pick. Each rounds are divided in two phases," +
                 " the programming of the robots, and the robots moving on the board.\n \n");
         text1.setFont(Font.font("Arial", 16));
         text1.setTextAlignment(TextAlignment.JUSTIFY);
@@ -132,7 +133,6 @@ public class GameRulesView {
         vb.setAlignment(Pos.CENTER);
         VBox.setMargin(rules, new Insets(50, 200, 0, 200));
         VBox.setMargin(exitButton, new Insets( 0, 0, 100, 0));
-
 
         ScrollPane sb = new ScrollPane();
         sb.setFitToWidth(true);

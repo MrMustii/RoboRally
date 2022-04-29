@@ -36,21 +36,22 @@ public class WinView {
 	 */
 	public Scene initGUI() {
 		
-		Pane layout = new Pane();
-		
+		VBox layout = new VBox();
+		layout.setAlignment(Pos.CENTER);
+
+
 		VBox buttons = new VBox();
-		buttons.setPadding(new Insets(80, 0, 0, 200));
+		//VBox.setMargin(buttons, new Insets(80, 200, 0, 200));
 		buttons.setSpacing(40);
 		
 		Label label = new Label("Congratulations! " + nameOfWinner + " has won the game.");
 		label.setFont(Font.font("Courier New", FontWeight.BOLD, 28));
-		
-		HBox congrats = new HBox(label);
-		
+
 		Button exit = new Button("EXIT GAME");
 		exit.setFont(Font.font("Courier New", FontWeight.BOLD, 28));
 		exit.setStyle("-fx-background-color: #32CD32; -fx-border-color: #228B22; -fx-border-width: 7; -fx-text-fill: #FFFFFF");
 		exit.setAlignment(Pos.CENTER);
+		exit.setPrefSize(250, 20);
 		
 		exit.setOnAction(value -> {
 			System.exit(0);
@@ -60,14 +61,19 @@ public class WinView {
 		playAgain.setFont(Font.font("Courier New", FontWeight.BOLD, 28));
 	    playAgain.setStyle("-fx-background-color: #32CD32; -fx-border-color: #228B22; -fx-border-width: 7; -fx-text-fill: #FFFFFF");
 	    playAgain.setAlignment(Pos.CENTER);
-	    
+		playAgain.setPrefSize(250, 20);
+
+
 		playAgain.setOnAction(value -> {
 			controller.newGame();
 		});
-		
-		buttons.getChildren().addAll(exit, playAgain);
-		
+
+		buttons.getChildren().addAll(playAgain, exit);
+		buttons.setAlignment(Pos.CENTER);
 		layout.getChildren().addAll(label, buttons);
+		layout.setSpacing(80);
+		
+		//layout.getChildren().addAll(label,);
 		
 		return new Scene(layout);
 	}
