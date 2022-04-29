@@ -135,6 +135,7 @@ public class PickCardsView {
 				controller.nextPlayer();
 			}
 		});
+		confirmCardsButton.setDefaultButton(true);
 
 		return confirmCardsButton;
 	}

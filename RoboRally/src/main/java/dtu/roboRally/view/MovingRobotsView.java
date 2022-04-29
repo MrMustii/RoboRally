@@ -57,6 +57,8 @@ public class MovingRobotsView {
         	controller.manageEndOfRound();
     		
     	});
+
+		button.setDefaultButton(true);
     	
     	return button;
     }

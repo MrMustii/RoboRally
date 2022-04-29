@@ -61,13 +61,15 @@ public class SetNumberOfPlayersView {
 	    startGameButton.setStyle("-fx-background-color: #32CD32; -fx-border-color: #228B22; -fx-border-width: 7; -fx-text-fill: #FFFFFF");
 		startGameButton.setFont(Font.font("Courier New", FontWeight.BOLD, 28));
 		startGameButton.setPrefSize(250, 80);
-
+		startGameButton.setDefaultButton(true);
 	    startGameButton.setOnAction(value ->  {
 	    	
 	        nbOfPlayers = (int) slider.getValue();
 	        controller.setPlayerNames(nbOfPlayers);
 	        
 	     });
+
+
 
 	    //add nodes to the layout
 	    VBox vbox = new VBox(welcome, label, slider, startGameButton, rulesButton);

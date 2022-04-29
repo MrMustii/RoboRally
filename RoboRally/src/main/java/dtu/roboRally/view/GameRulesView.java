@@ -128,6 +128,7 @@ public class GameRulesView {
         exitButton.setOnAction(value -> {
             controller.exit();
         });
+        exitButton.setDefaultButton(true);
 
         vb.getChildren().addAll(rules, exitButton);
         vb.setAlignment(Pos.CENTER);

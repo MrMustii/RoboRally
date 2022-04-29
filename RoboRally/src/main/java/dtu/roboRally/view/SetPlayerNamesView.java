@@ -60,6 +60,7 @@ public class SetPlayerNamesView {
 		confirmButton.setFont(Font.font("Courier New", FontWeight.BOLD, 23));
 		confirmButton.setPrefSize(150, 40);
 		confirmButton.setOnAction(value -> controller.pickStartingPositions());
+		confirmButton.setDefaultButton(true);
 		
         playerNamesBox.getChildren().add(confirmButton);
         playerNamesBox.setPadding(new Insets(150, 0, 0, 550));

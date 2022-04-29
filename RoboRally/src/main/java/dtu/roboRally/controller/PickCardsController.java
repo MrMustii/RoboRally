@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import dtu.roboRally.*;
 import dtu.roboRally.view.PickCardsView;
-import dtu.roboRally.view.WaitingView;
 import javafx.stage.Stage;
 
 /**
@@ -17,7 +16,6 @@ public class PickCardsController{
 	private RoboRallyController application;
 	private Stage primaryStage;
 	private PickCardsView view;
-	private WaitingView waitingView;
 
 	private ArrayList<String> playerNames;
 	private int playerIndex;
@@ -38,7 +36,6 @@ public class PickCardsController{
 		player = Game.getInstance().getPlayers().get(playerIndex);
 		this.view = new PickCardsView(this, player.getHand());
 
-		waitingView = new WaitingView();
 	}
 
 	/**
@@ -46,13 +43,6 @@ public class PickCardsController{
 	 */
 	public void display() {
 		primaryStage.setScene(view.initGUI());
-	}
-
-	/**
-	 * sets the waiting view while phase2 is computing stuff
-	 */
-	public void displayWaiting(){
-		primaryStage.setScene(waitingView.initGUI());
 	}
 
 	/**
@@ -90,24 +80,8 @@ public class PickCardsController{
 		positions[0] = player.getRobot().getPosition();
 		positions[1] = player.getRobot().getStartPosition();
 
-		/*
-		//@TODO: change that with looking for the new label thingy, iterate on boardGUI instead of actual board (to that in the view?)
-		Board board = Game.getInstance().getBoard();
-		for(int j=0; j<board.getRows(); j++){
-			for(int i=board.getCols()-4; i<board.getCols(); i++){ //loop trough the last 3 cols
-				if(board.getTile(i,j).getLabel().equals("E ")){
-					positions[2] = new Position(i,j,0); //dont care about orientation
-					return positions;
-				}
-			}
-		}
 
-		 */
 		return positions;
-		/*
-		System.out.println("error while searching for endPosition in PickCardsController.extractPosition()");
-		return null;
-		 */
 	}
 
 	/**

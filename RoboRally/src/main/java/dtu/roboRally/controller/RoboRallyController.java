@@ -32,8 +32,8 @@ public class RoboRallyController extends Application {
 		
 		primaryStage.show();
 		
-		WC = new WinController(this, primaryStage, "Alberte");
-		WC.display();
+		//WC = new WinController(this, primaryStage, "Alberte");
+		//WC.display();
 	}
 
 	/**
@@ -54,7 +54,11 @@ public class RoboRallyController extends Application {
 	 * @param primaryStage (Stage)
 	 */
 	public void startApplication(Stage primaryStage) {
+		//resets the game if we are playing a second round
 		hasWinner = false;
+		Game.endGame();
+
+		//calls the first controller
 		SNOPC = new SetNumberOfPlayersController(this, primaryStage);
 		SNOPC.display();
 	}
@@ -111,7 +115,6 @@ public class RoboRallyController extends Application {
 		if(playerIndex < playerNames.size() && !hasWinner) {
 			nextPlayer(primaryStage, playerNames.get(playerIndex), playerIndex);
 		} else {
-			PCC.displayWaiting();
 			MRC = new MovingRobotsController(this, primaryStage, playerNames);
 			Game.getInstance().phase2();
 			MRC.display();

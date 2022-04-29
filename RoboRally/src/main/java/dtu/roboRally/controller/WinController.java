@@ -31,7 +31,7 @@ public class WinController {
 	 * tells the application to start a new game
 	 */
 	public void newGame() {
-		Application.launch(RoboRallyController.class);
+		application.startApplication(primaryStage);
 	}
 
 	/**
