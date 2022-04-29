@@ -21,8 +21,10 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class StepsDefinitionGame {
-	@Given("the user choses a {int} players")
-	public void the_user_choses_a_players(Integer int1) {
+	@Given("there is no game")
+	public void there_is_no_game() {
+		Game.endGame();
+		assertEquals(null, Game.getInstance());
 	    
 	}
 	@When("creation instances of {int} players")

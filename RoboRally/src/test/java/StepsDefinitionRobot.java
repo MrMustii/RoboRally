@@ -66,14 +66,6 @@ public class StepsDefinitionRobot {
 	    board.emptyTheBoard();
 	    board.addWall(x, y, o);
 	}
-	@Then("the robot can move {string}")
-	public void the_robot_can_move(String string) {
-	    if(string.equals("true")) {
-	    	assertTrue(canMove);
-	    } else {
-	    	assertFalse(canMove);
-	    }
-	}
 	@Given("A dead robot and start position \\({int}, {int}, {int})")
 	public void a_dead_robot_and_start_position(int x, int y, int o) {
 		robot = new Robot(o, x, y);

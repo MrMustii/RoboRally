@@ -154,4 +154,7 @@ public class Game {
 	public Player getWinner() {
 		return winner;
 	}
+	public static void endGame() {
+		instance=null;
+	}
 }
