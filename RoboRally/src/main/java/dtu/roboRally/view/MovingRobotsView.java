@@ -12,7 +12,9 @@ import javafx.scene.text.FontWeight;
  * view for the moving robot scene
  */
 public class MovingRobotsView {
-
+	
+	BoardTilePane boardGUI = new BoardTilePane();
+	
     private MovingRobotsController controller;
 
     /**
@@ -29,15 +31,17 @@ public class MovingRobotsView {
      * @return (Scene)
      */
     public RoboRallyGridPane initGUI() {
+//    	boardGUI.deleteRobots();
+//    	boardGUI.setRobots();
+//    	BoardTilePane b = (BoardTilePane) boardGUI.clone();
     	BoardTilePane board = new BoardTilePane();
     	PlayerStatusPanel panel = new PlayerStatusPanel(controller.getPlayerNames());
 
     	RoboRallyGridPane layout = new RoboRallyGridPane(panel, board);
 
-    	layout.add(createContinueButton(), 1, 1, 1, 1);
+    	layout.add(createContinueButton(), 1, 2, 1, 1);
     	
     	return layout;
-    	
     }
 
 	/**
@@ -47,6 +51,7 @@ public class MovingRobotsView {
 	public Button createContinueButton() {
     	Button button = new Button("CONTINUE");
     	button.setFont(Font.font("Courier New", FontWeight.BOLD, 28));
+	    button.setStyle("-fx-background-color: #32CD32; -fx-border-color: #228B22; -fx-border-width: 7; -fx-text-fill: #FFFFFF");
     	
     	button.setOnAction(value -> {
         	controller.manageEndOfRound();

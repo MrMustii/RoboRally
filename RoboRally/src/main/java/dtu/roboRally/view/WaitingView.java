@@ -15,7 +15,7 @@ public class WaitingView {
         HBox hb = new HBox();
 
         Label label = new Label("Robots connecting...");
-        ImageView wifi = ImageViewLoader.loadFile("src/main/resources/images/wifi.png", 100, 100);
+        ImageView wifi = ImageViewLoader.loadFile("src/main/resources/images/wifi.png", "wifi",100, 100);
 
         hb.getChildren().addAll(label, wifi);
 

@@ -10,6 +10,7 @@ import dtu.roboRally.utils.ImageViewLoader;
 import dtu.roboRally.utils.PlayerStatusPanel;
 import dtu.roboRally.utils.ProgressBarPlayer;
 import dtu.roboRally.utils.RoboRallyGridPane;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
@@ -75,20 +76,21 @@ public class PickCardsView {
 		TilePane handGUI = new TilePane();
 		handGUI.setPrefColumns(3);
 		handGUI.setPrefRows(3);
-		handGUI.setVgap(45);
+		handGUI.setVgap(25);
+		handGUI.setHgap(13);
 
 		//cards in play
-		cardsPlayed.setSpacing(30);
+		cardsPlayed.setSpacing(62);
 
 		//looping over the 9 cards in the hand and creating an image for all of them
 		for (Card item : hand) {
 
 			String cardName = item.getClass().getSimpleName();
 
-			ImageView imageViewHand =  ImageViewLoader.loadFile("src/main/resources/cardImages/" + cardName + ".png", 150, 110);
+			ImageView imageViewHand =  ImageViewLoader.loadFile("src/main/resources/cardImages/" + cardName + ".png", cardName, 140, 90);
 			imageViewHand.setId(cardName);
 
-			ImageView imageViewCardsPlayed =  ImageViewLoader.loadFile("src/main/resources/cardImages/" + cardName + ".png", 150, 110);
+			ImageView imageViewCardsPlayed =  ImageViewLoader.loadFile("src/main/resources/cardImages/" + cardName + ".png", cardName, 140, 90);
 			imageViewHand.setId(cardName);
 
 			imageViewHand.setOnMouseClicked(value -> {
@@ -125,7 +127,8 @@ public class PickCardsView {
 	public Button addConfirmCardsButton() {
 		
 		Button confirmCardsButton = new Button("CONFIRM CARDS");
-		confirmCardsButton.setFont(Font.font("Courier New", FontWeight.BOLD, 18));
+		confirmCardsButton.setFont(Font.font("Courier New", FontWeight.BOLD, 30));
+	    confirmCardsButton.setStyle("-fx-background-color: #32CD32; -fx-border-color: #228B22; -fx-border-width: 7; -fx-text-fill: #FFFFFF");
 		
 		confirmCardsButton.setOnAction(value -> {
 			if(!(cardsPlayed.getChildren().size()<5)) {

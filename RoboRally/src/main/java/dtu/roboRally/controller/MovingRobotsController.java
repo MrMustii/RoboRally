@@ -1,16 +1,15 @@
 package dtu.roboRally.controller;
 
+import java.util.ArrayList;
+
 import dtu.roboRally.utils.RoboRallyGridPane;
 import dtu.roboRally.view.MovingRobotsView;
-import dtu.roboRally.view.WaitingView;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
-import java.util.ArrayList;
 
 /**
  * Controller for the scene when the robots are moving

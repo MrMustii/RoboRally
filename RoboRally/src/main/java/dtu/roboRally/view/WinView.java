@@ -2,9 +2,12 @@ package dtu.roboRally.view;
 
 import dtu.roboRally.controller.WinController;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -33,28 +36,38 @@ public class WinView {
 	 */
 	public Scene initGUI() {
 		
-		VBox layout = new VBox();
-		layout.setPadding(new Insets(40, 0, 0, 40));
-		layout.setSpacing(40);
+		Pane layout = new Pane();
+		
+		VBox buttons = new VBox();
+		buttons.setPadding(new Insets(80, 0, 0, 200));
+		buttons.setSpacing(40);
 		
 		Label label = new Label("Congratulations! " + nameOfWinner + " has won the game.");
 		label.setFont(Font.font("Courier New", FontWeight.BOLD, 28));
 		
+		HBox congrats = new HBox(label);
+		
 		Button exit = new Button("EXIT GAME");
 		exit.setFont(Font.font("Courier New", FontWeight.BOLD, 28));
-
+		exit.setStyle("-fx-background-color: #32CD32; -fx-border-color: #228B22; -fx-border-width: 7; -fx-text-fill: #FFFFFF");
+		exit.setAlignment(Pos.CENTER);
+		
 		exit.setOnAction(value -> {
 			System.exit(0);
 		});
 		
 		Button playAgain = new Button("PLAY AGAIN");
 		playAgain.setFont(Font.font("Courier New", FontWeight.BOLD, 28));
-		
+	    playAgain.setStyle("-fx-background-color: #32CD32; -fx-border-color: #228B22; -fx-border-width: 7; -fx-text-fill: #FFFFFF");
+	    playAgain.setAlignment(Pos.CENTER);
+	    
 		playAgain.setOnAction(value -> {
 			controller.newGame();
 		});
 		
-		layout.getChildren().addAll(label, exit, playAgain);
+		buttons.getChildren().addAll(exit, playAgain);
+		
+		layout.getChildren().addAll(label, buttons);
 		
 		return new Scene(layout);
 	}

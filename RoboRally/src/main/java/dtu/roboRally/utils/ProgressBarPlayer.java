@@ -19,6 +19,7 @@ public class ProgressBarPlayer extends ProgressBar {
         super();
         
         setPrefWidth(50*Game.getInstance().getBoard().getCols());
+        setStyle("-fx-accent: #32CD32;");
         
         double totalDist = computeDistance(startPosition, endPosition);
         double currentDist = computeDistance(robotPosition, endPosition);

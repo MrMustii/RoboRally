@@ -24,7 +24,7 @@ public class RoboRallyGridPane extends GridPane {
 
         //sets general layout
         setVgap(20);
-        setHgap(20);
+        setHgap(30);
         setPadding(new Insets(10, 0, 0, 40));
         
         Label title = new Label("RoboRally");

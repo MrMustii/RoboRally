@@ -13,6 +13,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 /**
  * View for the starting positions
@@ -56,9 +58,9 @@ public class SetStartingPositionsView {
      * @return (Scene)
      */
     public Scene initGUI(){
-        addLabel();
 
         layout = new RoboRallyGridPane(playerStatusPanel, boardGUI);
+        addLabel();
         return new Scene(layout);
     }
 
@@ -92,8 +94,9 @@ public class SetStartingPositionsView {
      * helper method to create the label
      */
     public void addLabel(){
-        instructions = new Label(playerName + ", please pick a starting position by clicking on it");
-        layout.add(instructions, 0, 1);
+        instructions = new Label(playerName + ", click on your desired start position");
+        instructions.setFont(Font.font("Courier New", FontWeight.BOLD, 16));
+        layout.add(instructions, 1, 2, 1, 1);
     }
 
     /**
@@ -102,7 +105,7 @@ public class SetStartingPositionsView {
      * @param index (int) tile index
      */
     public void addRobotImage(int playerID, int index) {
-    	ImageView robotImageView = ImageViewLoader.loadFile("src/main/resources/robotImages/robot"+playerID+".png", 50, 50);
+    	ImageView robotImageView = ImageViewLoader.loadFile("src/main/resources/robotImages/robot"+playerID+".png", "R"+playerID, 50, 50);
 		robotImageView.setRotate(90+180);
     	StackPane stack = (StackPane)boardGUI.getChildren().get(index);
     	stack.getChildren().add(robotImageView);

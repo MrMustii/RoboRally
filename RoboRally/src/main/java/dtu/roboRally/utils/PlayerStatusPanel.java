@@ -34,10 +34,15 @@ public class PlayerStatusPanel  extends VBox {
         	Label name = new Label(playerNames.get(playerIndex));
             name.setFont(Font.font("Courier New", FontWeight.BOLD, 28));
             
+            ImageView robot = ImageViewLoader.loadFile("src/main/resources/robotImages/robot" + playerIndex + ".png", "R"+playerIndex, 40, 40);
+            
+            HBox nameAndRobot = new HBox();
+            nameAndRobot.getChildren().addAll(name, robot);
+            
 //            getChildren().add(name);
             VBox vbox = new VBox();
             vbox.setSpacing(10);
-            vbox.getChildren().add(name);
+            vbox.getChildren().add(nameAndRobot);
 
             //set lives
             HBox livesHB = new HBox();
@@ -49,7 +54,7 @@ public class PlayerStatusPanel  extends VBox {
             }
             
             for(int i = 0; i<lives; i++) {
-            	ImageView heartImageView = ImageViewLoader.loadFile("src/main/resources/images/heart.png", 20, 20);
+            	ImageView heartImageView = ImageViewLoader.loadFile("src/main/resources/images/heart.png", "H", 20, 20);
             	livesHB.getChildren().add(heartImageView);
             }
             vbox.getChildren().add(livesHB);

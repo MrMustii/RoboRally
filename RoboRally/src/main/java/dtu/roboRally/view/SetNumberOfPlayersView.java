@@ -32,7 +32,10 @@ public class SetNumberOfPlayersView {
 	 * @return Scene
 	 */
 	public Scene initGUI() {
-
+		
+		Label welcome = new Label("Welcome to RoboRally!");
+        welcome.setFont(Font.font("Arial Black", 32));
+		
 		Label label = new Label("Choose no. of players:");
 		label.setFont(Font.font("Courier New", 20));
 		
@@ -58,7 +61,7 @@ public class SetNumberOfPlayersView {
 	     });
 
 	    //add nodes to the layout
-	    VBox vbox = new VBox(label, slider, startGameButton);
+	    VBox vbox = new VBox(welcome, label, slider, startGameButton);
 	    vbox.setAlignment(Pos.CENTER);
 	    vbox.setSpacing(50);
 	    VBox.setMargin(slider, new Insets(0, 400, 0, 400));

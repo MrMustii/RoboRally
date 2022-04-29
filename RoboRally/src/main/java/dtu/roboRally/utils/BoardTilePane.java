@@ -1,15 +1,16 @@
 package dtu.roboRally.utils;
 
+import java.util.ArrayList;
+
 import dtu.roboRally.Board;
 import dtu.roboRally.Game;
 import dtu.roboRally.Player;
 import dtu.roboRally.Position;
+import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
-
-import java.util.ArrayList;
 
 /**
  * Custom TilePane that we use in several views of the game
@@ -36,6 +37,15 @@ public class BoardTilePane extends TilePane {
 			setRobots();
 		}
 	}
+	
+//	public BoardTilePane(ObservableList<Node> listToClone) {
+//		
+//		for(Node n:listToClone) {
+//			
+//			getChildren().add();
+//		}
+//		
+//	}
 
 	/**
 	 * loads the view of the board and tile images given the Game.board
@@ -48,7 +58,7 @@ public class BoardTilePane extends TilePane {
 		for (int j = 0; j < rows; j++) {
 			for (int i = 0; i < cols; i++) {
 				String tileID = board.getTile(i, j).getLabel();
-				ImageView tileImageView = ImageViewLoader.loadFile("src/main/resources/tileImages/"+ tileID +".png", 50, 50);
+				ImageView tileImageView = ImageViewLoader.loadFile("src/main/resources/tileImages/"+ tileID +".png", tileID, 50, 50);
 
 				StackPane sp = new StackPane();
 				sp.setId(tileID);
@@ -71,7 +81,7 @@ public class BoardTilePane extends TilePane {
 			
 			int index = y*cols + x;
 			
-			ImageView robotImageView = ImageViewLoader.loadFile("src/main/resources/robotImages/robot"+i+".png", 50, 50);
+			ImageView robotImageView = ImageViewLoader.loadFile("src/main/resources/robotImages/robot"+i+".png", "R"+i, 50, 50);
 			robotImageView.setRotate(90*o+180);
 			
 			StackPane stack = (StackPane) getChildren().get(index);
@@ -102,15 +112,26 @@ public class BoardTilePane extends TilePane {
 	 * deletes robots on the stack pane tiles
 	 * stopped using because we now create a new board every time
 	 */
-	@Deprecated
 	public void deleteRobots() {
  		for(int i = 0; i<getChildren().size(); i++) {
  			StackPane tile = (StackPane) getChildren().get(i);
-			if(tile.getChildren().size() > 1) {
+			while(tile.getChildren().size() > 1) {
 				tile.getChildren().remove(1);
 			}
 		}
 	}
-
+	
+//	@Override
+//	public Object clone() {
+//		try {
+//			return new BoardTilePane(getChildren());
+//			
+//			return super.clone();
+//		} catch (CloneNotSupportedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		return null;
+//	}
 
 }

@@ -31,6 +31,9 @@ public class RoboRallyController extends Application {
 		app.startApplication(primaryStage);
 		
 		primaryStage.show();
+		
+//		WC = new WinController(this, primaryStage, "Alberte");
+//		WC.display();
 	}
 
 	/**

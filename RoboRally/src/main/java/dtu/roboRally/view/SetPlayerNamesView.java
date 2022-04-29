@@ -5,6 +5,7 @@ import dtu.roboRally.controller.SetPlayerNamesController;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -35,8 +36,8 @@ public class SetPlayerNamesView {
 
 		//layout
 		VBox playerNamesBox = new VBox();
-        playerNamesBox.setSpacing(50);
-
+        playerNamesBox.setSpacing(40);
+        
         //add text fields and their listeners
         for(int i = 0; i<Game.getInstance().getPlayers().size(); i++) {
         	TextField t = new TextField();
@@ -56,12 +57,12 @@ public class SetPlayerNamesView {
         //add button and listener
         Button confirmButton = new Button("CONFIRM");
 		confirmButton.setStyle("-fx-background-color: #32CD32; -fx-border-color: #228B22; -fx-border-width: 7; -fx-text-fill: #FFFFFF");
-		confirmButton.setFont(Font.font("Courier New", FontWeight.BOLD, 20));
+		confirmButton.setFont(Font.font("Courier New", FontWeight.BOLD, 23));
 		confirmButton.setPrefSize(150, 40);
 		confirmButton.setOnAction(value -> controller.pickStartingPositions());
 		
         playerNamesBox.getChildren().add(confirmButton);
-        playerNamesBox.setPadding(new Insets(150, 0, 0, 500));
+        playerNamesBox.setPadding(new Insets(150, 0, 0, 550));
         
         return new Scene(playerNamesBox, 400, 200);
 	}
