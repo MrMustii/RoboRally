@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import dtu.roboRally.*;
 import dtu.roboRally.view.PickCardsView;
+import dtu.roboRally.view.WaitingView;
 import javafx.stage.Stage;
 
 /**
@@ -16,6 +17,7 @@ public class PickCardsController{
 	private RoboRallyController application;
 	private Stage primaryStage;
 	private PickCardsView view;
+	private WaitingView waitingView;
 
 	private ArrayList<String> playerNames;
 	private int playerIndex;
@@ -35,6 +37,8 @@ public class PickCardsController{
 		this.playerIndex = playerIndex;
 		player = Game.getInstance().getPlayers().get(playerIndex);
 		this.view = new PickCardsView(this, player.getHand());
+
+		waitingView = new WaitingView();
 	}
 
 	/**
@@ -42,6 +46,13 @@ public class PickCardsController{
 	 */
 	public void display() {
 		primaryStage.setScene(view.initGUI());
+	}
+
+	/**
+	 * sets the waiting view while phase2 is computing stuff
+	 */
+	public void displayWaiting(){
+		primaryStage.setScene(waitingView.initGUI());
 	}
 
 	/**

@@ -24,7 +24,7 @@ public class RoboRallyController extends Application {
 	
 	@Override
     public void start(Stage primaryStage) throws Exception {
-		
+
 		setStage(primaryStage);
 		
 		RoboRallyController app = new RoboRallyController();
@@ -108,6 +108,7 @@ public class RoboRallyController extends Application {
 		if(playerIndex < playerNames.size() && !hasWinner) {
 			nextPlayer(primaryStage, playerNames.get(playerIndex), playerIndex);
 		} else {
+			PCC.displayWaiting();
 			MRC = new MovingRobotsController(this, primaryStage, playerNames);
 			Game.getInstance().phase2();
 			MRC.display();

@@ -19,7 +19,6 @@ public class MovingRobotsController {
 
     private RoboRallyController application;
     private MovingRobotsView view;
-    private WaitingView waitingView;
     private Stage primaryStage;
 
     private ArrayList<String> playerNames;
@@ -42,7 +41,7 @@ public class MovingRobotsController {
         
 //        MovingRobotsView lagView = new MovingRobotsView(this);
 //        primaryStage.setScene(new Scene(lagView.initGUI()));
-        displayWaiting(); // TODO: is it needed?
+//        display(); // TODO: is it needed?
     }
 
     /**
@@ -58,10 +57,6 @@ public class MovingRobotsController {
     	timeline.play();
     	
     	primaryStage.setScene(scene);
-    }
-
-    public void displayWaiting(){
-        primaryStage.setScene(waitingView.initGUI());
     }
 
     /**
