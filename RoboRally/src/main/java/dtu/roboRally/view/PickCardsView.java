@@ -63,7 +63,6 @@ public class PickCardsView {
 		Position endPosition = btp.getEndPosition();
 
 		ProgressBarPlayer progressBar = new ProgressBarPlayer(positions[0], positions[1], endPosition);
-		progressBar.setPrefWidth(600);
 		return progressBar;
 	}
 
@@ -79,17 +78,17 @@ public class PickCardsView {
 		handGUI.setVgap(45);
 
 		//cards in play
-		cardsPlayed.setSpacing(24);
+		cardsPlayed.setSpacing(30);
 
 		//looping over the 9 cards in the hand and creating an image for all of them
 		for (Card item : hand) {
 
 			String cardName = item.getClass().getSimpleName();
 
-			ImageView imageViewHand =  ImageViewLoader.loadFile("src/main/resources/cardImages/" + cardName + ".png", 140, 100);
+			ImageView imageViewHand =  ImageViewLoader.loadFile("src/main/resources/cardImages/" + cardName + ".png", 150, 110);
 			imageViewHand.setId(cardName);
 
-			ImageView imageViewCardsPlayed =  ImageViewLoader.loadFile("src/main/resources/cardImages/" + cardName + ".png", 140, 100);
+			ImageView imageViewCardsPlayed =  ImageViewLoader.loadFile("src/main/resources/cardImages/" + cardName + ".png", 150, 110);
 			imageViewHand.setId(cardName);
 
 			imageViewHand.setOnMouseClicked(value -> {
@@ -114,8 +113,8 @@ public class PickCardsView {
 			handGUI.getChildren().add(imageViewHand);
 		}
 		
-		layout.add(handGUI, 2, 0, 1, 3);
-		layout.add(cardsPlayed, 1, 2, 1, 3);
+		layout.add(handGUI, 2, 1, 1, 3);
+		layout.add(cardsPlayed, 1, 3, 1, 3);
 	}
 
 	/**

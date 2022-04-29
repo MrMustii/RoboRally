@@ -28,6 +28,7 @@ public class ImageViewLoader {
         }
 
         ImageView image = new ImageView(new Image(input));
+        image.setCache(true);
         image.setFitHeight(height);
         image.setFitWidth(width);
         return image;

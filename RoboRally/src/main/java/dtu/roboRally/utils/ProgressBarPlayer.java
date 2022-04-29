@@ -1,5 +1,6 @@
 package dtu.roboRally.utils;
 
+import dtu.roboRally.Game;
 import dtu.roboRally.Position;
 import javafx.scene.control.ProgressBar;
 
@@ -16,7 +17,9 @@ public class ProgressBarPlayer extends ProgressBar {
      */
     public ProgressBarPlayer(Position robotPosition, Position startPosition, Position endPosition){
         super();
-
+        
+        setPrefWidth(50*Game.getInstance().getBoard().getCols());
+        
         double totalDist = computeDistance(startPosition, endPosition);
         double currentDist = computeDistance(robotPosition, endPosition);
 

@@ -103,7 +103,7 @@ public class SetStartingPositionsView {
      */
     public void addRobotImage(int playerID, int index) {
     	ImageView robotImageView = ImageViewLoader.loadFile("src/main/resources/robotImages/robot"+playerID+".png", 50, 50);
-		robotImageView.setRotate(90);
+		robotImageView.setRotate(90+180);
     	StackPane stack = (StackPane)boardGUI.getChildren().get(index);
     	stack.getChildren().add(robotImageView);
     }

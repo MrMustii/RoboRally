@@ -21,7 +21,7 @@ public class Game {
 	 * @param numberOfPlayers (int)
 	 */
 	private Game(RoboRallyController observer, int numberOfPlayers) {
-		board = new Board(10, 14, numberOfPlayers,observer); //maybe change size
+		board = new Board(9, 14, numberOfPlayers,observer); //maybe change size
 		for(int i = 0; i<numberOfPlayers; i++) {
 			players.add(new Player());
 		}

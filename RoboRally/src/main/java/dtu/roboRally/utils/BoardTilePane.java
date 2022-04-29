@@ -72,7 +72,7 @@ public class BoardTilePane extends TilePane {
 			int index = y*cols + x;
 			
 			ImageView robotImageView = ImageViewLoader.loadFile("src/main/resources/robotImages/robot"+i+".png", 50, 50);
-			robotImageView.setRotate(90*o);
+			robotImageView.setRotate(90*o+180);
 			
 			StackPane stack = (StackPane) getChildren().get(index);
 			stack.getChildren().add(robotImageView);

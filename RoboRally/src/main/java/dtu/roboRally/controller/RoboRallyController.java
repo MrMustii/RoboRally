@@ -40,8 +40,8 @@ public class RoboRallyController extends Application {
 	public void setStage(Stage primaryStage) {
 
 		primaryStage.setTitle("RoboRally");
-		primaryStage.setWidth(1250);
-		primaryStage.setHeight(800);
+		primaryStage.setWidth(1300);
+		primaryStage.setHeight(830);
 	}
 
 	/**

@@ -21,7 +21,12 @@ public class PlayerStatusPanel  extends VBox {
      */
     public PlayerStatusPanel(ArrayList<String> playerNames) {
         super();
-        setSpacing(60);
+        setSpacing(30);
+        
+        Label label = new Label("Status of players:");
+        label.setFont(Font.font("Arial", FontWeight.BOLD, 18));
+        
+        getChildren().add(label);
         
         for(int playerIndex = 0; playerIndex<playerNames.size(); playerIndex++) {
 
@@ -29,7 +34,10 @@ public class PlayerStatusPanel  extends VBox {
         	Label name = new Label(playerNames.get(playerIndex));
             name.setFont(Font.font("Courier New", FontWeight.BOLD, 28));
             
-            getChildren().add(name);
+//            getChildren().add(name);
+            VBox vbox = new VBox();
+            vbox.setSpacing(10);
+            vbox.getChildren().add(name);
 
             //set lives
             HBox livesHB = new HBox();
@@ -44,7 +52,8 @@ public class PlayerStatusPanel  extends VBox {
             	ImageView heartImageView = ImageViewLoader.loadFile("src/main/resources/images/heart.png", 20, 20);
             	livesHB.getChildren().add(heartImageView);
             }
-            getChildren().add(livesHB);
+            vbox.getChildren().add(livesHB);
+            getChildren().add(vbox);
         }
     }
 
