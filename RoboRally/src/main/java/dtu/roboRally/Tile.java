@@ -1,8 +1,8 @@
 package dtu.roboRally;
 
-import dtu.roboRally.controller.RoboRallyController;
-
 import java.util.Random;
+
+import dtu.roboRally.controller.RoboRallyController;
 
 
 
@@ -15,6 +15,7 @@ public class Tile {
 	private boolean occupied;
 	private Robot occupidRobot;
 	private int orientation;
+	protected boolean testing = false;
 
 	private RoboRallyController observer;
 	
@@ -32,7 +33,7 @@ public class Tile {
 	}
 
 	public void setObserver(RoboRallyController observer){
-		this.observer = observer;
+		if (!testing) {this.observer = observer;}
 	}
 
 	public RoboRallyController getObserver(){
@@ -48,7 +49,7 @@ public class Tile {
 	 */
 	public void interact(Robot robot) {
 		robot.damage(damage);
-		//observer.notifyRobotMove();
+		if (!testing) {observer.notifyRobotMove();}
 	}
 	
 	/**
@@ -306,7 +307,7 @@ class Teleporter extends Tile {
 	public void interact(Robot robot) {
 		Position newPosition =new Position(getXPos(), getYPos(), robot.getPosition().getOrientation());
 		robot.setPosition(newPosition);
-		super.getObserver().notifyRobotMove();
+		if (!testing) {super.getObserver().notifyRobotMove();}
 	}
 }
 
@@ -325,59 +326,22 @@ class ConveyorBelt extends Tile {
 	 */
 	@Override
 	public void interact(Robot robot) {
-		super.getObserver().notifyRobotMove();
+		if (!testing) {super.getObserver().notifyRobotMove();}
 		Position position = robot.getPosition();
-		Game game = Game.getInstance();
+		Board board = Game.getInstance().getBoard();
 		int x,y,roboOrientation;
-		int xnew,ynew;
+		int ynew;
 		x = position.getX();
 		y = position.getY();
 		roboOrientation = position.getOrientation();
 		
 		if(orientation == 0) {
 			ynew = y-1;
-			xnew = x;
 		}
-		else if(orientation == 1) {
-			xnew = x + 1;
-			ynew = y;
-		}
-		else if(orientation == 2) {
+		else{
 			ynew = y+1;
-			xnew = x;
 		}
-		else {
-			xnew = x-1;
-			ynew = y;
-		}
-		
-		
-		if (game.getBoard().getTile(xnew, ynew) instanceof Wall) {
-			if (! (Math.abs(orientation - game.getBoard().getTile(xnew, ynew).getTileOrientation()) == 2)) {
-				Position newPos = new Position(xnew, ynew, roboOrientation);
-				robot.setPosition(newPos);
-				if (game.getBoard().getTile(xnew, ynew) instanceof ConveyorBelt) {
-					interact(robot);
-				}
-					
-				else {
-					super.interact(robot);
-				}
-			}
-		}
-		else if (! (game.getBoard().getTile(xnew, ynew) instanceof LaserShooter)) {
-			Position newPos = new Position(xnew, ynew, roboOrientation);
-			robot.setPosition(newPos);
-			if (game.getBoard().getTile(xnew, ynew) instanceof ConveyorBelt) {
-				interact(robot);
-			}
-				
-			else {
-				super.interact(robot);
-			}
-		}
-		
-		
+		robot.move(board, new Position(x, ynew, roboOrientation));
 	}
 }
 class LaserShooter extends Tile{
@@ -400,7 +364,7 @@ class LaserShooter extends Tile{
 }
 class LaserBeam extends Tile{
 	public LaserBeam() {
-		super("B ", 5);
+		super("B ", 3);
 	}
 }
 

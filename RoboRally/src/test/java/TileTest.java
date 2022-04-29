@@ -3,6 +3,8 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import dtu.roboRally.Tile;
+import dtu.roboRally.controller.RoboRallyController;
+
 
 
 
@@ -18,8 +20,6 @@ public class TileTest {
 		
 	}
 
-
-
 	@Test
 	public void testSetAndGetDamage() {
 		Tile tile;
@@ -27,5 +27,12 @@ public class TileTest {
 		tile.setDamage(2);
 		assertEquals(2, tile.getDamage());
 	}
+	
+	@Test
+	public void testGetTileOrientation() {
+		Tile wall = new Tile("W0",0);
+		
+		assertEquals(0,wall.getTileOrientation());
 
+	}
 }

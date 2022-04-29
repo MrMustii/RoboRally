@@ -230,8 +230,15 @@ public class Board {
 	public void setAcidTile (int x, int y) {
 		board[y][x] = new Acid();
 	}
+	public void setLaserShooter(int x, int y, int orientation) {
+		board[y][x] = new LaserShooter(orientation);
+	}
+	public void setRepair(int x, int y) {
+		board[y][x] = new Repair();
+	}
 	public boolean isTpLsCb(int x, int y) {
-		if (board[y][x] instanceof Teleporter || board[y][x] instanceof LaserShooter || board[y][x] instanceof ConveyorBelt) {
+		if (board[y][x] instanceof Teleporter || board[y][x] instanceof LaserShooter
+				|| board[y][x] instanceof ConveyorBelt || board[y][x] instanceof LaserBeam) {
 			return true;
 		}
 		else {
@@ -290,10 +297,10 @@ public class Board {
 			nextY = y-1;
 		}
 
-		ConveyorBelt cb1 = new ConveyorBelt(2);
+		ConveyorBelt cb1 = new ConveyorBelt(orientation);
 		cb1.setObserver(observer);
 		board[y][x] = cb1;
-		ConveyorBelt cb2 = new ConveyorBelt(2);
+		ConveyorBelt cb2 = new ConveyorBelt(orientation);
 		cb2.setObserver(observer);
 		board[nextY][x] = cb2;
 

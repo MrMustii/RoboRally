@@ -4,13 +4,13 @@ Feature: setting up the game
 
   @tag1
   Scenario: set a number of players
-    Given the user choses a 3 players
+    Given there is no game
     When creation instances of 3 players 
     Then the number of players should be set to 3
 	 
 	 @tag2
    Scenario: get the number of players
-    Given the user choses a 3 players
+    Given creation instances of 3 players 
     When The game wants to check the number of players for the phases
     Then the number of players should be returned to 3
 	 
