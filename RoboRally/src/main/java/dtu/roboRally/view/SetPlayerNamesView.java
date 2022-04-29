@@ -69,7 +69,7 @@ public class SetPlayerNamesView {
 			controller.goBack();
 		});
 		
-        playerNamesBox.getChildren().add(confirmButton);
+        playerNamesBox.getChildren().addAll(confirmButton, backButton);
         playerNamesBox.setPadding(new Insets(150, 0, 0, 550));
         
         return new Scene(playerNamesBox, 400, 200);
