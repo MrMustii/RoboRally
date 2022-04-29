@@ -1,7 +1,6 @@
 package dtu.roboRally.controller;
 
 import dtu.roboRally.view.WinView;
-import javafx.application.Application;
 import javafx.stage.Stage;
 
 /**

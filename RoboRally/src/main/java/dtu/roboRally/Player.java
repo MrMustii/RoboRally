@@ -1,10 +1,8 @@
 package dtu.roboRally;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import dtu.roboRally.cardTypes.ShieldCard;
-import dtu.roboRally.controller.RoboRallyController;
 
 /**
  * Class for player actions such as drawing cards, using cards and setting the player's robot on the board

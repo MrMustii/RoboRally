@@ -20,7 +20,7 @@ public class RoboRallyController extends Application {
 	private boolean hasWinner;
 	private String nameOfWinner;
 	
-	private ArrayList<String> playerNames = new ArrayList<String>();
+	private ArrayList<String> playerNames;
 	
 	@Override
     public void start(Stage primaryStage) throws Exception {
@@ -57,6 +57,7 @@ public class RoboRallyController extends Application {
 		//resets the game if we are playing a second round
 		hasWinner = false;
 		Game.endGame();
+		playerNames  = new ArrayList<String>();
 
 		//calls the first controller
 		SNOPC = new SetNumberOfPlayersController(this, primaryStage);

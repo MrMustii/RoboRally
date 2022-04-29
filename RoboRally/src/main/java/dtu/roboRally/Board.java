@@ -1,8 +1,8 @@
 package dtu.roboRally;
 
-import dtu.roboRally.controller.RoboRallyController;
-
 import java.util.Random;
+
+import dtu.roboRally.controller.RoboRallyController;
 
 public class Board {
 
