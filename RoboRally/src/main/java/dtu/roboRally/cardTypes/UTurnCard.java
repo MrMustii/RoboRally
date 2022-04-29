@@ -12,7 +12,7 @@ public class UTurnCard extends Card {
 		super(3);
 	}
 	
-	public Position useCard(Robot robot, Position position) {
+	public Position useCard(Position position) {
 		return new Position(position.getX(), position.getY(), 
 				(position.getOrientation()+2)%4);
 	}

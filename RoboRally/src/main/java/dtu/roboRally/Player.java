@@ -44,7 +44,7 @@ public class Player {
 		if(card instanceof ShieldCard) {
 			robot.setShielded(true);
 		}else{
-			Position newPosition = card.useCard(robot,robot.getPosition());
+			Position newPosition = card.useCard(robot.getPosition());
 			robot.move(board, newPosition);
 		}
 	}

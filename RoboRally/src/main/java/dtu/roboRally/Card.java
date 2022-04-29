@@ -31,7 +31,7 @@ public abstract class Card {
 	 * @param position (Position)
 	 * @return The defined action of a card
 	 */
-	public abstract Position useCard(Robot robot, Position position);
+	public abstract Position useCard(Position position);
 	
 	/**
 	 * @return a probability for each card to make the dealing of cards random

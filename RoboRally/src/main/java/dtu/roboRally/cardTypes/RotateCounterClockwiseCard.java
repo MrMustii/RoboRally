@@ -12,7 +12,7 @@ public class RotateCounterClockwiseCard extends Card {
 		super(2);
 	}
 	
-	public Position useCard(Robot robot, Position position) {
+	public Position useCard(Position position) {
 		return new Position(position.getX(), position.getY(), 
 				(position.getOrientation()+3)%4);
 	}

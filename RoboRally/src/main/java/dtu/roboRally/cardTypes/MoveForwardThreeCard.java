@@ -12,7 +12,7 @@ public class MoveForwardThreeCard extends Card {
 		super(2);
 	}
 	
-	public Position useCard(Robot robot, Position position) {
+	public Position useCard(Position position) {
 		switch (position.getOrientation()) {
 		case 0: return new Position(position.getX(), position.getY()-3, position.getOrientation());
 		case 1: return new Position(position.getX()+3, position.getY(), position.getOrientation());
