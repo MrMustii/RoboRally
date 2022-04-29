@@ -60,6 +60,14 @@ public class SetPlayerNamesView {
 		confirmButton.setPrefSize(150, 40);
 		confirmButton.setOnAction(value -> controller.pickStartingPositions());
 		confirmButton.setDefaultButton(true);
+
+		Button backButton = new Button("BACK");
+		backButton.setStyle("-fx-background-color: #32CD32; -fx-border-color: #228B22; -fx-border-width: 7; -fx-text-fill: #FFFFFF");
+		backButton.setFont(Font.font("Courier New", FontWeight.BOLD, 23));
+		backButton.setPrefSize(150, 40);
+		backButton.setOnAction(value -> {
+			controller.goBack();
+		});
 		
         playerNamesBox.getChildren().add(confirmButton);
         playerNamesBox.setPadding(new Insets(150, 0, 0, 550));

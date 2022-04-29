@@ -60,4 +60,11 @@ public class SetPlayerNamesController {
 	public void removePlayerName(int nameIndex) {
 		playerNames.remove(nameIndex);
 	}
+
+	/**
+	 * goes back to pickPlayerNumber
+	 */
+	public void goBack(){
+		application.startApplication(primaryStage);
+	}
 }
