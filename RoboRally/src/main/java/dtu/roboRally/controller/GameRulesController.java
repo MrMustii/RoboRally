@@ -1,17 +1,22 @@
 package dtu.roboRally.controller;
 
 import dtu.roboRally.view.GameRulesView;
-import dtu.roboRally.view.MovingRobotsView;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-
+/**
+ * Controller for the games rule
+ */
 public class GameRulesController {
 
     private SetNumberOfPlayersController SNOPC;
     private GameRulesView view;
     private Stage primaryStage;
 
+    /**
+     * constructor
+     * @param application (SetNumberOfPlayersController)
+     * @param primaryStage (Stage)
+     */
     public GameRulesController(SetNumberOfPlayersController application, Stage primaryStage) {
         this.SNOPC = application;
         this.primaryStage = primaryStage;
@@ -20,10 +25,16 @@ public class GameRulesController {
 
     }
 
+    /**
+     * sets the scene on the stage
+     */
     public void display(){
         primaryStage.setScene(view.initGUI());
     }
 
+    /**
+     * displays the SetNumberOfPlayerView
+     */
     public void exit(){
         SNOPC.display();
     }

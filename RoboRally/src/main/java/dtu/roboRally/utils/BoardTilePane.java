@@ -47,6 +47,11 @@ public class BoardTilePane extends TilePane {
 //		
 //	}
 
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		return super.clone();
+	}
+
 	/**
 	 * loads the view of the board and tile images given the Game.board
 	 */

@@ -5,20 +5,29 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.*;
 
+/**
+ * view for the rules
+ */
 public class GameRulesView {
 
     private GameRulesController controller;
 
+    /**
+     * constructor
+     * @param controller (GameRulesController)
+     */
     public GameRulesView(GameRulesController controller){
         this.controller = controller;
     }
 
+    /**
+     * creates the scene with the rules and the exit button on a scrollpane
+     * @return
+     */
     public Scene initGUI(){
 
         VBox vb = new VBox();
