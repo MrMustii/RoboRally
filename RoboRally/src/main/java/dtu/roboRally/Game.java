@@ -99,9 +99,16 @@ public class Game {
 					}
 				}
 				//check if player won
-				instance.hasWon(indexMaxPriority);
+				//nstance.hasWon(indexMaxPriority);
 			}
 		}
+		for(int i=0;i<players.size();i++) {
+			Position p= players.get(i).getRobot().getPosition();
+			if (board.getTile(p.getX(), p.getY() ) instanceof EndPosition) {
+				instance.hasWon(i);
+
+			}
+	    }
 	}
 	
 	/**
