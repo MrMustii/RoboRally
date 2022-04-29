@@ -10,7 +10,7 @@ import dtu.roboRally.Robot;
 public class ShieldCard extends Card {
 	
 	public ShieldCard() {
-		super(1);
+		super();
 	}
 	
 	@Override

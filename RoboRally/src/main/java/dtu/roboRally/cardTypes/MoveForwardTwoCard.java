@@ -9,7 +9,7 @@ import dtu.roboRally.Robot;
  */
 public class MoveForwardTwoCard extends Card {
 	public MoveForwardTwoCard() {
-		super(3);
+		super();
 	}
 	
 	public Position useCard(Position position) {

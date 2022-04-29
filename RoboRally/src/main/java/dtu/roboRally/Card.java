@@ -19,15 +19,13 @@ public abstract class Card {
 	
 	/**
 	 * sets priority for a given card
-	 * @param priority (int)
 	 */
-	public Card(int priority) {
-		this.priority = priority;
+	public Card() {
+		priority = (int)Math.ceil(Math.random()*100);
 	}
 	
 	
 	/**
-	 * @param robot (Robot)
 	 * @param position (Position)
 	 * @return The defined action of a card
 	 */

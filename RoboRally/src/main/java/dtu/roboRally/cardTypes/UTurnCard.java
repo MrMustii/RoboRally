@@ -9,7 +9,7 @@ import dtu.roboRally.Robot;
  */
 public class UTurnCard extends Card {
 	public UTurnCard() {
-		super(3);
+		super();
 	}
 	
 	public Position useCard(Position position) {

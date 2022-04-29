@@ -9,7 +9,7 @@ import dtu.roboRally.Robot;
  */
 public class MoveBackwardCard extends Card {
 	public MoveBackwardCard() {
-		super(3);
+		super();
 	}
 	
 	public Position useCard(Position position) {
