@@ -1,6 +1,5 @@
 package dtu.roboRally.controller;
 
-import dtu.roboRally.Game;
 import dtu.roboRally.view.SetNumberOfPlayersView;
 import javafx.stage.Stage;
 

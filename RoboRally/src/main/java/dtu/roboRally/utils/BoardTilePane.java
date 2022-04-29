@@ -6,8 +6,6 @@ import dtu.roboRally.Board;
 import dtu.roboRally.Game;
 import dtu.roboRally.Player;
 import dtu.roboRally.Position;
-import javafx.collections.ObservableList;
-import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
@@ -91,6 +89,11 @@ public class BoardTilePane extends TilePane {
 			
 			StackPane stack = (StackPane) getChildren().get(index);
 			stack.getChildren().add(robotImageView);
+			
+			if(players.get(i).getRobot().getShielded()) {
+				ImageView shieldImageView = ImageViewLoader.loadFile("src/main/resources/images/shield.png", "shield", 50, 50);
+				stack.getChildren().add(shieldImageView);
+			}
 		}
 	}
 

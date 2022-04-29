@@ -38,7 +38,7 @@ public class GameRulesView {
 
 
         Text text1 = new Text("The aim of the game is to be the first to bring your robot on the end tile of the board, " +
-                "by programming your robot’s move with the movement cards you pick. Each rounds are divided in two phases," +
+                "by programming your robot's move with the movement cards you pick. Each rounds are divided in two phases," +
                 " the programming of the robots, and the robots moving on the board.\n \n");
         text1.setFont(Font.font("Arial", 16));
         text1.setTextAlignment(TextAlignment.JUSTIFY);
@@ -60,11 +60,11 @@ public class GameRulesView {
         title3.setFont(Font.font("Arial", 25));
 
         Text text3 = new Text("The players will then be asked to program their robots with the cards they picked. The " +
-                "other players shouldn’t be looking at the choices their adversaries are doing.\nYou can see on the " +
+                "other players shouldn't be looking at the choices their adversaries are doing.\nYou can see on the " +
                 "right side of the screen the nine cards you have been dealt. You have to pick five on them, in a selected " +
                 "order. To do so, you click on the card in your hand, which will move it below the board. You can undo " +
                 "your choices by clicking on the cards below the game at anytime.\nWhen you are happy of your choice, " +
-                "click the ’confirm cards’ button to let the next player pick their cards, or to launch the second phase if" +
+                "click the 'confirm cards' button to let the next player pick their cards, or to launch the second phase if" +
                 " all players picked their cards.\n \n");
         text3.setFont(Font.font("Arial", 16));
         text3.setTextAlignment(TextAlignment.JUSTIFY);
@@ -76,7 +76,7 @@ public class GameRulesView {
         Text text4 = new Text("The robots will all move accordingly to their cards. The priorities on which robots use" +
                 " their card first is given by the priorities on the cards (which are kept secret). You can then " +
                 "excitingly watch the robots move on the board, interact with the objects, or push each other." +
-                "\nAt any point of this phase, you can press the ’continue’ button to pass to the next phase " +
+                "\nAt any point of this phase, you can press the 'continue' button to pass to the next phase " +
                 "(programming the robots again).\n \n");
         text4.setFont(Font.font("Arial", 16));
         text4.setTextAlignment(TextAlignment.JUSTIFY);
@@ -99,7 +99,7 @@ public class GameRulesView {
         Text text6 = new Text("Floor: does nothing.\nStart Position: Starting position of the robot. Each player have" +
                 " their own starting position that their robot will respawn to if they loose all lives.\nEnd " +
                 "Position: Tile to end your turn on to win the game.\nWall: Robot cannot pass the wall. It can" +
-                " get on the tile as long as it’s not trying to pass through the wall.\nAcid: Robot loses two " +
+                " get on the tile as long as it's not trying to pass through the wall.\nAcid: Robot loses two " +
                 "lives.\nOil: Robot gets spinned in a random orientation. \nPit: Robot dies and respawn.\nRepair: " +
                 "Robots gets an extra life. (maximum of 5 lives) Laser shooter: robot cannot move on this tile. Laser" +
                 " beam: Robot loses three lives if gets on this tile.\nTeleporter: Robot gets teleported to the " +
