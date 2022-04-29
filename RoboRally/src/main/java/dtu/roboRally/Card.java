@@ -25,6 +25,7 @@ public abstract class Card {
 		this.priority = priority;
 	}
 	
+	
 	/**
 	 * @param robot (Robot)
 	 * @param position (Position)
@@ -53,7 +54,7 @@ public abstract class Card {
 			return new MoveBackwardCard();
 		} else if(chance>=0.80 && chance <0.95) {
 			return new UTurnCard();
-		}else if(chance>=0.95 && chance <=1) {
+		}else if(chance>=0.95&& chance <=1) {
 			return new ShieldCard();
 		}
 		return null;

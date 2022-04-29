@@ -10,12 +10,12 @@ import dtu.roboRally.Robot;
 public class ShieldCard extends Card {
 	
 	public ShieldCard() {
-		super(0);
+		super(1);
 	}
 	
 	@Override
 	public Position useCard(Robot robot, Position position) {
-		//robot.setShielded(true);
+		robot.setShielded(true);
 		return position.clone();
 	}
 

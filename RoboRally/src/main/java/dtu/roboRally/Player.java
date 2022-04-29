@@ -41,12 +41,11 @@ public class Player {
 	 */
 	public void use(Card card) {
 		Board board = Game.getInstance().getBoard();
-
-		if(!(card instanceof ShieldCard)) {
+		if(card instanceof ShieldCard) {
+			robot.setShielded(true);
+		}else{
 			Position newPosition = card.useCard(robot,robot.getPosition());
 			robot.move(board, newPosition);
-		}else{
-			robot.setShielded(true);
 		}
 	}
 	

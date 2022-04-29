@@ -173,6 +173,11 @@ class Floor extends Tile {
 		//label and damage properties
 		super("0 ",0);
 	}
+	
+	@Override
+	public void interact(Robot robot) {
+		//do nothing when interacting with floor
+	}
 }
 
 class Pit extends Tile {
@@ -229,13 +234,22 @@ class StartPosition extends Tile {
 	//additional input parameters can be added to this constructor to specify fixed starting position I believe
 	public StartPosition() {
 		super("S ", 0);
-		
+	}
+	
+	@Override
+	public void interact(Robot robot) {
+		//do nothing when interacting with start position
 	}
 }
 
 class EndPosition extends Tile {
 	public EndPosition() {
 		super("E ",0);
+	}
+	
+	@Override
+	public void interact(Robot robot) {
+		//do nothing when interacting with end position
 	}
 }
 
@@ -257,6 +271,12 @@ class Wall extends Tile {
 		super("W"+orientation,0);
 		this.orientation = orientation;
 	}
+	
+	@Override
+	public void interact(Robot robot) {
+		//do nothing when interacting with wall
+	}
+	
 	/**
 	 * Overridden method for wall subclass, checking if robot's and tile's orientations match 
 	 * 
