@@ -3,6 +3,7 @@ package dtu.roboRally;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import dtu.roboRally.cardTypes.ShieldCard;
 import dtu.roboRally.controller.RoboRallyController;
 
 /**
@@ -40,8 +41,13 @@ public class Player {
 	 */
 	public void use(Card card) {
 		Board board = Game.getInstance().getBoard();
-		Position newPosition = card.useCard(robot,robot.getPosition());
-		robot.move(board, newPosition);
+
+		if(!(card instanceof ShieldCard)) {
+			Position newPosition = card.useCard(robot,robot.getPosition());
+			robot.move(board, newPosition);
+		}else{
+			robot.setShielded(true);
+		}
 	}
 	
 	/**
@@ -49,11 +55,11 @@ public class Player {
 	 * @param orientation (int)
 	 * @param x (int)
 	 * @param y (int)
-	 * @return
+	 * @return (boolean) to check if the instantiating worked
 	 */
 	public boolean initializeRobot(int orientation, int x, int y) {
 		Board board = Game.getInstance().getBoard();
-		if (board.getTile(x, y).getLabel()=="S ") {
+		if (board.getTile(x, y).getLabel().equals("S ")) {
 			robot = new Robot(orientation, x, y);
 			return true;
 		} else {
