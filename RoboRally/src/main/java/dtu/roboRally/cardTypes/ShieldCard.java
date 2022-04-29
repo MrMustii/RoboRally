@@ -14,8 +14,8 @@ public class ShieldCard extends Card {
 	}
 	
 	@Override
-	public Position useCard(Robot robot, Position position) {
-		robot.setShielded(true);
+	public Position useCard(Position position) {
+		//robot.setShielded(true);
 		return position.clone();
 	}
 

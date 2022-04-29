@@ -13,6 +13,8 @@ public class SetNumberOfPlayersController {
 	private SetNumberOfPlayersView view;
 	private Stage primaryStage;
 
+	private GameRulesController GRC;
+
 	/**
 	 * Constructor that instantiates the SetNumberOfPlayersView
 	 * @param application (RoboRallyController)
@@ -22,6 +24,8 @@ public class SetNumberOfPlayersController {
 		this.application = application;
 		this.primaryStage = primaryStage;
 		view = new SetNumberOfPlayersView(this);
+
+		GRC = new GameRulesController(this, primaryStage);
 	}
 
 	/**
@@ -40,6 +44,13 @@ public class SetNumberOfPlayersController {
 	 */
 	public void display() {
 		primaryStage.setScene(view.initGUI());
+	}
+
+	/**
+	 * to call the rules controller
+	 */
+	public void displayRules(){
+		GRC.display();
 	}
 	
 }

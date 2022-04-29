@@ -47,6 +47,15 @@ public class SetNumberOfPlayersView {
 	    slider.setShowTickMarks(true);
 	    slider.setShowTickLabels(true);
 
+	    //set rules button
+		Button rulesButton = new Button("RULES");
+		rulesButton.setStyle("-fx-background-color: #32CD32; -fx-border-color: #228B22; -fx-border-width: 7; -fx-text-fill: #FFFFFF");
+		rulesButton.setFont(Font.font("Courier New", FontWeight.BOLD, 28));
+		rulesButton.setPrefSize(250, 80);
+		rulesButton.setOnAction(value -> {
+			controller.displayRules();
+		});
+
 	    //set Button
 	    Button startGameButton = new Button("START GAME");
 	    startGameButton.setStyle("-fx-background-color: #32CD32; -fx-border-color: #228B22; -fx-border-width: 7; -fx-text-fill: #FFFFFF");
@@ -61,7 +70,8 @@ public class SetNumberOfPlayersView {
 	     });
 
 	    //add nodes to the layout
-	    VBox vbox = new VBox(welcome, label, slider, startGameButton);
+	    VBox vbox = new VBox(welcome, label, slider, startGameButton, rulesButton);
+
 	    vbox.setAlignment(Pos.CENTER);
 	    vbox.setSpacing(50);
 	    VBox.setMargin(slider, new Insets(0, 400, 0, 400));
