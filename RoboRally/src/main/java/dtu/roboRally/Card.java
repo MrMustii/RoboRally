@@ -4,7 +4,6 @@ import dtu.roboRally.cardTypes.MoveBackwardCard;
 import dtu.roboRally.cardTypes.MoveForwardOneCard;
 import dtu.roboRally.cardTypes.MoveForwardThreeCard;
 import dtu.roboRally.cardTypes.MoveForwardTwoCard;
-import dtu.roboRally.cardTypes.OilSPillCard;
 import dtu.roboRally.cardTypes.RotateClockwiseCard;
 import dtu.roboRally.cardTypes.RotateCounterClockwiseCard;
 import dtu.roboRally.cardTypes.ShieldCard;
@@ -25,6 +24,7 @@ public abstract class Card {
 	public Card(int priority) {
 		this.priority = priority;
 	}
+	
 	
 	/**
 	 * @param robot (Robot)
@@ -54,7 +54,7 @@ public abstract class Card {
 			return new MoveBackwardCard();
 		} else if(chance>=0.80 && chance <0.95) {
 			return new UTurnCard();
-		}else if(chance>=0.95 && chance <=1) {
+		}else if(chance>=0.95&& chance <=1) {
 			return new ShieldCard();
 		}
 		return null;

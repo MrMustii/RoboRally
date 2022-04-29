@@ -230,6 +230,12 @@ public class Board {
 	public void setAcidTile (int x, int y) {
 		board[y][x] = new Acid();
 	}
+	public void setLaserShooter(int x, int y, int orientation) {
+		board[y][x] = new LaserShooter(orientation);
+	}
+	public void setRepair(int x, int y) {
+		board[y][x] = new Repair();
+	}
 	public boolean isTpLsCb(int x, int y) {
 		if (board[y][x] instanceof Teleporter || board[y][x] instanceof LaserShooter
 				|| board[y][x] instanceof ConveyorBelt || board[y][x] instanceof LaserBeam) {
@@ -280,7 +286,6 @@ public class Board {
 			if (orientation == 1) {
 				orientation = 2;
 			}
-			
 		}while((orientation==2&&(isTpLsCb(x,y)||isTpLsCb(x,y+1)||isTpLsCb(x,y+2))
 				||(orientation==0)&&(isTpLsCb(x,y)||isTpLsCb(x,y-1)||isTpLsCb(x,y-2))));
 
@@ -288,7 +293,6 @@ public class Board {
 		int nextY;
 		if (orientation == 2) {
 			nextY = y+1;
-
 		}else {
 			nextY = y-1;
 		}

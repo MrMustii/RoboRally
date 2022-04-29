@@ -2,6 +2,7 @@ package dtu.roboRally.controller;
 
 import dtu.roboRally.utils.RoboRallyGridPane;
 import dtu.roboRally.view.MovingRobotsView;
+import dtu.roboRally.view.WaitingView;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
@@ -18,7 +19,9 @@ public class MovingRobotsController {
 
     private RoboRallyController application;
     private MovingRobotsView view;
+    private WaitingView waitingView;
     private Stage primaryStage;
+
     private ArrayList<String> playerNames;
     private ArrayList<RoboRallyGridPane> layouts = new ArrayList<>();
     private Pane root = new Pane();
@@ -39,7 +42,7 @@ public class MovingRobotsController {
         
 //        MovingRobotsView lagView = new MovingRobotsView(this);
 //        primaryStage.setScene(new Scene(lagView.initGUI()));
-//        display(); // TODO: is it needed?
+        displayWaiting(); // TODO: is it needed?
     }
 
     /**
@@ -55,6 +58,10 @@ public class MovingRobotsController {
     	timeline.play();
     	
     	primaryStage.setScene(scene);
+    }
+
+    public void displayWaiting(){
+        primaryStage.setScene(waitingView.initGUI());
     }
 
     /**

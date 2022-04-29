@@ -11,7 +11,6 @@ import dtu.roboRally.cardTypes.MoveBackwardCard;
 import dtu.roboRally.cardTypes.MoveForwardOneCard;
 import dtu.roboRally.cardTypes.MoveForwardThreeCard;
 import dtu.roboRally.cardTypes.MoveForwardTwoCard;
-import dtu.roboRally.cardTypes.OilSPillCard;
 import dtu.roboRally.cardTypes.RotateClockwiseCard;
 import dtu.roboRally.cardTypes.RotateCounterClockwiseCard;
 import dtu.roboRally.cardTypes.ShieldCard;
@@ -87,10 +86,6 @@ public class StepsDefinitionPlayer {
 		player.showHand();
 	}
 	/////////////
-	@Given("the player does not have a robot")
-	public void the_player_does_not_have_a_robot() {
-	    assertEquals(null, player.getRobot());
-	}
 	@When("the player sets a robot on the board")
 	public void the_player_sets_a_robot_on_the_board() {
 	    player.setRobot(0, 0, 0);

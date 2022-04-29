@@ -15,6 +15,7 @@ public class Tile {
 	private boolean occupied;
 	private Robot occupidRobot;
 	private int orientation;
+	protected boolean testing = false;
 
 	private RoboRallyController observer;
 	
@@ -32,7 +33,7 @@ public class Tile {
 	}
 
 	public void setObserver(RoboRallyController observer){
-		this.observer = observer;
+		if (!testing) {this.observer = observer;}
 	}
 
 	public RoboRallyController getObserver(){
@@ -48,7 +49,7 @@ public class Tile {
 	 */
 	public void interact(Robot robot) {
 		robot.damage(damage);
-		//observer.notifyRobotMove();
+		
 	}
 	
 	/**
@@ -172,6 +173,11 @@ class Floor extends Tile {
 		//label and damage properties
 		super("0 ",0);
 	}
+	
+	@Override
+	public void interact(Robot robot) {
+		//do nothing when interacting with floor
+	}
 }
 
 class Pit extends Tile {
@@ -228,13 +234,22 @@ class StartPosition extends Tile {
 	//additional input parameters can be added to this constructor to specify fixed starting position I believe
 	public StartPosition() {
 		super("S ", 0);
-		
+	}
+	
+	@Override
+	public void interact(Robot robot) {
+		//do nothing when interacting with start position
 	}
 }
 
 class EndPosition extends Tile {
 	public EndPosition() {
 		super("E ",0);
+	}
+	
+	@Override
+	public void interact(Robot robot) {
+		//do nothing when interacting with end position
 	}
 }
 
@@ -256,6 +271,12 @@ class Wall extends Tile {
 		super("W"+orientation,0);
 		this.orientation = orientation;
 	}
+	
+	@Override
+	public void interact(Robot robot) {
+		//do nothing when interacting with wall
+	}
+	
 	/**
 	 * Overridden method for wall subclass, checking if robot's and tile's orientations match 
 	 * 
@@ -306,7 +327,7 @@ class Teleporter extends Tile {
 	public void interact(Robot robot) {
 		Position newPosition =new Position(getXPos(), getYPos(), robot.getPosition().getOrientation());
 		robot.setPosition(newPosition);
-		super.getObserver().notifyRobotMove();
+		if (!testing) {super.getObserver().notifyRobotMove();}
 	}
 }
 
@@ -325,7 +346,7 @@ class ConveyorBelt extends Tile {
 	 */
 	@Override
 	public void interact(Robot robot) {
-		super.getObserver().notifyRobotMove();
+		if (!testing) {super.getObserver().notifyRobotMove();}
 		Position position = robot.getPosition();
 		Board board = Game.getInstance().getBoard();
 		int x,y,roboOrientation;
