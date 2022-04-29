@@ -49,7 +49,7 @@ public class Tile {
 	 */
 	public void interact(Robot robot) {
 		robot.damage(damage);
-		if (!testing) {observer.notifyRobotMove();}
+		
 	}
 	
 	/**

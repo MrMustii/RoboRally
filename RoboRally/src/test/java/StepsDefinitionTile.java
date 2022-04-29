@@ -220,7 +220,7 @@ public class StepsDefinitionTile {
 	}
 	@When("the robot tries to move onto the laser shooter tile")
 	public void the_robot_tries_to_move_onto_the_laser_shooter_tile() {
-		robot.moveOne(1, true, game.getBoard());
+		robot.move(game.getBoard(), new Position(2,1,1));
 		
 	}
 	@Then("the robot will stay at the same position {int} and {int}")
@@ -228,6 +228,5 @@ public class StepsDefinitionTile {
 
 		assertEquals(x,robot.getPosition().getX());
 		assertEquals(y,robot.getPosition().getY());
-		assertEquals(false, robot.moveOne(1, true, game.getBoard()));
 	}
 }
