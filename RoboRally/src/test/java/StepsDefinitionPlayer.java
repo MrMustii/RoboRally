@@ -11,7 +11,6 @@ import dtu.roboRally.cardTypes.MoveBackwardCard;
 import dtu.roboRally.cardTypes.MoveForwardOneCard;
 import dtu.roboRally.cardTypes.MoveForwardThreeCard;
 import dtu.roboRally.cardTypes.MoveForwardTwoCard;
-import dtu.roboRally.cardTypes.OilSPillCard;
 import dtu.roboRally.cardTypes.RotateClockwiseCard;
 import dtu.roboRally.cardTypes.RotateCounterClockwiseCard;
 import dtu.roboRally.cardTypes.ShieldCard;

@@ -43,28 +43,16 @@ Feature: setting up the game
     When robot moves to a end position
     Then player wins
 	 
-	  @tag6
- 		Scenario: Player uses an oil spill card on a robot
-  	Given a clear board
-  	And a player with robot with position (1, 1, 0)
-  	When the player uses an oil spill card
-  	Then then there is an oil spill at 1, 1
-#  	Examples:
-#  	| start_o | x | y |
-#  	| 0       | 1 | 0 |
-#  	| 1       | 0 | 1 |
-#  	| 2       | 1 | 2 |
-#  	| 3       | 2 | 1 |
-  	
-   @tag7
+   @tag6
    Scenario: players unshielded
     Given players with shielded robots
     When phase 1 starts
     Then the robot are unshielded
 			
-		@tag8
+		@tag7
 		Scenario: pushing robots
 		Given a robot with a position with coordinates <a>, <b> and orientation <c>
+		And a clear board
 		And another robot with a position with coordinates (<x>, <y>) and orientation <z>
 		When the robot moves to <anew>, <bnew>, <cnew> 
 		Then one robot is pushed  <anew>, <bnew>, <cnew> and <xnew>, <ynew>, <znew>
@@ -75,8 +63,11 @@ Feature: setting up the game
 					| 3 | 3 | 1 | 4 | 3 | 1 | 5    | 3    | 1    | 6    | 3    | 1    |
 					| 3 | 3 | 2 | 3 | 4 | 1 | 3    | 4    | 2    | 3    | 5    | 1    |
 					| 3 | 3 | 2 | 3 | 4 | 1 | 3    | 5    | 2    | 3    | 6    | 1    |
+					
+					| 3 | 3 | 3 | 2 | 3 | 3 | 2    | 3    | 3    | 1    | 3    | 3    |
+					| 3 | 3 | 0 | 3 | 4 | 1 | 3    | 4    | 0    | 3    | 5    | 1    |
 		
-		@tag9
+		@tag8
 		Scenario: pushing robots into boundry
 		Given a robot with a position with coordinates <a>, <b> and orientation <c>
 		And another robot with a position with coordinates (<x>, <y>) and orientation <z>
@@ -86,9 +77,8 @@ Feature: setting up the game
 		Examples:
 					| a | b | c | x | y | z | anew | bnew | cnew | xnew | ynew | znew |			
 					| 3 | 10| 1 | 3 | 11| 1 | 3    | 10   | 1    | 3   | 11    | 1    |
-					#| 3 | 10| 1 | 4 | 11| 1 | 3    | 9    | 1    | 4    | 9    | 1    |
 					
-		@tag10
+		@tag9
 		Scenario: pushing robot into another robot
 		Given a robot with a position with coordinates 3, 3 and orientation 2
 		And another robot with a position with coordinates (3, 4) and orientation 3
@@ -96,7 +86,7 @@ Feature: setting up the game
 		When the robot moves to 3, 4, 2 
 		Then then the new positions for all robots are (3, 4, 2), (3, 5, 3), and (3, 6, 0) 
 					
-		@tag11
+		@tag10
 		Scenario: pushing robot into a wall
 		Given a robot with a position with coordinates 3, 3 and orientation 2
 		And another robot with a position with coordinates (3, 4) and orientation 3
