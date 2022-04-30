@@ -33,7 +33,7 @@ public class Junit_Robot {
 	public void testMoveOutofBoundsY() {
 		r.move(Game.getInstance().getBoard(), new Position(1,99, 1));
 		assertEquals(1, r.getPosition().getX());
-		assertEquals(9, r.getPosition().getY());
+		assertEquals(8, r.getPosition().getY());
 		assertEquals(1, r.getPosition().getOrientation());
 	}
 	@Test

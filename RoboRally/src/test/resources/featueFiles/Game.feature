@@ -30,12 +30,12 @@ Feature: setting up the game
     
    @tag4
    Scenario: Phase two with a dead robot
-    Given That the players have picked 2 card
+   	Given they have robots on the board
+    And That the players have picked 3 card
 		And they have robots on the board
     And they have a dead robot
     When robot has to move accordingly
-    Then the living robot have new positions
-    And dead robot does not move
+    Then dead robot does not move
     
 	 @tag5
    Scenario: player has won

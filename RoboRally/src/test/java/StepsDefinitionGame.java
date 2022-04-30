@@ -107,10 +107,9 @@ public class StepsDefinitionGame {
 	@Given("That the players have picked {int} card")
 	public void that_the_players_have_picked_card(int a) {
 		for(Player p:newgame.getPlayers()) {
-			for (int i=0;i<a;i++) {
+			p.getCardsInPlay().clear();
+			p.getCardsInPlay().add( new RotateCounterClockwiseCard());
 
-				p.getCardsInPlay().add( new RotateCounterClockwiseCard());
-			}
 		}
 	    
 	}
@@ -122,17 +121,7 @@ public class StepsDefinitionGame {
 	}
 	
 	
-	@Then("the living robot have new positions")
-	public void the_living_robot_have_new_positions() {
-	    
-		for(int i=1;i<newgame.numberOfPlayers();i++) {
-	    	int j=newgame.getPlayers().get(i).getRobot().getPosition().getOrientation();
-	    	
-	    	System.out.println(newgame.getPlayers().get(i).getRobot().getPosition().getOrientation());
-	    	
-	    	assertEquals(3,j);
-	    }
-	}
+
 /////
 	@Given("robot is near end posistion")
 	public void robot_is_near_end_posistion() {
