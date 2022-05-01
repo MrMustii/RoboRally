@@ -228,6 +228,11 @@ public class Board {
 	public void setTeleporter(int x,int y, int otherX, int otherY) {
         board[y][x]=new Teleporter(otherX, otherY);
     }
+
+	public void setStart(int x, int y) {
+		board[y][x] = new StartPosition();
+	}
+
 	public void setConveyorBelt(int x, int y, int orientation) {
 		board[y][x] = new ConveyorBelt(orientation);
 	}

@@ -85,8 +85,16 @@ Feature: Robot
 			Given a robot with 5 lives that steps on a repair tile
 			When the robot gets repaired
 			Then the robot will still have 5 lives
-
+			
 			@tag9
+			Scenario: Start position overriden interact method does not remove shielded status
+				Given a robot that is shielded
+				And a start position tile on position 1 and 1
+				When the robot interacts with the start posoition tile on position 1 and 1
+				Then shielded status is still true
+				
+
+			@tag10
 				Scenario Outline: Moving of robot on a oil tile and changing direction of the move
 					Given a robot with a position with coordinates (<robot_x>, <robot_y>) and orientation <robot_o>
 					And a board with a oil tile at position 3, 3
