@@ -47,11 +47,11 @@ public class GameRulesView {
         Text title2 = new Text("Set up of the game \n");
         title2.setFont(Font.font("Arial", 25));
 
-        Text text2 = new Text("The first screen let you choose the number of players. After pressing the start game button," +
-                " you can then choose the names of the players, or you can keep the default options.\nPlayers are then" +
+        Text text2 = new Text("The first screen let you choose the number of players. After pressing the start game button" +
+                "(or press enter on your keyboard)," + " you can then choose the names of the players, or you can keep the default options.\nPlayers are then" +
                 " asked to pick their starting positions in a random order. To do that, click on one of the starting position" +
                 " tiles, which will place your robot on it, facing towards the right. You cannot undo this choice, " +
-                "so pick wisely! Your robot is of the color your name is written in.\nOnce all players picked their" +
+                "so pick wisely! The icon of the robot you are assigned to is placed next to your name.\nOnce all players picked their" +
                 " starting positions, the game can start.\n \n");
         text2.setFont(Font.font("Arial", 16));
         text2.setTextAlignment(TextAlignment.JUSTIFY);
@@ -101,11 +101,11 @@ public class GameRulesView {
                 " their own starting position that their robot will respawn to if they loose all lives.\nEnd " +
                 "Position: Tile to end your turn on to win the game.\nWall: Robot cannot pass the wall. It can" +
                 " get on the tile as long as it's not trying to pass through the wall.\nAcid: Robot loses two " +
-                "lives.\nOil: Robot gets spinned in a random orientation. \nPit: Robot dies and respawn.\nRepair: " +
-                "Robots gets an extra life. (maximum of 5 lives) Laser shooter: robot cannot move on this tile. Laser" +
+                "lives.\nOil: Robot gets spinned in a random orientation and loses one life. \nPit: Robot dies and respawn.\nRepair: " +
+                "Robots gets an extra life (maximum of 5 lives). \nLaser shooter: Robot cannot move on this tile. \nLaser" +
                 " beam: Robot loses three lives if gets on this tile.\nTeleporter: Robot gets teleported to the " +
                 "other teleporter paired with this one. You cannot know which is the paired teleporter before someone" +
-                " uses it and discover it.\nConveyor belt: Pushes the robot along the conveyor belt until the robot" +
+                " uses it and discovers it.\nConveyor belt: Pushes the robot along the conveyor belt until the robot" +
                 " falls out of it.\n \n" );
         text6.setFont(Font.font("Arial", 16));
 

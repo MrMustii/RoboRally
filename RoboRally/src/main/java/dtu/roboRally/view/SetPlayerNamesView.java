@@ -41,6 +41,7 @@ public class SetPlayerNamesView {
         for(int i = 0; i<Game.getInstance().getPlayers().size(); i++) {
         	TextField t = new TextField();
         	t.setText("Player" + (i + 1));
+        	setTextLimit(t, 10);
         	controller.addPlayerName(i, t.getText());
         	
         	int playerIndex = i;
@@ -73,5 +74,16 @@ public class SetPlayerNamesView {
         playerNamesBox.setPadding(new Insets(150, 0, 0, 550));
         
         return new Scene(playerNamesBox, 400, 200);
+	}
+
+	public static void setTextLimit(TextField textField, int length) {
+		textField.setOnKeyTyped(event -> {
+			String string = textField.getText();
+
+			if (string.length() > length) {
+				textField.setText(string.substring(0, length));
+				textField.positionCaret(string.length());
+			}
+		});
 	}
 }
