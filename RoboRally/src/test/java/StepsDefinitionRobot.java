@@ -64,7 +64,7 @@ public class StepsDefinitionRobot {
 	@Given("a board with a wall at position {int}, {int}, {int}")
 	public void a_board_with_a_wall_at_position(int x, int y, int o) {
 	    board.emptyTheBoard();
-	    board.addWall(x, y, o);
+	    board.setWall(x, y, o);
 	}
 	@Given("A dead robot and start position \\({int}, {int}, {int})")
 	public void a_dead_robot_and_start_position(int x, int y, int o) {
