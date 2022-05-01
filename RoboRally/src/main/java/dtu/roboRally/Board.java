@@ -76,41 +76,6 @@ public class Board {
 			if(isTileOnBoard(x, y-1)) board[y-1][x] = new Floor();
 			board[y][x+1] = new Floor(); //this tile is always on the board
 			if(isTileOnBoard(x-1, y)) board[y][x-1] = new Floor();
-			
-//			// checks the x-position, and removes obstacles in the x-direction
-//			if (x == 0) {
-//				if (! (board[y][x+1] instanceof StartPosition)) {
-//				board[y][x+1] = new Floor();
-//				}
-//			}
-//			else {
-//				if (! (board[y][x+1] instanceof StartPosition)) {
-//				board[y][x+1] = new Floor();
-//				}
-//				if (! (board[y][x-1] instanceof StartPosition)) {
-//				board[y][x-1] = new Floor();
-//				}
-//			}
-//			// check for y-position and removes obstacles in the y-direction
-//			if (y == 0) {
-//				if (! (board[y+1][x] instanceof StartPosition)) {
-//				board[y+1][x] = new Floor();
-//				}
-//			}
-//			else if (y == rows-1) {
-//				if (! (board[y-1][x] instanceof StartPosition)) {
-//					board[y-1][x] = new Floor();
-//					}
-//			}
-//			else {
-//				if (! (board[y-1][x] instanceof StartPosition)) {
-//				board[y-1][x] = new Floor();
-//				}
-//				if (! (board[y+1][x] instanceof StartPosition)) {
-//					board[y+1][x] = new Floor();
-//				}
-//			}
-
 		}
 	}
 	/**
@@ -130,25 +95,6 @@ public class Board {
 		if(isTileOnBoard(x,y-1)) board[y-1][x] = new Floor();
 		if(isTileOnBoard(x+1,y)) board[y][x+1] = new Floor();
 		board[y][x-1] = new Floor(); //this tile is always on the board.
-		
-//		// check x-position and removes obstacles around the endposition in x-direction
-//		if (x == cols - 1) {
-//			board[y][x-1] = new Floor();
-//			
-//		} else {
-//			board[y][x-1] = new Floor();
-//			board[y][x+1] = new Floor();
-//			
-//		}
-//		// checks y-position and removes obstacles around the endposition in y-direction
-//		if (y == 0) {
-//			board[y+1][x] = new Floor();
-//		} else if (y == rows - 1) {
-//			board[y-1][x] = new Floor();
-//		} else {
-//			board[y-1][x] = new Floor();
-//			board[y+1][x] = new Floor();
-//		}
 	}
 	
 	/**
