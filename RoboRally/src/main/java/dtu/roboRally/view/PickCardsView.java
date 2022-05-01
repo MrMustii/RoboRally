@@ -109,7 +109,6 @@ public class PickCardsView {
 				handGUI.getChildren().add(imageViewHand);
 
 				controller.removeCardInPlay(item);
-//				player.getCardsInPlay().remove(card);
 			});
 
 			handGUI.getChildren().add(imageViewHand);

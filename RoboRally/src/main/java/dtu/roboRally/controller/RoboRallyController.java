@@ -21,7 +21,13 @@ public class RoboRallyController extends Application {
 	private String nameOfWinner;
 	
 	private ArrayList<String> playerNames;
-	
+
+	/**
+	 * starts the application, is called by the Launcher
+	 * sets the stage, creates the RoboRallyController and calls the first controller
+	 * @param primaryStage (stage)
+	 * @throws Exception handled by the Application interface
+	 */
 	@Override
     public void start(Stage primaryStage) throws Exception {
 
@@ -31,9 +37,6 @@ public class RoboRallyController extends Application {
 		app.startApplication(primaryStage);
 		
 		primaryStage.show();
-		
-		//WC = new WinController(this, primaryStage, "Alberte");
-		//WC.display();
 	}
 
 	/**
@@ -57,7 +60,7 @@ public class RoboRallyController extends Application {
 		//resets the game if we are playing a second round
 		hasWinner = false;
 		Game.endGame();
-		playerNames  = new ArrayList<String>();
+		playerNames  = new ArrayList<>();
 
 		//calls the first controller
 		SNOPC = new SetNumberOfPlayersController(this, primaryStage);
@@ -117,7 +120,7 @@ public class RoboRallyController extends Application {
 			nextPlayer(primaryStage, playerNames.get(playerIndex), playerIndex);
 		} else {
 			MRC = new MovingRobotsController(this, primaryStage, playerNames);
-			Game.getInstance().phase2();
+			Game.getInstance().gameFlow();
 			MRC.display();
 		}
 	}
@@ -168,7 +171,7 @@ public class RoboRallyController extends Application {
 
 	/**
 	 * instantiates a new WinnerController and displays it
-	 * @param primaryStage
+	 * @param primaryStage (Stage)
 	 */
 	public void crownWinner(Stage primaryStage) {
 		WC = new WinController(this, primaryStage, nameOfWinner);

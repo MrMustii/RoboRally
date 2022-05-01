@@ -55,8 +55,11 @@ public class Game {
 		
 	/**
 	 * Runs the game. This method makes sure that a robot moves accordingly to the played cards
+	 * it picks which player plays their card first given on the priorities
+	 * it checks if a player won at the end of the flow
+	 * it notifies the GUI when  a card has been played, that they should update the view
 	 */
-	public void phase2() {		
+	public void gameFlow() {
 		// number of cards in play
 		int nbOfCards = instance.getPlayers().get(0).getCardsInPlay().size();		
 		
@@ -89,7 +92,6 @@ public class Game {
 				
 				if (currPlayer.getRobot().isDead()) {
 					currPlayer.getCardsInPlay().clear();
-//					priorities.set(indexMaxPriority, 0);
 					currPlayer.getRobot().setIsDead(false);
 				} else {
 					if(priorities.get(indexMaxPriority)>0 && !currPlayer.getCardsInPlay().isEmpty()) {
@@ -99,7 +101,6 @@ public class Game {
 					}
 				}
 				//check if player won
-				//nstance.hasWon(indexMaxPriority);
 			}
 		}
 		for(int i=0;i<players.size();i++) {
@@ -122,7 +123,14 @@ public class Game {
 		winner = players.get(playerIndex);
 		}
 	}
-	
+
+	/**
+	 * resets the game in case we're playing a new game
+	 */
+	public static void endGame() {
+		instance=null;
+	}
+
 	/**
 	 * Gets the number of players
 	 * @return (int)
@@ -160,8 +168,5 @@ public class Game {
 	 */
 	public Player getWinner() {
 		return winner;
-	}
-	public static void endGame() {
-		instance=null;
 	}
 }

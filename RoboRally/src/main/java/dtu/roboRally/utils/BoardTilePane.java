@@ -35,20 +35,6 @@ public class BoardTilePane extends TilePane {
 			setRobots();
 		}
 	}
-	
-//	public BoardTilePane(ObservableList<Node> listToClone) {
-//		
-//		for(Node n:listToClone) {
-//			
-//			getChildren().add();
-//		}
-//		
-//	}
-
-	@Override
-	protected Object clone() throws CloneNotSupportedException {
-		return super.clone();
-	}
 
 	/**
 	 * loads the view of the board and tile images given the Game.board
@@ -115,31 +101,4 @@ public class BoardTilePane extends TilePane {
 		System.out.println("Couldnt find end position");
 		return null;
 	}
-
-	/**
-	 * deletes robots on the stack pane tiles
-	 * stopped using because we now create a new board every time
-	 */
-	public void deleteRobots() {
- 		for(int i = 0; i<getChildren().size(); i++) {
- 			StackPane tile = (StackPane) getChildren().get(i);
-			while(tile.getChildren().size() > 1) {
-				tile.getChildren().remove(1);
-			}
-		}
-	}
-	
-//	@Override
-//	public Object clone() {
-//		try {
-//			return new BoardTilePane(getChildren());
-//			
-//			return super.clone();
-//		} catch (CloneNotSupportedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		return null;
-//	}
-
 }

@@ -18,7 +18,7 @@ public abstract class Card {
 	private final int priority;
 	
 	/**
-	 * sets priority for a given card
+	 * sets random priority for a card
 	 */
 	public Card() {
 		priority = (int)Math.ceil(Math.random()*100);

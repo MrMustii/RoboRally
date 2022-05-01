@@ -18,6 +18,7 @@ public class ImageViewLoader {
 
     /**
      * constructor that imports the file, sets it as a ImageView and scales it
+	 * if the image was already imported, uses the one from the array list, to save time and memory
      * @param path (String) where to find the image
      * @param height (int)
      * @param width (int)
@@ -40,11 +41,8 @@ public class ImageViewLoader {
     	    ids.add(id);
 	        imageView = new ImageView(image);
     	}
-    	
         imageView.setFitHeight(height);
         imageView.setFitWidth(width);
         return imageView;
     }
-
-
 }

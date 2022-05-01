@@ -41,7 +41,6 @@ public class WinView {
 
 
 		VBox buttons = new VBox();
-		//VBox.setMargin(buttons, new Insets(80, 200, 0, 200));
 		buttons.setSpacing(40);
 		
 		Label label = new Label("Congratulations! " + nameOfWinner + " has won the game.");
@@ -72,9 +71,7 @@ public class WinView {
 		buttons.setAlignment(Pos.CENTER);
 		layout.getChildren().addAll(label, buttons);
 		layout.setSpacing(80);
-		
-		//layout.getChildren().addAll(label,);
-		
+
 		return new Scene(layout);
 	}
 }
