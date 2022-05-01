@@ -87,6 +87,10 @@ public class StepsDefinitionRobot {
 	public void new_tile_is_occupied() {
 		assertEquals(true, Game.getInstance().getBoard().getTile(3, 4).isOccupied());
 	}
+	@Given("it is shielded")
+	public void it_is_shielded() {
+	    robot.setShielded(true);
+	}
 	/////
 
 }
