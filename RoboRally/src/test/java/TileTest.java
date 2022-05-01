@@ -31,5 +31,19 @@ public class TileTest {
 		tile.setDamage(2);
 		assertEquals(2, tile.getDamage());
 	}
+	
+	@Test
+	public void testGetTileOrientation() {
+		Tile tile;
+		Game.getInstance().getBoard().setWall(0, 0, 0);
+		tile = Game.getInstance().getBoard().getTile(0, 0);
+		assertEquals(0,tile.getTileOrientation());
+		
+
+	}
+		
+		
+
+		
 
 }

@@ -252,13 +252,8 @@ public class Board {
 	 * @return (boolean)
 	 */
 	public boolean isAdvancedObstacle(int x, int y) {
-		if (board[y][x] instanceof Teleporter || board[y][x] instanceof LaserShooter
-				|| board[y][x] instanceof ConveyorBelt || board[y][x] instanceof LaserBeam) {
-			return true;
-		}
-		else {
-			return false;
-		}
+		return board[y][x] instanceof Teleporter || board[y][x] instanceof LaserShooter
+				|| board[y][x] instanceof ConveyorBelt || board[y][x] instanceof LaserBeam;
 	}
 	
 	/**

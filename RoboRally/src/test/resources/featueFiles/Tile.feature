@@ -77,6 +77,16 @@ Feature: Tiles
 	And a laser shooter tile on position 2 and 1 with orientation 2
 	When the robot tries to move onto the laser shooter tile
 	Then the robot will stay at the same position 1 and 1
+	
+	@tag9
+	Scenario: Getting pushed be a conveyor belt in other directions
+		Given a robot
+		And an empty board
+		And conveyer belts on position 1 and 1 with orientation 1 and position 2 and 1 with orientation 0, and position 2 and 0 with orientation 3
+		When the robot interacts with the conveyor belt on position 1 and 1
+		Then the robot will move to position 1 and 0
+		
+
 		
 
 		

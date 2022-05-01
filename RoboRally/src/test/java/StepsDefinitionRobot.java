@@ -12,9 +12,10 @@ import io.cucumber.java.en.When;
 
 public class StepsDefinitionRobot {
 	Robot robot;
+	Robot robot5 = new Robot(1,1,1);
 	Board board = Game.getInstance().getBoard();
 	boolean canMove;
-
+	
 	@Given("A robot with {int} lives")
 	public void a_robot_with_lives(int lives) {
 	    robot = new Robot(1, 1, 1);
@@ -87,7 +88,26 @@ public class StepsDefinitionRobot {
 	public void new_tile_is_occupied() {
 		assertEquals(true, Game.getInstance().getBoard().getTile(3, 4).isOccupied());
 	}
-	/////
+	@Given("it is shielded")
+	public void it_is_shielded() {
+	    robot.setShielded(true);
+	}
+
+	@Given("a robot with {int} lives that steps on a repair tile")
+	public void a_robot_with_lives_that_steps_on_a_repair_tile(int lives) {
+		lives = 5;
+	    
+	    robot5.setLives(lives);
+	}
+	@When("the robot gets repaired")
+	public void the_robot_gets_repaired() {
+	    robot5.repair();
+	}
+	@Then("the robot will still have {int} lives")
+	public void the_robot_will_still_have_lives(int lives) {
+	    assertEquals(lives,robot5.getLives());
+	}
+
 
 }
 	

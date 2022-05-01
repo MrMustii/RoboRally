@@ -13,7 +13,7 @@ public class Game {
 	private Board board;
 	private Player winner;
 	private RoboRallyController observer;
-	private boolean testing=false;
+	private boolean testing=true;
 
 	/**
 	 * Creating a board-layout and adding the chosen amount of players

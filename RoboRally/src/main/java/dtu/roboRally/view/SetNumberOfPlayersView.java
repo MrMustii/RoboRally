@@ -36,7 +36,7 @@ public class SetNumberOfPlayersView {
 		Label welcome = new Label("Welcome to RoboRally!");
         welcome.setFont(Font.font("Arial Black", 32));
 		
-		Label label = new Label("Choose no. of players:");
+		Label label = new Label("Choose number of players:");
 		label.setFont(Font.font("Courier New", 20));
 		
 		//set slider

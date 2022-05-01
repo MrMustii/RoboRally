@@ -6,22 +6,29 @@ Feature: Robot
 			    Given A robot with 5 lives
 			    When the robot takes 1 damage
 			    Then it has 4 lives
+			    
+			@tag2
+			  Scenario: Damaging robot with shield
+			    Given A robot with 5 lives
+			    And it is shielded
+			    When the robot takes 1 damage
+			    Then it has 5 lives
 			
-		  @tag2
+		  @tag3
 			  Scenario: Death of robot
 			    Given A robot with 1 life and start position (1, 1, 1)
 			    When the robot takes 1 damage
 			    Then it is dead
 
 
-			@tag3
+			@tag4
 			  Scenario: Rising of robot
 			    Given A dead robot and start position (1, 1, 1)
 			    When the robot respawns
 			    Then it respawns at the starting point (1, 1, 1)
 			    And it has 5 lives
 
-			@tag4
+			@tag5
 				Scenario Outline: Moving of robot
 					Given a robot with a position with coordinates (3, 3) and orientation 2
 					And a board without obstacles
@@ -46,7 +53,7 @@ Feature: Robot
 					| 3 | 3 | 2 |
 					| 3 | 3 | 3 |
 					
-			@tag5
+			@tag6
 				Scenario Outline: Moving of robot with wall
 					Given a robot with a position with coordinates (3, 3) and orientation 2
 					And a board with a wall at position 3, 4, <wall_o>
@@ -65,13 +72,18 @@ Feature: Robot
 					| 2      | 5       | 4       |
 					| 3      | 5       | 5       |
 					
-			@tag6
+			@tag7
 			  Scenario: the board knows that the robot moved
 			    Given a robot with a position with coordinates (3, 3) and orientation 0
 			    When the robot moves
 			    Then the old tile is unoccupied 
 			    And new tile is occupied
 			
+			@tag8
+			Scenario: Not exceeding 5 health
+			Given a robot with 5 lives that steps on a repair tile
+			When the robot gets repaired
+			Then the robot will still have 5 lives
 
 					
 

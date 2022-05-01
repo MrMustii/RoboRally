@@ -232,4 +232,17 @@ public class StepsDefinitionTile {
 		assertEquals(x,robot.getPosition().getX());
 		assertEquals(y,robot.getPosition().getY());
 	}
+	@Given("conveyer belts on position {int} and {int} with orientation {int} and position {int} and {int} with orientation {int}, and position {int} and {int} with orientation {int}")
+	public void conveyer_belts_on_position_and_with_orientation_and_position_and_with_orientation_and_position_and_with_orientation(int x1, int y1, int ori1, int x2, int y2, int ori2, int x3, int y3, int ori3) {
+	    x1 = 1; y1 = 1; ori1 = 1; x2 = 2; y2 = 1; ori2 = 0; x3 = 2; y3 = 0; ori3 = 3;
+	    game.getBoard().setConveyorBelt(x1, y1, ori1);
+	    game.getBoard().setConveyorBelt(x2, y2, ori2);
+	    game.getBoard().setConveyorBelt(x3, y3, ori3);
+	}
+	@Then("the robot will move to position {int} and {int}")
+	public void the_robot_will_move_to_position_and(int newx, int newy) {
+	    newx = 1;newy=0;
+		assertEquals(newx,robot.getPosition().getX());
+		assertEquals(newy,robot.getPosition().getY());
+	}
 }
