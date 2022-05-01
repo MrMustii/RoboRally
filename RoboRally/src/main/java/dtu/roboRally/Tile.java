@@ -10,11 +10,10 @@ public class Tile {
 
 	//initialize class attributes
 	private int damage;
-	private String label; //TODO: delete when GUI is implemented
-	Board board;
+	private String label;
 	private boolean occupied;
 	private Robot occupidRobot;
-	private int orientation;
+	protected int orientation;
 	protected boolean testing = false;
 
 	private RoboRallyController observer;
@@ -49,7 +48,6 @@ public class Tile {
 	 */
 	public void interact(Robot robot) {
 		robot.damage(damage);
-		
 	}
 	
 	/**
@@ -203,7 +201,7 @@ class Radiation extends Tile {
 //changes the orientation of the robot
 class Oil extends Tile {
 	public Oil() {
-		super("O ",0);
+		super("O ",1);
 
 	}
 
@@ -266,10 +264,9 @@ class Repair extends Tile {
 
 class Wall extends Tile {
 	
-	int orientation;
 	public Wall(int orientation) {
 		super("W"+orientation,0);
-		this.orientation = orientation;
+		super.orientation = orientation;
 	}
 	
 	@Override
@@ -298,6 +295,10 @@ class Wall extends Tile {
 	public boolean canMoveOut(int robotOrientation) {
 		return orientation != robotOrientation;
 	}
+
+	/**
+	 * @return int orientation
+	 */
 	public int getWallOrientation() {
 		return this.orientation;
 	}
@@ -305,11 +306,19 @@ class Wall extends Tile {
 
 class Teleporter extends Tile {
 	int TPxPos, TPyPos;
+
+	/**
+	 * Constructor for teleporter
+	 * @param x (int)
+	 * @param y (int)
+	 */
 	public Teleporter(int x, int y) {
 		super("T ", 0);
 		this.TPxPos = x;
 		this.TPyPos = y;
 	}
+
+
 	public int getXPos() {
 		return this.TPxPos;
 	}

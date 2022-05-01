@@ -12,18 +12,8 @@ public class Board {
 
 	private RoboRallyController observer; //to give to the tiles
 	
-	public int getRows() {
-		return rows;
-	}
-	
-	public int getCols() {
-		return cols;
-	}
-	
 	//initializing a matrix consisting of elements of 'Tile' type
 	private Tile[][] board;
-	
-
 	
 	//boolean for checking if board is running in StepsDefinition
 //	private boolean isRunning = false;
@@ -46,22 +36,6 @@ public class Board {
 		loadTeleporter();
 		loadTeleporter();
 
-	}
-	
-	// Method for robot.move testing
-	public void emptyTheBoard() {
-		this.board = new Tile[rows][cols];
-		
-		for (int j = 0; j < rows; j++) {
-			for (int i = 0; i < cols;i++) {
-				Floor t = new Floor();
-				board[j][i] = t;
-			}
-		}
-	}
-	// Method for robot.move testing
-	public void addWall(int x, int y, int o) {
-		board[y][x] = new Wall(o);
 	}
 	
 	//parse through the empty matrix and assign random tile types
@@ -197,7 +171,9 @@ public class Board {
 		} else if (val < 0.96) {
 			return new Acid();
 		} else {
-			return new Radiation();
+			Oil oil = new Oil();
+			oil.setObserver(observer);
+			return oil;
 		}
 	}
 	
@@ -303,52 +279,6 @@ public class Board {
 		ConveyorBelt cb2 = new ConveyorBelt(orientation);
 		cb2.setObserver(observer);
 		board[nextY][x] = cb2;
-
-		/*
-		//second cb
-		do {
-			x = (int) ((int) 3 + Math.floor(Math.random()*(cols-6)));
-			y = (int) ((int) 2 + Math.floor(Math.random()*(rows-4)));
-			orientation = (int) Math.floor(Math.random()*2);
-			if (orientation == 1) {
-				orientation = 2;
-			}
-		}while((orientation==2&&(isTpLsCb(x,y)||isTpLsCb(x,y+1)||isTpLsCb(x,y+2))
-				||(orientation==0)&&(isTpLsCb(x,y)||isTpLsCb(x,y-1)||isTpLsCb(x,y-2))));
-
-		if (orientation == 2) {
-			board[y][x] = new ConveyorBelt(2);
-			board[y+1][x] = new ConveyorBelt(2);
-		}
-		else {
-			board[y][x] = new ConveyorBelt(2);
-			board[y-1][x] = new ConveyorBelt(2);
-		}
-
-		//third cb
-		do {
-			x = (int) ((int) 3 + Math.floor(Math.random()*(cols-6)));
-			y = (int) ((int) 2 + Math.floor(Math.random()*(rows-4)));
-			orientation = (int) Math.floor(Math.random()*2);
-			if (orientation == 1) {
-				orientation = 2;
-			}
-			
-		}while((orientation==2&&(isTpLsCb(x,y)||isTpLsCb(x,y+1)||isTpLsCb(x,y+2))
-				||(orientation==0)&&(isTpLsCb(x,y)||isTpLsCb(x,y-1)||isTpLsCb(x,y-2))));
-		if (orientation == 2) {
-			board[y][x] = new ConveyorBelt(2);
-			board[y+1][x] = new ConveyorBelt(2);
-
-			
-		}
-		else {
-			board[y][x] = new ConveyorBelt(2);
-			board[y-1][x] = new ConveyorBelt(2);
-
-		}
-
-		 */
 	}
 
 	public boolean isTileOnBoard(int x, int y){
@@ -357,7 +287,37 @@ public class Board {
 		return xOnBoard&&yOnBoard;
 	}
 
-    public void setWall(int x, int y, int o) {
-        board[y][x]=new Wall(o);
-    }
+	public int getRows() {
+		return rows;
+	}
+
+	public int getCols() {
+		return cols;
+	}
+
+	// Method for robot.move testing
+	public void emptyTheBoard() {
+		this.board = new Tile[rows][cols];
+
+		for (int j = 0; j < rows; j++) {
+			for (int i = 0; i < cols;i++) {
+				Floor t = new Floor();
+				board[j][i] = t;
+			}
+		}
+	}
+	// Method for robot.move testing
+	public void addWall(int x, int y, int o) {
+		board[y][x] = new Wall(o);
+	}
+
+	/**
+	 * method for testing
+	 * @param x int
+	 * @param y int
+	 * @param o int
+	 */
+	public void setWall(int x, int y, int o) {
+		board[y][x]=new Wall(o);
+	}
 }

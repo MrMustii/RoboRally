@@ -75,7 +75,7 @@ public class GameRulesView {
         title4.setFont(Font.font("Arial", 25));
 
         Text text4 = new Text("The robots will all move accordingly to their cards. The priorities on which robots use" +
-                " their card first is given by the priorities on the cards (which are kept secret). You can then " +
+                " their card first is given by the priorities on the cards (which are random between 1 and 100). You can then " +
                 "excitingly watch the robots move on the board, interact with the objects, or push each other." +
                 "\nAt any point of this phase, you can press the 'continue' button to pass to the next phase " +
                 "(programming the robots again).\n \n");
