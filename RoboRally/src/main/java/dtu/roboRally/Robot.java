@@ -150,9 +150,7 @@ public class Robot {
 			nextTile.setOccupied(true);
 			nextTile.setOccupidRobot(this);
 		}
-		
 		return true;
-		
 	}
 
 	public Pair<Integer, Boolean> oilDrift(){

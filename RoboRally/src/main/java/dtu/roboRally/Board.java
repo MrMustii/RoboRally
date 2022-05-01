@@ -72,10 +72,10 @@ public class Board {
 			
 			board[y][x] = new StartPosition();
 			
-			if(isTileOnBoard(x, y+1)) board[y+1][x] = new Floor();
-			if(isTileOnBoard(x, y-1)) board[y-1][x] = new Floor();
-			board[y][x+1] = new Floor(); //this tile is always on the board
-			if(isTileOnBoard(x-1, y)) board[y][x-1] = new Floor();
+			if(isTileOnBoard(x, y+1) && !(board[y+1][x] instanceof StartPosition)) board[y+1][x] = new Floor();
+			if(isTileOnBoard(x, y-1) && !(board[y-1][x] instanceof StartPosition)) board[y-1][x] = new Floor();
+			if(!(board[y][x+1] instanceof StartPosition)) board[y][x+1] = new Floor(); //this tile is always on the board
+			if(isTileOnBoard(x-1, y) && !(board[y][x-1] instanceof StartPosition)) board[y][x-1] = new Floor();
 		}
 	}
 	/**
@@ -108,11 +108,11 @@ public class Board {
 		do {
 			x1 = (int) (3+ Math.floor(Math.random()*(cols-6)));
 			y1 = (int) Math.floor(Math.random()*rows);
-		} while(! (board[y1][x1] instanceof Floor));
+		} while(!(board[y1][x1] instanceof Floor));
 		do {
 			x2 = (int) (3+ Math.floor(Math.random()*(cols-6)));
 			y2 = (int) Math.floor(Math.random()*rows);
-		} while((! (board[y2][x2] instanceof Floor)) && (x1!=x2 || y1!=y2));
+		} while((!(board[y2][x2] instanceof Floor)) || (x1==x2 || y1==y2));
 
 		Teleporter t1 = new Teleporter(x2, y2);
 		Teleporter t2 = new Teleporter(x1, y1);
