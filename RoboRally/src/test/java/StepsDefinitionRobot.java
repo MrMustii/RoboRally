@@ -1,5 +1,6 @@
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 import dtu.roboRally.Board;
@@ -107,6 +108,31 @@ public class StepsDefinitionRobot {
 	public void the_robot_will_still_have_lives(int lives) {
 	    assertEquals(lives,robot5.getLives());
 	}
+
+	@Given("a board with a oil tile at position {int}, {int}")
+	public void a_board_with_a_oil_tile_at_position(int x, int y) {
+		Game.getInstance().getBoard().emptyTheBoard();
+		Game.getInstance().getBoard().setOilTile(x, y);
+	}
+	@When("the robot moves over oil tile to {int}, {int}, {int}")
+	public void the_robot_moves_over_oil_tile_to_final(int x, int y, int o) {
+		robot.move(Game.getInstance().getBoard(), new Position(x, y, o));
+	}
+	@Then("the robot does not have the position {int}, {int}, {int}")
+	public void the_robot_does_not_have_the_position_final(int x, int y, int o) {
+		int a=robot.getPosition().getX();
+	    int b=robot.getPosition().getY();
+	    int c=robot.getPosition().getOrientation();
+		assertNotEquals(o,c);
+		
+		System.out.println("this is the x "+a);
+		System.out.println("this is the y "+b);
+		System.out.println("this is the o "+c);
+		
+		assertTrue( ((x!=a) || (y!=b)));
+	}
+
+	/////
 
 
 }

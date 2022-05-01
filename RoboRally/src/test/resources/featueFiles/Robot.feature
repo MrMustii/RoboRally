@@ -78,6 +78,7 @@ Feature: Robot
 			    When the robot moves
 			    Then the old tile is unoccupied 
 			    And new tile is occupied
+
 			
 			@tag8
 			Scenario: Not exceeding 5 health
@@ -85,6 +86,19 @@ Feature: Robot
 			When the robot gets repaired
 			Then the robot will still have 5 lives
 
-					
+			@tag9
+				Scenario Outline: Moving of robot on a oil tile and changing direction of the move
+					Given a robot with a position with coordinates (<robot_x>, <robot_y>) and orientation <robot_o>
+					And a board with a oil tile at position 3, 3
+					When the robot moves over oil tile to <final_x>, <final_y>, <robot_o> 
+					Then the robot does not have the position <final_x>, <final_y>, <robot_o> 
+		
+					Examples:
+					| robot_o | robot_x | robot_y | final_x | final_y |
+					| 0       | 3       | 4       | 3       | 2       |
+					| 1       | 2       | 3       | 4       | 3       |
+					| 2       | 3       | 2       | 3       | 4       |
+					| 3       | 4       | 3       | 2       | 3       |
 
+					
 					
