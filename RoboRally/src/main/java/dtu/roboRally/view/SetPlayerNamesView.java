@@ -41,7 +41,7 @@ public class SetPlayerNamesView {
         for(int i = 0; i<Game.getInstance().getPlayers().size(); i++) {
         	TextField t = new TextField();
         	t.setText("Player" + (i + 1));
-        	setTextLimit(t, 10);
+        	setTextLimit(t, 8);
         	controller.addPlayerName(i, t.getText());
         	
         	int playerIndex = i;
