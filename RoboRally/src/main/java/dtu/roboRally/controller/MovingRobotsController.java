@@ -37,10 +37,6 @@ public class MovingRobotsController {
         this.playerNames = playerNames;
 
         view = new MovingRobotsView(this);
-        
-//        MovingRobotsView lagView = new MovingRobotsView(this);
-//        primaryStage.setScene(new Scene(lagView.initGUI()));
-//        display(); // TODO: is it needed?
     }
 
     /**

@@ -39,7 +39,6 @@ public class PlayerStatusPanel  extends VBox {
             HBox nameAndRobot = new HBox();
             nameAndRobot.getChildren().addAll(name, robot);
             
-//            getChildren().add(name);
             VBox vbox = new VBox();
             vbox.setSpacing(10);
             vbox.getChildren().add(nameAndRobot);

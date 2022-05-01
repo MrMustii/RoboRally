@@ -26,7 +26,7 @@ public class Robot {
 		shielded = false;
 		Tile currentTile = Game.getInstance().getBoard().getTile(startx, starty);
 		currentTile.setOccupied(true);
-		currentTile.setOccupidRobot(this);
+		currentTile.setOccupiedRobot(this);
 		
 	}
 
@@ -96,11 +96,11 @@ public class Robot {
 		Tile currentTile = board.getTile(position.getX(), position.getY());
 		
 		if(onXaxis) {
-			nextTileX = position.getX() + 1*direction;
+			nextTileX = position.getX() + direction;
 			nextTileY = position.getY();
 		} else {
 			nextTileX = position.getX();
-			nextTileY = position.getY() + 1*direction;
+			nextTileY = position.getY() + direction;
 		}
 		
 		if(board.isTileOnBoard(nextTileX, nextTileY)) {
@@ -129,9 +129,8 @@ public class Robot {
 			return false;
 		}
 	
-		//boolean canMoveIn = true;
 		if (nextTile.isOccupied()) {
-			Position prePushRobotPosition = nextTile.getOccupidRobot().getPosition();
+			Position prePushRobotPosition = nextTile.getOccupiedRobot().getPosition();
 			Position postPushRobotPosition = prePushRobotPosition.clone();
 			
 			switch(moveOrientation) {
@@ -140,7 +139,7 @@ public class Robot {
 			case 2: postPushRobotPosition.setY(prePushRobotPosition.getY()+1); break;
 			case 3: postPushRobotPosition.setX(prePushRobotPosition.getX()-1); break;
 			}
-			moveIn = nextTile.getOccupidRobot().move(board, postPushRobotPosition);
+			moveIn = nextTile.getOccupiedRobot().move(board, postPushRobotPosition);
 		}
 		
 		if(moveIn) {
@@ -148,11 +147,15 @@ public class Robot {
 			position.setY(nextTileY);
 			currentTile.setOccupied(false);
 			nextTile.setOccupied(true);
-			nextTile.setOccupidRobot(this);
+			nextTile.setOccupiedRobot(this);
 		}
 		return true;
 	}
 
+	/**
+	 * in case the robot stepped on a oil tile during a move, resets the move direction
+	 * @return (Pair<Integer, Boolean>)
+	 */
 	public Pair<Integer, Boolean> oilDrift(){
 		int o= position.getOrientation();
 		int dir=0;
@@ -210,7 +213,6 @@ public class Robot {
 	public void respawn() {
 		setPosition(startPosition.clone());
 		setLives(startingLives);
-//		isDead=false;
 	}
 	
 	public void setIsDead(boolean isDead) {

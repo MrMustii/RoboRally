@@ -76,6 +76,11 @@ public class SetPlayerNamesView {
         return new Scene(playerNamesBox, 400, 200);
 	}
 
+	/**
+	 * helper function to limit the length of the player name input, for layout
+	 * @param textField
+	 * @param length
+	 */
 	public static void setTextLimit(TextField textField, int length) {
 		textField.setOnKeyTyped(event -> {
 			String string = textField.getText();

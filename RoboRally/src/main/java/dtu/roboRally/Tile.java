@@ -12,7 +12,7 @@ public abstract class Tile {
 	private int damage;
 	private String label;
 	private boolean occupied;
-	private Robot occupidRobot;
+	private Robot occupiedRobot;
 	protected int orientation;
 	protected boolean testing = false;
 
@@ -22,8 +22,8 @@ public abstract class Tile {
 	/**
 	 * Constructor for Tile, which takes in the "name" of a tile and the amount of damage the specific tile afflicts
 	 * 
-	 * @param label
-	 * @param damage
+	 * @param label (String)
+	 * @param damage (int)
 	 */
 	//Tile constructor to assign attributes to subclass tiles
 	public Tile(String label, int damage) {
@@ -44,7 +44,7 @@ public abstract class Tile {
 	 * Base version of the interact method, which only checks how much damage a tile deals. 
 	 * Gets overridden in the necessary tile subclasses which implement additional functionality (fx. conveyor belts)
 	 * 
-	 * @param robot
+	 * @param robot (Robot)
 	 */
 	public void interact(Robot robot) {
 		robot.damage(damage);
@@ -54,8 +54,8 @@ public abstract class Tile {
 	 * Method which takes the robots orientation as input, to be overridden in certain tiles to check if it is possible to
 	 * to move either onto the tile depending on on the tile's orientation or move onto it at all
 	 * 
-	 * @param robotOrientation
-	 * @return true
+	 * @param robotOrientation (int)
+	 * @return (boolean) whether you can move in or not
 	 */
 	public boolean canMoveIn(int robotOrientation) {
 		return true;
@@ -65,44 +65,41 @@ public abstract class Tile {
 	 * Similar to the canMoveIn method, but this one takes the tile's orientation as input to check if the robot can move out of a tile if
 	 * both the tile's and the robot's orientation are equal. Overridden in the wall subclass.
 	 * 
-	 * @param orientation
-	 * @return true
+	 * @param orientation (int)
+	 * @return (boolean)
 	 */
 	public boolean canMoveOut(int orientation) {
 		return true;
 	}
+
 	/**
 	 * Setter for label, so certain tiles can be assigned a specific label fx. in theloadTeleporter method, where two separate teleporter
 	 * labels are made to distinguish between the two teleporters that are loaded.
-	 * 
-	 * @param label
+	 * @param label (String)
 	 */
-	//setter and getter methods for Tile labels
 	public void setLabel(String label) {
 		this.label = label;
 	}
+
 	/**
 	 * Getter for the label, returns a tiles label
-	 * 
-	 * @return label
+	 * @return (String)
 	 */
 	public String getLabel() {
 		return label;
 	}
+
 	/**
 	 * Setter for damage, for if a tile's damage-given changes during the game
-	 * 
-	 * @param damage
+	 * @param damage (int)
 	 */
-	//setter and getter methods for tile damage
 	public void setDamage(int damage) {
 		this.damage = damage;
 	}
 	
 	/**
 	 * Gets the damage of a tile
-	 * 
-	 * @return damage
+	 * @return (int) damage
 	 */
 	public int getDamage() {
 		return damage;
@@ -110,11 +107,8 @@ public abstract class Tile {
 	
 	/**
 	 * Overridden method for printing of the board for testing
-	 * 
-	 * @return label
+	 * @return (String) label
 	 */
-	//toString to print the board
-	
 	@Override
 	public String toString() {
 		return label;
@@ -122,49 +116,47 @@ public abstract class Tile {
 	
 	/**
 	 * Getter for if tile is occupied
-	 * 
 	 * @return boolean
 	 */
 	public boolean isOccupied() {
 		return occupied;
 	}
+
 	/**
 	 * Setter for tile being occupied
-	 * 
-	 * @param bool
+	 * @param bool (boolean)
 	 */
 	public void setOccupied(boolean bool) {
 		occupied=bool;
 	}
+
 	/**
 	 * Getter for seeing if tile is occupied by robot
-	 * 
-	 * @return occupidRobot
+	 * @return occupiedRobot
 	 */
-	public Robot getOccupidRobot() {
-		return occupidRobot;
+	public Robot getOccupiedRobot() {
+		return occupiedRobot;
 	}
 	
 	/**
 	 * Assigns a tile with the attribute of being occupied by a robot
-	 * 
-	 * @param occupidRobot
+	 * @param occupiedRobot (Robot)
 	 */
-	public void setOccupidRobot(Robot occupidRobot) {
-		this.occupidRobot = occupidRobot;
+	public void setOccupiedRobot(Robot occupiedRobot) {
+		this.occupiedRobot = occupiedRobot;
 	}
+
 	/**
 	 * Getter for the tile's orientation, needed for multiple tiles fx. conveyor belt.
-	 * 
 	 * @return orientation 
 	 */
 	public int getTileOrientation() {
 		return orientation;
 	}
-
 }
 
 // Tile subclasses that will make up the board 'matrix'
+
 class Floor extends Tile {
 	public Floor() {
 		//calling the parent class constructor 'Tile(String label, int damage)' to assign 
@@ -200,7 +192,7 @@ class Oil extends Tile {
 	/**
 	 * Overridden interact method for the oil tile, which changes the orientation of the robot to a different orientation
 	 * 
-	 * @param robot
+	 * @param robot (Robot)
 	 */
 	@Override
 	public void interact(Robot robot) {
@@ -214,7 +206,6 @@ class Oil extends Tile {
 		while (oldOri == newOri) {
 			newOri = rnd.nextInt(3);
 		} 
-//		robot.getPosition().setOrientation(newOri);
 		robot.move(Game.getInstance().getBoard(), new Position(robot.getPosition().getX(), robot.getPosition().getY(), newOri));
 		if(!testing) super.getObserver().notifyRobotMove();
 		}
@@ -270,7 +261,7 @@ class Wall extends Tile {
 	/**
 	 * Overridden method for wall subclass, checking if robot's and tile's orientations match 
 	 * 
-	 * @param robotOrientation
+	 * @param robotOrientation (int)
 	 * @return boolean
 	 */
 	@Override
@@ -281,7 +272,7 @@ class Wall extends Tile {
 	/**
 	 * Overridden method for wall subclass, checking if robot's and tile's orientations match
 	 * 
-	 * @param robotOrientation
+	 * @param robotOrientation (int)
 	 * @return boolean
 	 */
 	@Override
@@ -316,7 +307,7 @@ class Teleporter extends Tile {
 	/**
 	 * Overridden interact method for teleporter tile, to have the robot change position to the other teleporter on the board
 	 * 
-	 * @param robot
+	 * @param robot (Robot)
 	 */
 	@Override
 	public void interact(Robot robot) {
@@ -337,7 +328,7 @@ class ConveyorBelt extends Tile {
 	/**
 	 * Overridden interact method for the conveyor belt tiles, moves the robot to the tile in front of the conveyor belt depending on the belt's rotation
 	 * 
-	 * @param robot
+	 * @param robot (Robot)
 	 */
 	@Override
 	public void interact(Robot robot) {
@@ -382,8 +373,8 @@ class LaserShooter extends Tile{
 	/**
 	 * Overridden canMoveIn method for LaserShooter, returns false as the robot should not be able to move onto the laser shooter
 	 * 
-	 * @param robotOrientation
-	 * @return false
+	 * @param robotOrientation (int)
+	 * @return (boolean)
 	 */
 	@Override
 	public boolean canMoveIn(int robotOrientation) {

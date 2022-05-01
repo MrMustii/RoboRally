@@ -22,10 +22,10 @@ public class Board {
 	 * Creates a columns*rows sized board with same number of starting positions as number of players, 
 	 * one endposition and various obstacles. The observer is passed to some of the advanced obstacles to update
 	 * the GUI.
-	 * @param (int) rows
-	 * @param (int) cols
-	 * @param (int) numberOfPlayers
-	 * @param (RoboRallyController) observer
+	 * @param rows (int)
+	 * @param cols (int)
+	 * @param numberOfPlayers (int)
+	 * @param observer (RoboRallyController)
 	 */
 	public Board(int rows, int cols, int numberOfPlayers, RoboRallyController observer) {
 		this.rows = rows;
@@ -60,7 +60,7 @@ public class Board {
 	/**
 	 * Loads starting positions according to number of players in the first three columns of the board.
 	 * Then removes all obstacles in 4 surrounding tiles (to make sure robot are not trapped).
-	 * @param (int) numberOfPlayers
+	 * @param numberOfPlayers (int)
 	 */
 	public void loadStartPosition(int numberOfPlayers) {
 		for(int i=0; i<numberOfPlayers; i++) {
@@ -146,9 +146,8 @@ public class Board {
 		}
 	}
 	/**
-	 * 
-	 * @param (int) x
-	 * @param (int) y
+	 * @param x (int)
+	 * @param y (int)
 	 * @return (Tile) returns the tile at position (x, y)
 	 */
 	public Tile getTile(int x, int y) {
@@ -174,6 +173,11 @@ public class Board {
 	public void setTeleporter(int x,int y, int otherX, int otherY) {
         board[y][x]=new Teleporter(otherX, otherY);
     }
+
+	public void setStart(int x, int y) {
+		board[y][x] = new StartPosition();
+	}
+
 	public void setConveyorBelt(int x, int y, int orientation) {
 		board[y][x] = new ConveyorBelt(orientation);
 	}
@@ -193,8 +197,8 @@ public class Board {
 	/**
 	 * Checks if the position (x, y) is an advanced obstacle. Used for generating multiple advanced obstacles
 	 * on the board. Used to make sure that advanced obstacles are not generated within each other.
-	 * @param (int) x
-	 * @param (int) y
+	 * @param x (int)
+	 * @param y (int)
 	 * @return (boolean)
 	 */
 	public boolean isAdvancedObstacle(int x, int y) {
@@ -271,8 +275,8 @@ public class Board {
 	
 	/**
 	 * Checks whether the tile in position (x, y) is within the columns*rows specified board size.
-	 * @param (int) x
-	 * @param (int) y
+	 * @param x (int)
+	 * @param y (int)
 	 * @return (boolean)
 	 */
 	public boolean isTileOnBoard(int x, int y){

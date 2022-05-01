@@ -26,12 +26,13 @@ public class GameRulesView {
 
     /**
      * creates the scene with the rules and the exit button on a scrollpane
-     * @return
+     * @return (Scene)
      */
     public Scene initGUI(){
 
         VBox vb = new VBox();
 
+        //create the text flow
         Text title1 = new Text("Rules of the game \n");
         title1.setFont(Font.font("Arial", 40));
         title1.setTextAlignment(TextAlignment.CENTER);
@@ -121,6 +122,7 @@ public class GameRulesView {
         TextFlow rules = new TextFlow(title1, text1, title2, text2, title3, text3, title4, text4,
                 title5, text5, title6, text6, title7, text7);
 
+        //sets the button
         Button exitButton = new Button("EXIT");
         exitButton.setFont(Font.font("Courier New", FontWeight.BOLD, 28));
         exitButton.setStyle("-fx-background-color: #32CD32; -fx-border-color: #228B22; -fx-border-width: 7; -fx-text-fill: #FFFFFF");

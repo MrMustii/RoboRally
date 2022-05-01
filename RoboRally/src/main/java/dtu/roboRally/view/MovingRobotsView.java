@@ -12,9 +12,7 @@ import javafx.scene.text.FontWeight;
  * view for the moving robot scene
  */
 public class MovingRobotsView {
-	
-	BoardTilePane boardGUI = new BoardTilePane();
-	
+
     private MovingRobotsController controller;
 
     /**
@@ -31,9 +29,6 @@ public class MovingRobotsView {
      * @return (Scene)
      */
     public RoboRallyGridPane initGUI() {
-//    	boardGUI.deleteRobots();
-//    	boardGUI.setRobots();
-//    	BoardTilePane b = (BoardTilePane) boardGUI.clone();
     	BoardTilePane board = new BoardTilePane();
     	PlayerStatusPanel panel = new PlayerStatusPanel(controller.getPlayerNames());
 

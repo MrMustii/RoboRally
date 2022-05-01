@@ -108,6 +108,24 @@ public class StepsDefinitionRobot {
 	public void the_robot_will_still_have_lives(int lives) {
 	    assertEquals(lives,robot5.getLives());
 	}
+	@Given("a robot that is shielded")
+	public void a_robot_that_is_shielded() {
+	    robot5.setShielded(true);
+	}
+	@Given("a start position tile on position {int} and {int}")
+	public void a_start_position_tile_on_position_and(int x, int y) {
+		x = 1; y = 1;
+	    board.setStart(x,y);
+	}
+	@When("the robot interacts with the start posoition tile on position {int} and {int}")
+	public void the_robot_interacts_with_the_start_posoition_tile_on_position_and(int x, int y) {
+		
+	    board.getTile(x, y).interact(robot5);
+	}
+	@Then("shielded status is still true")
+	public void shielded_status_is_still_true() {
+	    assertEquals(true, robot5.getShielded());
+	}
 
 	@Given("a board with a oil tile at position {int}, {int}")
 	public void a_board_with_a_oil_tile_at_position(int x, int y) {

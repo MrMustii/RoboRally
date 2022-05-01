@@ -16,8 +16,7 @@ public class Player {
 	 * Drawing the nine initial cards
 	 */
 	public void drawHand() {
-		hand.removeAll(hand);
-		
+		hand.clear();
 		for (int i = 0; i<9;i++) {
 			hand.add(Card.random());
 		}
@@ -52,15 +51,11 @@ public class Player {
 	 * @param orientation (int)
 	 * @param x (int)
 	 * @param y (int)
-	 * @return (boolean) to check if the instantiating worked
 	 */
-	public boolean initializeRobot(int orientation, int x, int y) {
+	public void initializeRobot(int orientation, int x, int y) {
 		Board board = Game.getInstance().getBoard();
 		if (board.getTile(x, y).getLabel().equals("S ")) {
 			robot = new Robot(orientation, x, y);
-			return true;
-		} else {
-			return false;
 		}
 	}
 	

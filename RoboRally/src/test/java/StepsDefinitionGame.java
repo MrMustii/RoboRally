@@ -3,14 +3,11 @@ import static org.junit.Assert.assertNotEquals;
 
 import java.util.ArrayList;
 
-import dtu.roboRally.Card;
 import dtu.roboRally.Game;
 import dtu.roboRally.Player;
 import dtu.roboRally.Position;
 import dtu.roboRally.Robot;
-import dtu.roboRally.cardTypes.MoveBackwardCard;
 import dtu.roboRally.cardTypes.MoveForwardOneCard;
-import dtu.roboRally.cardTypes.MoveForwardTwoCard;
 import dtu.roboRally.cardTypes.RotateClockwiseCard;
 import dtu.roboRally.cardTypes.RotateCounterClockwiseCard;
 import dtu.roboRally.cardTypes.ShieldCard;
@@ -88,7 +85,7 @@ public class StepsDefinitionGame {
 	}
 	@When("robot has to move accordingly")
 	public void robot_has_to_move_accordingly() {
-	    newgame.phase2();
+	    newgame.gameFlow();
 	}
 	@Then("The robots have new psoitions")
 	public void the_robots_have_new_psoitions() {
@@ -179,12 +176,12 @@ public class StepsDefinitionGame {
 	@Given("a robot with a position with coordinates {int}, {int} and orientation {int}")
 	public void a_robot_with_a_position_with_coordinates_and_orientation(int a, int b, int c) {
 	    newgame.getPlayers().get(0).setRobot(c, a, b);
-	    newgame.getBoard().getTile(a, b).setOccupidRobot(newgame.getPlayers().get(0).getRobot());
+	    newgame.getBoard().getTile(a, b).setOccupiedRobot(newgame.getPlayers().get(0).getRobot());
 	}
 	@Given("another robot with a position with coordinates \\({int}, {int}) and orientation {int}")
 	public void another_robot_with_a_position_with_coordinates_and_orientation(int x, int y, int z) {
 		 newgame.getPlayers().get(1).setRobot(z, x, y);
-		 newgame.getBoard().getTile(x, y).setOccupidRobot(newgame.getPlayers().get(1).getRobot());
+		 newgame.getBoard().getTile(x, y).setOccupiedRobot(newgame.getPlayers().get(1).getRobot());
 		 
 
 	}
@@ -209,7 +206,7 @@ public class StepsDefinitionGame {
 	@Given("a third robot with a position with coordinates \\({int}, {int}) and orientation {int}")
 	public void a_third_robot_with_a_position_with_coordinates_and_orientation(int i, int j, int k) {
 		newgame.getPlayers().get(2).setRobot(k, i, j);
-		newgame.getBoard().getTile(i, j).setOccupidRobot(newgame.getPlayers().get(2).getRobot());
+		newgame.getBoard().getTile(i, j).setOccupiedRobot(newgame.getPlayers().get(2).getRobot());
 	}
 	@Then("then the new positions for all robots are \\({int}, {int}, {int}), \\({int}, {int}, {int}), and \\({int}, {int}, {int})")
 	public void then_the_new_positions_for_all_robots_are_and(int a, int b, int c,  int x, int y, int z, int i,int j, int k) {
