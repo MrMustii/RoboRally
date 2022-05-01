@@ -14,7 +14,7 @@ public abstract class Tile {
 	private boolean occupied;
 	private Robot occupiedRobot;
 	protected int orientation;
-	protected boolean testing = false;
+	protected boolean testing = true;
 
 	private RoboRallyController observer;
 	
