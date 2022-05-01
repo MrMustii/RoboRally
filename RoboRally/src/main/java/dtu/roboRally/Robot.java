@@ -1,5 +1,7 @@
 package dtu.roboRally;
 
+import javafx.util.Pair;
+
 public class Robot {
 	private Position position;
 	private Position startPosition;
@@ -64,9 +66,17 @@ public class Robot {
 			onX = false;
 			System.out.println("error on computing delta moving in move robot");
 		}
-		
+
+		int robotInitialOrientation = position.getOrientation();
 		for(int i = 0; i<Math.abs(delta); i++) {
 			if(isDead) return false;
+
+			//if the robot stepped on an oil tile during using a several moves card
+			if(position.getOrientation() != robotInitialOrientation){
+				Pair<Integer, Boolean> dirOnX = oilDrift();
+				dir = dirOnX.getKey();
+				onX = oilDrift().getValue();
+			}
 			if(moveOne(dir, onX, board)) {
 				Tile currentTile = board.getTile(position.getX(), position.getY());
 				currentTile.interact(this);
@@ -143,6 +153,32 @@ public class Robot {
 		
 		return true;
 		
+	}
+
+	public Pair<Integer, Boolean> oilDrift(){
+		int o= position.getOrientation();
+		int dir=0;
+		boolean onX = false;
+		switch (o){
+			case 0:
+				dir =-1;
+				onX = false;
+				break;
+			case 1:
+				dir = 1;
+				onX = true;
+				break;
+			case 2:
+				dir = 1;
+				onX = false;
+				break;
+			case 3:
+				dir = -1;
+				onX = true;
+				break;
+		}
+		return new Pair<>(dir, onX);
+
 	}
 
 	/**

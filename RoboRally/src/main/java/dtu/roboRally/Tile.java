@@ -191,18 +191,10 @@ class Acid extends Tile {
 	}
 }
 
-class Radiation extends Tile {
-	public Radiation() {
-		super("R ",1);
-	}
-}
-
-
 //changes the orientation of the robot
 class Oil extends Tile {
 	public Oil() {
 		super("O ",1);
-
 	}
 
 	/**
