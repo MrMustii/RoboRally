@@ -212,7 +212,7 @@ public class Board {
 	public void setRepair(int x, int y) {
 		board[y][x] = new Repair();
 	}
-	public boolean isTpLsCb(int x, int y) {
+	public boolean isAdvancedObstacle(int x, int y) {
 		if (board[y][x] instanceof Teleporter || board[y][x] instanceof LaserShooter
 				|| board[y][x] instanceof ConveyorBelt || board[y][x] instanceof LaserBeam) {
 			return true;
@@ -226,7 +226,7 @@ public class Board {
 	public void loadLasers() {
 		int x,y;
 		do {
-			x = (int) ((int) 3+ Math.floor(Math.random()*(cols-6)));
+			x = (int) (3+ Math.floor(Math.random()*(cols-6)));
 			y = (int) Math.floor(Math.random()*(rows-4));
 		} while(!( board[y][x] instanceof Floor));
 		board[y][x] = new LaserShooter(2);
@@ -237,7 +237,7 @@ public class Board {
 		do {
 			x = (int) ((int) 3+ Math.floor(Math.random()*(cols-6)));
 			y = (int) Math.floor(Math.random()*(rows-4));
-		} while((isTpLsCb(x,y)||isTpLsCb(x,y+1)||isTpLsCb(x,y+2)||isTpLsCb(x,y+3)||isTpLsCb(x,y+4)));
+		} while((isAdvancedObstacle(x,y)|| isAdvancedObstacle(x,y+1)|| isAdvancedObstacle(x,y+2)|| isAdvancedObstacle(x,y+3)|| isAdvancedObstacle(x,y+4)));
 		board[y][x] = new LaserShooter(2);
 		board[y+1][x] = new LaserBeam();
 		board[y+2][x] = new LaserBeam();
@@ -254,31 +254,41 @@ public class Board {
 	public void loadOneBelt() {
 
 		int x,y, orientation;
+		int nextY =0;
+		int nextX=0;
 		//first cb
 		do { //checks if the tile is available
-			x = (int) ((int) 3 + Math.floor(Math.random()*(cols-6)));
-			y = (int) ((int) 3 + Math.floor(Math.random()*(rows-7)));
-			orientation = (int) Math.floor(Math.random()*2);
-			if (orientation == 1) {
-				orientation = 2;
-			}
-		}while((orientation==2&&(isTpLsCb(x,y)||isTpLsCb(x,y+1)||isTpLsCb(x,y+2))
-				||(orientation==0)&&(isTpLsCb(x,y)||isTpLsCb(x,y-1)||isTpLsCb(x,y-2))));
+			x = (int) (3+ Math.floor(Math.random() * (cols-6)));
+			y = (int) (Math.floor(Math.random() * rows));
 
-		//sets the belt
-		int nextY;
-		if (orientation == 2) {
-			nextY = y+1;
-		}else {
-			nextY = y-1;
-		}
+			orientation = (int) Math.floor(Math.random() * 4);
+
+			switch (orientation) {
+				case 0:
+					nextX = x;
+					nextY = y - 1;
+					break;
+				case 1:
+					nextX = x + 1;
+					nextY = y;
+					break;
+				case 2:
+					nextX = x;
+					nextY = y + 1;
+					break;
+				case 3:
+					nextX = x - 1;
+					nextY = y;
+			}
+		}while( !isTileOnBoard(nextX, nextY) || isAdvancedObstacle(x,y) || isAdvancedObstacle(nextX, nextY));
 
 		ConveyorBelt cb1 = new ConveyorBelt(orientation);
 		cb1.setObserver(observer);
 		board[y][x] = cb1;
+
 		ConveyorBelt cb2 = new ConveyorBelt(orientation);
 		cb2.setObserver(observer);
-		board[nextY][x] = cb2;
+		board[nextY][nextX] = cb2;
 	}
 
 	public boolean isTileOnBoard(int x, int y){
