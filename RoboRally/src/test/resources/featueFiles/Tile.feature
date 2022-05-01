@@ -5,20 +5,20 @@ Feature: Tiles
   @tag1
   Scenario Outline: Taking damage from a tile
     Given the robot has 5 lives and moves to a tile
-    When the robot interacts with the <tile> with <damage>
+    When the robot interacts with the tile with <damage>
     Then the robot takes damage and has <HP> left
 
     Examples: 
-      |tile							|	damage	|		HP		|
-      |"0 "							|		0			|		5			|
-      |"A "							|		2			|		3	    |
-      |"R "							|  	1			|		4			|
-      |"P "							|		5	  	|		5   	|
-      |"S "							|  	0			|		5			|
-      |"E "							|   0			|		5	    |
-      |"+ "							|  	-1		|		6			|
-      |"B "							|		3			|		2			|
-      |"W0"							|		0			|		5			|
+      |	damage	|		HP		|
+      |		0			|		5			|
+      |		2			|		3	    |
+      |  	1			|		4			|
+      |		5	  	|		5   	|
+      |  	0			|		5			|
+      |   0			|		5	    |
+      |  	-1		|		6			|
+      |		3			|		2			|
+      |		0			|		5			|
 
   @tag2
   Scenario Outline: oil spill rotation

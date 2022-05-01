@@ -20,9 +20,12 @@ public class StepsDefinitionTile {
 		robot = new Robot(1,1,0);
 	    robot.setLives(int1);
 	}
-	@When("the robot interacts with the {string} with {int}")
-	public void the_robot_interacts_with_the_with(String string, int int1) {
-		tile = new Tile(string, int1);
+	@When("the robot interacts with the tile with {int}")
+	public void the_robot_interacts_with_the_tile_with(int int1) {
+		Tile tile;
+		Game.getInstance().getBoard().setAcidTile(0, 0);
+		tile=Game.getInstance().getBoard().getTile(0, 0);
+		tile.setDamage(int1);
 		tile.interact(robot);
 	}
 		

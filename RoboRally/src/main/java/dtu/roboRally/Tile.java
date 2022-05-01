@@ -6,7 +6,7 @@ import dtu.roboRally.controller.RoboRallyController;
 
 
 
-public class Tile {
+public abstract class Tile {
 
 	//initialize class attributes
 	private int damage;
