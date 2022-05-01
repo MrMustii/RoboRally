@@ -212,18 +212,19 @@ class Oil extends Tile {
 	 */
 	@Override
 	public void interact(Robot robot) {
+		if(!testing) super.getObserver().notifyRobotMove();
+		super.interact(robot);
 		Random rnd = new Random();
-	
+		
 		int oldOri = robot.getPosition().getOrientation();
-		
-		
 		int newOri = rnd.nextInt(3);
 		
 		while (oldOri == newOri) {
 			newOri = rnd.nextInt(3);
 		} 
-		robot.getPosition().setOrientation(newOri);
-		
+//		robot.getPosition().setOrientation(newOri);
+		robot.move(Game.getInstance().getBoard(), new Position(robot.getPosition().getX(), robot.getPosition().getY(), newOri));
+		if(!testing) super.getObserver().notifyRobotMove();
 		}
 }
 
@@ -359,18 +360,32 @@ class ConveyorBelt extends Tile {
 		Position position = robot.getPosition();
 		Board board = Game.getInstance().getBoard();
 		int x,y,roboOrientation;
-		int ynew;
+		int ynew = 0;
+		int xnew = 0;
 		x = position.getX();
 		y = position.getY();
 		roboOrientation = position.getOrientation();
 		
-		if(orientation == 0) {
+		switch(orientation) {
+		case 0:
+			xnew = x;
 			ynew = y-1;
-		}
-		else{
+			break;
+		case 1:
+			xnew = x+1;
+			ynew = y;
+			break;
+		case 2:
+			xnew = x;
 			ynew = y+1;
+			break;
+		case 3:
+			xnew = x-1;
+			ynew = y;
+			break;
 		}
-		robot.move(board, new Position(x, ynew, roboOrientation));
+		
+		robot.move(board, new Position(xnew, ynew, roboOrientation));
 	}
 }
 class LaserShooter extends Tile{
