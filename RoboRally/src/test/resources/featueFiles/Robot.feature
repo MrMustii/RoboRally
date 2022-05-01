@@ -79,6 +79,11 @@ Feature: Robot
 			    Then the old tile is unoccupied 
 			    And new tile is occupied
 			
+			@tag8
+			Scenario: Not exceeding 5 health
+			Given a robot with 5 lives that steps on a repair tile
+			When the robot gets repaired
+			Then the robot will still have 5 lives
 
 					
 

@@ -14,7 +14,7 @@ public abstract class Tile {
 	private boolean occupied;
 	private Robot occupidRobot;
 	protected int orientation;
-	protected boolean testing = false;
+	protected boolean testing = true;
 
 	private RoboRallyController observer;
 	
@@ -287,13 +287,6 @@ class Wall extends Tile {
 	@Override
 	public boolean canMoveOut(int robotOrientation) {
 		return orientation != robotOrientation;
-	}
-
-	/**
-	 * @return int orientation
-	 */
-	public int getWallOrientation() {
-		return this.orientation;
 	}
 }
 
